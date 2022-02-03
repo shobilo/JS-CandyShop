@@ -1,2 +1,2 @@
 # JS-CandyShop
- candy shop based on React/Node.js
+ candy shop based on React + Redux / Node.js + Express + PostgreSQL

@@ -1,41 +1,21 @@
-const ApiError = require('../helpers/ApiError')
 const propertyRepository = require('../repositories/propertyRepository')
 
 class PropertyService {
-    async create(data, res) {
-        try {
-            await propertyRepository.create(data)
-            return res.status(201).json({message: "Added successfully"})
-        } catch(error) {
-            return next(ApiError.badRequest(error))
-        }
+    async create(data) {
+        await propertyRepository.create(data)
     }
 
-    async readAll(res) {
-        try {
-            const repositoryResult = await propertyRepository.readAll()
-            return res.json(repositoryResult)
-        } catch (error) {
-            return next(ApiError.badRequest(error))
-        }
+    async readAll() {
+        const repositoryResult = await propertyRepository.readAll()
+        return repositoryResult
     }
 
-    async update(data, res) {
-        try {
-            await propertyRepository.update(data)
-            return res.status(201).json({message: "Updated successfully"})
-        } catch (error) {
-            return next(ApiError.badRequest(error))
-        }
+    async update(data) {
+        await propertyRepository.update(data)
     }
 
-    async delete(data, res) {
-        try {
-            await propertyRepository.delete(data)
-            return res.status(200).json({message: "Deleted successfully"})
-        } catch (error) {
-            return next(ApiError.badRequest(error))
-        }
+    async delete(data) {
+        await propertyRepository.delete(data)
     }
 
 }

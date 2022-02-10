@@ -10,22 +10,22 @@ class BrandRepository {
     }
 
     async update(data) {
-        const {brandId, brandName} = data
+        const {id, name} = data
 
         await Brand.update({
-            name: brandName
+            name: name
         }, {
             where: {
-                id: brandId
+                id: id
             }
         })
     }
     
     async delete(data) {
-        const {brandId} = data
+        const {id} = data
         Brand.destroy({
             where: {
-                id: brandId
+                id: id
             }
         })
     }

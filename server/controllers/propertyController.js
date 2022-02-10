@@ -1,27 +1,44 @@
-const propertyService = require("../services/propertyService")
+const ApiError = require('../helpers/ApiError')
+const propertyService = require('../services/propertyService')
 
 class PropertyController {
     async create(req, res) {
-        const data = req.body
-        const serviceResult = await propertyService.create(data, res)
-        return serviceResult
+        try {
+            const data = req.body
+            await propertyService.create(data)
+            return res.status(201).json({message: "Added successfully"})
+        } catch (error) {
+            return next(ApiError.internal(error))
+        }
     }
 
     async readAll(req, res) {
-        const serviceResult = await propertyService.readAll(res)
-        return serviceResult
+        try {
+            const serviceResult = await propertyService.readAll()
+            return res.json(serviceResult)
+        } catch (error) {
+            return next(ApiError.internal(error))
+        }
     }
 
     async update(req, res) {
-        const data = req.body
-        const serviceResult = await propertyService.update(data, res)
-        return serviceResult
+        try {
+            const data = req.body
+            await propertyService.update(data)
+            return res.status(204).json({message: "Updated successfully"})
+        } catch (error) {
+            return next(ApiError.internal(error))
+        }
     }
 
     async delete(req, res) {
-        const data = req.body
-        const serviceResult = await propertyService.delete(data, res)
-        return serviceResult
+        try {
+            const data = req.body
+            await propertyService.delete(data)
+            return res.status(204).json({message: "Deleted successfully"})
+        } catch (error) {
+            return next(ApiError.internal(error))
+        }
     }
 }
 

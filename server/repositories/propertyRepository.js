@@ -10,23 +10,23 @@ class PropertyRepository {
     }
 
     async update(data) {
-        const {propertyId, propertyName, propertyDescription} = data
+        const {id, name, description} = data
 
         await Property.update({
-            name: propertyName,
-            description: propertyDescription
+            name: name,
+            description: description
         }, {
             where: {
-                id: propertyId
+                id: id
             }
         })
     }
     
     async delete(data) {
-        const {propertyId} = data
+        const {id} = data
         Property.destroy({
             where: {
-                id: propertyId
+                id: id
             }
         })
     }

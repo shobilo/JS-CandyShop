@@ -10,22 +10,22 @@ class TypeRepository {
     }
 
     async update(data) {
-        const {typeId, typeName} = data
+        const {id, name} = data
 
         await Type.update({
-            name: typeName
+            name: name
         }, {
             where: {
-                id: typeId
+                id: id
             }
         })
     }
     
     async delete(data) {
-        const {typeId} = data
+        const {id} = data
         Type.destroy({
             where: {
-                id: typeId
+                id: id
             }
         })
     }

@@ -1,41 +1,21 @@
-const ApiError = require('../helpers/ApiError')
 const brandRepository = require('../repositories/brandRepository')
 
 class BrandService {
-    async create(data, res) {
-        try {
-            await brandRepository.create(data)
-            return res.status(201).json({message: "Added successfully"})
-        } catch(error) {
-            return next(ApiError.badRequest(error))
-        }
+    async create(data) {
+        await brandRepository.create(data)
     }
 
-    async readAll(res) {
-        try {
-            const repositoryResult = await brandRepository.readAll()
-            return res.json(repositoryResult)
-        } catch (error) {
-            return next(ApiError.badRequest(error))
-        }
+    async readAll() {
+        const repositoryResult = await brandRepository.readAll()
+        return repositoryResult
     }
 
-    async update(data, res) {
-        try {
-            await brandRepository.update(data)
-            return res.status(201).json({message: "Updated successfully"})
-        } catch (error) {
-            return next(ApiError.badRequest(error))
-        }
+    async update(data) {
+        await brandRepository.update(data)
     }
 
-    async delete(data, res) {
-        try {
-            await brandRepository.delete(data)
-            return res.status(200).json({message: "Deleted successfully"})
-        } catch (error) {
-            return next(ApiError.badRequest(error))
-        }
+    async delete(data) {
+        await brandRepository.delete(data)
     }
 
 }

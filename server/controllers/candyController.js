@@ -1,3 +1,4 @@
+const ApiError = require('../helpers/ApiError')
 class CandyController {
     async create(req, res) {
 

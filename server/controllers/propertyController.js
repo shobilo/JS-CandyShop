@@ -1,23 +1,27 @@
-const {Property} = require('../models/models')
+const propertyService = require("../services/propertyService")
 
 class PropertyController {
     async create(req, res) {
-        const {name} = req.body
-        await Property.create({name})
-        return res.status(201).json({message: "Added successfully"})
+        const data = req.body
+        const serviceResult = await propertyService.create(data, res)
+        return serviceResult
     }
 
     async readAll(req, res) {
-        const properies = await Property.findAll()
-        return res.json(properies)
+        const serviceResult = await propertyService.readAll(res)
+        return serviceResult
     }
 
     async update(req, res) {
-        
+        const data = req.body
+        const serviceResult = await propertyService.update(data, res)
+        return serviceResult
     }
 
     async delete(req, res) {
-        
+        const data = req.body
+        const serviceResult = await propertyService.delete(data, res)
+        return serviceResult
     }
 }
 

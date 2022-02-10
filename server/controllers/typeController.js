@@ -1,23 +1,27 @@
-const {Type} = require('../models/models')
+const typeService = require('../services/typeService')
 
 class TypeController {
     async create(req, res) {
-        const {name} = req.body
-        await Type.create({name})
-        return res.status(201).json({message: "Added successfully"})
+        const data = req.body
+        const serviceResult = await typeService.create(data, res)
+        return serviceResult
     }
 
     async readAll(req, res) {
-        const types = await Type.findAll()
-        return res.json(types)
+        const serviceResult = await typeService.readAll(res)
+        return serviceResult
     }
 
     async update(req, res) {
-        
+        const data = req.body
+        const serviceResult = await typeService.update(data, res)
+        return serviceResult
     }
 
     async delete(req, res) {
-        
+        const data = req.body
+        const serviceResult = await typeService.delete(data, res)
+        return serviceResult
     }
 }
 

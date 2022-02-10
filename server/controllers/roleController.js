@@ -1,15 +1,15 @@
-const {Role} = require('../models/models')
+const roleService = require("../services/roleService")
 
 class RoleController {
     async create(req, res) {
-        const {name} = req.body
-        await Role.create({name})
-        return res.status(201).json({message: "Added successfully"})
+        const data = req.body
+        const serviceResult = await roleService.create(data, res)
+        return serviceResult
     }
 
     async readAll(req, res) {
-        const roles = await Role.findAll()
-        return res.json(roles)
+        const serviceResult = await roleService.readAll(res)
+        return serviceResult
     }
 }
 

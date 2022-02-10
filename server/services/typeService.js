@@ -13,7 +13,8 @@ class TypeService {
 
     async readAll(res) {
         try {
-            return await typeRepository.readAll()
+            const repositoryResult = await typeRepository.readAll()
+            return res.json(repositoryResult)
         } catch (error) {
             return next(ApiError.badRequest(error))
         }

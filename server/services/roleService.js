@@ -13,7 +13,8 @@ class RoleService {
 
     async readAll(res) {
         try {
-            return await roleRepository.readAll()
+            const repositoryResult = await roleRepository.readAll()
+            return res.json(repositoryResult)
         } catch (error) {
             return next(ApiError.badRequest(error))
         }

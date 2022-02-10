@@ -13,7 +13,8 @@ class PropertyService {
 
     async readAll(res) {
         try {
-            return await propertyRepository.readAll()
+            const repositoryResult = await propertyRepository.readAll()
+            return res.json(repositoryResult)
         } catch (error) {
             return next(ApiError.badRequest(error))
         }

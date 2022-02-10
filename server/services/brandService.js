@@ -13,7 +13,8 @@ class BrandService {
 
     async readAll(res) {
         try {
-            return await brandRepository.readAll()
+            const repositoryResult = await brandRepository.readAll()
+            return res.json(repositoryResult)
         } catch (error) {
             return next(ApiError.badRequest(error))
         }

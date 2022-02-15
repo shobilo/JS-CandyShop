@@ -1,10 +1,10 @@
 const Router = require('express')
-const brandRouter = require('./brandRouter')
-const candyRouter = require('./candyRouter')
-const propertyRouter = require('./propertyRouter')
-const roleRouter = require('./roleRouter')
-const typeRouter = require('./typeRouter')
-const userRouter = require('./userRouter')
+const brandRouter = require('../main/brand/brandRouter')
+const candyRouter = require('../main/candy/candyRouter')
+const propertyRouter = require('../main/property/propertyRouter')
+const roleRouter = require('../main/role/roleRouter')
+const typeRouter = require('../main/type/typeRouter')
+const userRouter = require('../main/user/userRouter')
 
 const router = new Router()
 

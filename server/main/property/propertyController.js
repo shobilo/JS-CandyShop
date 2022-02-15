@@ -1,0 +1,44 @@
+const propertyService = require('./propertyService')
+
+class PropertyController {
+    async create(req, res) {
+        try {
+            const data = req.body
+            await propertyService.create(data)
+            return res.status(201).json({message: "Added successfully"})
+        } catch (error) {
+            return next(error)
+        }
+    }
+
+    async readAll(req, res) {
+        try {
+            const serviceResult = await propertyService.readAll()
+            return res.status(200).json(serviceResult)
+        } catch (error) {
+            return next(error)
+        }
+    }
+
+    async update(req, res) {
+        try {
+            const data = req.body
+            await propertyService.update(data)
+            return res.status(204)
+        } catch (error) {
+            return next(error)
+        }
+    }
+
+    async delete(req, res) {
+        try {
+            const data = req.body
+            await propertyService.delete(data)
+            return res.status(204)
+        } catch (error) {
+            return next(error)
+        }
+    }
+}
+
+module.exports = new PropertyController()

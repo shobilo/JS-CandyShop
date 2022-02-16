@@ -1,4 +1,4 @@
-const {Type} = require('../../models')
+const Type = require('./typeModel')
 
 class TypeRepository {
     async create(data) {

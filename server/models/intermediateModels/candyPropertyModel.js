@@ -1,6 +1,8 @@
 const sequelize = require('../../db')
 const {DataTypes} = require('sequelize')
 
-module.exports = sequelize.define('candyProperty', {
+const CandyProperty = sequelize.define('candyProperty', {
     
 })
+
+module.exports = CandyProperty

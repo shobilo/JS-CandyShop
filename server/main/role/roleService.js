@@ -4,13 +4,13 @@ const roleRepository = require('./roleRepository')
 class RoleService {
     async create(data) {
         if (!data.name) {
-            throw new ApiError.badRequest("Wrong data (empty or invalid)")
+            throw ApiError.badRequest("Wrong data (empty or invalid)")
         }
 
         try {
             await roleRepository.create(data)
         } catch (error) {
-            throw new ApiError.internal(error.message)
+            throw ApiError.internal(error.message)
         }
     }
 
@@ -19,7 +19,7 @@ class RoleService {
             const repositoryResult = await roleRepository.readAll()
             return repositoryResult
         } catch (error) {
-            throw new ApiError.internal(error.message)
+            throw ApiError.internal(error.message)
         }
     }
 }

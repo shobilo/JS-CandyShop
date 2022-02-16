@@ -1,6 +1,8 @@
 const sequelize = require('../../db')
 const {DataTypes} = require('sequelize')
 
-module.exports = sequelize.define('userRole', {
+const UserRole = sequelize.define('userRole', {
 
 })
+
+module.exports = UserRole

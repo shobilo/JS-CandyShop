@@ -1,13 +1,13 @@
 const ApiError = require('../../helpers/ApiError')
 
 class UserController {
-    async registration(req, res) {
+    async registration(req, res, next) {
 
     }
-    async login(req, res) {
+    async login(req, res, next) {
         
     }
-    async authCheck(req, res) {
+    async authCheck(req, res, next) {
         
     }
 }

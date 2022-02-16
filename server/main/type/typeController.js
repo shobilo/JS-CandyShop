@@ -1,7 +1,7 @@
 const typeService = require('./typeService')
 
 class TypeController {
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const data = req.body
             await typeService.create(data)
@@ -11,7 +11,7 @@ class TypeController {
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             const serviceResult = await typeService.readAll()
             return res.status(200).json(serviceResult)
@@ -20,7 +20,7 @@ class TypeController {
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             const data = req.body
             await typeService.update(data)
@@ -30,7 +30,7 @@ class TypeController {
         }
     }
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
             const data = req.body
             await typeService.delete(data)

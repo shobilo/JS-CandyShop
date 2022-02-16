@@ -1,4 +1,4 @@
-const {Property} = require('../../models')
+const Property = require('./propertyModel')
 
 class PropertyRepository {
     async create(data) {

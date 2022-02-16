@@ -4,13 +4,13 @@ const propertyRepository = require('./propertyRepository')
 class PropertyService {
     async create(data) {
         if (!data.name) {
-            throw new ApiError.badRequest("Wrong data (empty or invalid)")
+            throw ApiError.badRequest("Wrong data (empty or invalid)")
         }
 
         try {
             await propertyRepository.create(data)
         } catch (error) {
-            throw new ApiError.internal(error.message)
+            throw ApiError.internal(error.message)
         }
     }
 
@@ -19,31 +19,31 @@ class PropertyService {
             const repositoryResult = await propertyRepository.readAll()
             return repositoryResult
         } catch (error) {
-            throw new ApiError.internal(error.message)
+            throw ApiError.internal(error.message)
         }
 
     }
 
     async update(data) {
         if (!data.id) {
-            throw new ApiError.badRequest("Wrong id (empty or invalid)")
+            throw ApiError.badRequest("Wrong id (empty or invalid)")
         }
         try {
             await propertyRepository.update(data)
         } catch (error) {
-            throw new ApiError.internal(error.message)
+            throw ApiError.internal(error.message)
         }
     }
 
     async delete(data) {
         if (!data.id) {
-            throw new ApiError.badRequest("Wrong id (empty or invalid)")
+            throw ApiError.badRequest("Wrong id (empty or invalid)")
         }
 
         try {
             await propertyRepository.delete(data)
         } catch (error) {
-            throw new ApiError.internal(error.message)
+            throw ApiError.internal(error.message)
         }
     }
 

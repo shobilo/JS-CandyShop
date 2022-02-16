@@ -1,7 +1,7 @@
 const brandService = require('./brandService')
 
 class BrandController {
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const data = req.body
             await brandService.create(data)
@@ -11,7 +11,7 @@ class BrandController {
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             const serviceResult = await brandService.readAll()
             return res.status(200).json(serviceResult)
@@ -20,7 +20,7 @@ class BrandController {
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             const data = req.body
             await brandService.update(data)
@@ -30,7 +30,7 @@ class BrandController {
         }
     }
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
             const data = req.body
             await brandService.delete(data)

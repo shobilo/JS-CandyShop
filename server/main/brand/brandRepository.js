@@ -1,4 +1,4 @@
-const {Brand} = require('../../models')
+const Brand = require('./brandModel')
 
 class BrandRepository {
     async create(data) {

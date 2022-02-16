@@ -10,7 +10,6 @@ const Rating = require("./intermediateModels/ratingModel")
 const Type = require("../main/type/typeModel")
 const Brand = require("../main/brand/brandModel")
 const TypeBrand = require("./intermediateModels/typeBrandModel")
-const Image = require("./intermediateModels/imageModel")
 
 User.belongsToMany(Role, {through: UserRole})
 Role.belongsToMany(User, {through: UserRole})
@@ -23,9 +22,6 @@ Candy.belongsToMany(Basket, {through: BasketCandy})
 
 User.hasMany(Rating)
 Rating.belongsTo(User)
-
-Candy.hasMany(Image)
-Image.belongsTo(Candy)
 
 Candy.hasMany(Rating)
 Rating.belongsTo(Candy)
@@ -41,19 +37,3 @@ Candy.belongsTo(Brand)
 
 Type.belongsToMany(Brand, {through: TypeBrand})
 Brand.belongsToMany(Type, {through: TypeBrand})
-
-module.exports = {
-    User,
-    UserRole,
-    Role,
-    Basket,
-    BasketCandy,
-    Candy,
-    CandyProperty,
-    Property,
-    Rating,
-    Type,
-    Brand,
-    TypeBrand,
-    Image
-}

@@ -1,7 +1,7 @@
 const propertyService = require('./propertyService')
 
 class PropertyController {
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const data = req.body
             await propertyService.create(data)
@@ -11,7 +11,7 @@ class PropertyController {
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             const serviceResult = await propertyService.readAll()
             return res.status(200).json(serviceResult)
@@ -20,7 +20,7 @@ class PropertyController {
         }
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         try {
             const data = req.body
             await propertyService.update(data)
@@ -30,7 +30,7 @@ class PropertyController {
         }
     }
 
-    async delete(req, res) {
+    async delete(req, res, next) {
         try {
             const data = req.body
             await propertyService.delete(data)

@@ -2,7 +2,7 @@ const ApiError = require('../helpers/ApiError')
 
 module.exports = function (error, req, res, next) {
     if (error instanceof ApiError) {
-        return res.status(err.status).json({
+        return res.status(error.status).json({
             message: error.message
         })
     }

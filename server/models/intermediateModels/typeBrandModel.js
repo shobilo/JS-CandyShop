@@ -1,5 +1,8 @@
 const sequelize = require('../../db')
 const {DataTypes} = require('sequelize')
 
-module.exports = sequelize.define('typeBrand', {
+const TypeBrand = sequelize.define('typeBrand', {
+    
 })
+
+module.exports = TypeBrand

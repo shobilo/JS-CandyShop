@@ -1,7 +1,7 @@
 const roleService = require("./roleService")
 
 class RoleController {
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const data = req.body
             await roleService.create(data)
@@ -11,7 +11,7 @@ class RoleController {
         }
     }
 
-    async readAll(req, res) {
+    async readAll(req, res, next) {
         try {
             const serviceResult = await roleService.readAll()
             return res.status(200).json(serviceResult)

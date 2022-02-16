@@ -1,10 +1,14 @@
 const sequelize = require('../../db')
 const {DataTypes} = require('sequelize')
 
-module.exports = sequelize.define('candy', {
+const Candy = sequelize.define('candy', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.DECIMAL(10, 2), allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
+    imageName: {type: DataTypes.STRING, allowNull: true},
+    imageData: {type: DataTypes.BLOB, allowNull: true},
     prevCandyRef: {type: DataTypes.INTEGER, defaultValue: null},
 })
+
+module.exports = Candy

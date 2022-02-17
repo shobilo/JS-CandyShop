@@ -1,5 +1,6 @@
 const Candy = require("./candyModel")
 const Property = require("../property/propertyModel")
+const {Op} = require("sequelize")
 
 class CandyRepository {
     async create(data) {
@@ -16,8 +17,37 @@ class CandyRepository {
         })
 
         properties.forEach(async (property) => {
-            const dbProperty = await Property.create(property)
+            const [dbProperty, created] = await Property.findOrCreate({
+                where: {
+                    name: property.name,
+                    description: property.description
+                }
+            })
             await candy.addProperty(dbProperty)
+        })
+    }
+
+    async readAll(data) {
+        const {query, sort, order, typeId, brandId, limit, offset} = data
+
+        const repositoryResult = await Candy.findAndCountAll({
+            where: {
+                ...(brandId && {brandId}),
+                ...(typeId && {typeId}),
+                ...(query && {name : {[Op.substring] : query}})
+            },
+            limit: limit,
+            offset: offset,
+            order: [[sort, order]]
+        })
+
+       return repositoryResult 
+    }
+
+    async readById(id) {
+        return await Candy.findOne({
+            where: {id},
+            include: [{model: Property, as: "properties"}]
         })
     }
 }

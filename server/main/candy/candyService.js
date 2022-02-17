@@ -18,7 +18,35 @@ class CandyService {
         } catch (error) {
             throw ApiError.internal(error.message)
         }
+    }
 
+    async readAll(allQueries) {
+        try {
+            const {query, typeId, brandId, sort = "name", order = "ASC", page = 1, limit = 9} = allQueries
+
+            const offset = page * limit - limit
+
+            const repositoryResult = await candyRepository.readAll({
+                query, sort, order, typeId, brandId, limit, offset
+            })
+
+            return repositoryResult
+            
+        } catch (error) {
+            throw ApiError.internal(error.message)
+        }
+    }
+
+    async readById(data) {
+        try {
+            const {id} = data
+
+            const repositoryResult = await candyRepository.readById(id)
+
+            return repositoryResult
+        } catch (error) {
+            throw ApiError.internal(error.message)
+        }
     }
 }
 

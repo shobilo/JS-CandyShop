@@ -6,7 +6,7 @@ class CandyController {
             let data = req.body
 
             if (req.files) {
-                const {image} = req.files[0]
+                const {image} = req.files
                 data = {
                     ...data,
                     imageName: image.name,

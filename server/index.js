@@ -5,14 +5,15 @@ const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const router = require('./routes/index')
 const errorHandler = require('./middlewares/ErrorHandlingMiddleware')
+const setupMiddlewares = require('./middlewares')
 
 
 const PORT = process.env.PORT || 5000
 
 const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(fileUpload({}))
+
+setupMiddlewares(app)
+
 app.use('/api', router)
 app.use(errorHandler)
 

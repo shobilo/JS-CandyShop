@@ -2,7 +2,7 @@ const {Role} = require('../../models')
 
 class RoleRepository {
     async create(data) {
-        await Role.create(data)
+        return await Role.create(data)
     }
 
     async readAll() {

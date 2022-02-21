@@ -8,7 +8,8 @@ class TypeService {
         }
 
         try {
-            await typeRepository.create(data)
+            const repositoryResult = await typeRepository.create(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }
@@ -29,7 +30,8 @@ class TypeService {
         }
         
         try {
-            await typeRepository.update(data)
+            const repositoryResult = await typeRepository.update(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }

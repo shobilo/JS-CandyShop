@@ -2,7 +2,7 @@ const Brand = require('./brandModel')
 
 class BrandRepository {
     async create(data) {
-        await Brand.create(data)
+        return await Brand.create(data)
     }
 
     async readAll() {
@@ -12,7 +12,7 @@ class BrandRepository {
     async update(data) {
         const {id, name} = data
 
-        await Brand.update({
+        return await Brand.update({
             name: name
         }, {
             where: {

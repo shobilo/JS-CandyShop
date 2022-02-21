@@ -4,8 +4,8 @@ class TypeController {
     async create(req, res, next) {
         try {
             const data = req.body
-            await typeService.create(data)
-            return res.status(201).json({message: "Added successfully"})
+            const serviceResult = await typeService.create(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }
@@ -23,8 +23,8 @@ class TypeController {
     async update(req, res, next) {
         try {
             const data = req.body
-            await typeService.update(data)
-            return res.status(204)
+            const serviceResult = await typeService.update(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }

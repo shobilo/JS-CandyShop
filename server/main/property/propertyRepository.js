@@ -2,7 +2,7 @@ const Property = require('./propertyModel')
 
 class PropertyRepository {
     async create(data) {
-        await Property.create(data)
+        return await Property.create(data)
     }
 
     async readAll() {
@@ -12,7 +12,7 @@ class PropertyRepository {
     async update(data) {
         const {id, name, description} = data
 
-        await Property.update({
+        return await Property.update({
             name: name,
             description: description
         }, {

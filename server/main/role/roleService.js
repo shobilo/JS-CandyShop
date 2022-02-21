@@ -8,7 +8,8 @@ class RoleService {
         }
 
         try {
-            await roleRepository.create(data)
+            const repositoryResult = await roleRepository.create(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }

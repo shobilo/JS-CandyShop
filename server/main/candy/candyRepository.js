@@ -25,6 +25,8 @@ class CandyRepository {
             })
             await candy.addProperty(dbProperty)
         })
+
+        return candy
     }
 
     async readAll(data) {

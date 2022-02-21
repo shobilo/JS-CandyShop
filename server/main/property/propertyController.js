@@ -4,8 +4,8 @@ class PropertyController {
     async create(req, res, next) {
         try {
             const data = req.body
-            await propertyService.create(data)
-            return res.status(201).json({message: "Added successfully"})
+            const serviceResult = await propertyService.create(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }
@@ -23,8 +23,8 @@ class PropertyController {
     async update(req, res, next) {
         try {
             const data = req.body
-            await propertyService.update(data)
-            return res.status(204)
+            const serviceResult = await propertyService.update(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }

@@ -8,7 +8,8 @@ class PropertyService {
         }
 
         try {
-            await propertyRepository.create(data)
+            const repositoryResult = await propertyRepository.create(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }
@@ -28,8 +29,10 @@ class PropertyService {
         if (!data.id) {
             throw ApiError.badRequest("Wrong id (empty or invalid)")
         }
+
         try {
-            await propertyRepository.update(data)
+            const repositoryResult = await propertyRepository.update(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }

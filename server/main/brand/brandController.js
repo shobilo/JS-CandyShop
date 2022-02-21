@@ -4,8 +4,8 @@ class BrandController {
     async create(req, res, next) {
         try {
             const data = req.body
-            await brandService.create(data)
-            return res.status(201).json({message: "Added successfully"})
+            const serviceResult = await brandService.create(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }
@@ -23,8 +23,8 @@ class BrandController {
     async update(req, res, next) {
         try {
             const data = req.body
-            await brandService.update(data)
-            return res.status(204)
+            const serviceResult = await brandService.update(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }

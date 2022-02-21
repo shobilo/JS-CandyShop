@@ -8,7 +8,8 @@ class BrandService {
         }
 
         try {
-            await brandRepository.create(data)
+            const repositoryResult = await brandRepository.create(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }
@@ -31,7 +32,8 @@ class BrandService {
         }
 
         try {
-            await brandRepository.update(data)
+            const repositoryResult = await brandRepository.update(data)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }

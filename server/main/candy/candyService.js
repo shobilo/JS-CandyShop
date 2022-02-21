@@ -10,11 +10,12 @@ class CandyService {
         try {
             const properties = data.properties
             const objectProperties = properties.map(property => JSON.parse(property))
-            data = {
+            const dataWithProperties = {
                 ...data,
                 properties: objectProperties
             }
-            await candyRepository.create(data)
+            const repositoryResult = await candyRepository.create(dataWithProperties)
+            return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
         }

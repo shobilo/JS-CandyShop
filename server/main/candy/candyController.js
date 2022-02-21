@@ -14,8 +14,8 @@ class CandyController {
                 }
             }
             
-            await candyService.create(data)
-            return res.status(201).json({message: "Added successfully"})
+            const serviceResult = await candyService.create(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }

@@ -4,8 +4,8 @@ class RoleController {
     async create(req, res, next) {
         try {
             const data = req.body
-            await roleService.create(data)
-            return res.status(201).json({message: "Added successfully"})
+            const serviceResult = await roleService.create(data)
+            return res.status(201).json(serviceResult)
         } catch (error) {
             return next(error)
         }

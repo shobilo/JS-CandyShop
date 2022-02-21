@@ -2,7 +2,7 @@ const Type = require('./typeModel')
 
 class TypeRepository {
     async create(data) {
-        await Type.create(data)
+        return await Type.create(data)
     }
 
     async readAll() {
@@ -12,7 +12,7 @@ class TypeRepository {
     async update(data) {
         const {id, name} = data
 
-        await Type.update({
+        return await Type.update({
             name: name
         }, {
             where: {

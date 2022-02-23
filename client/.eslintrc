@@ -1,0 +1,28 @@
+{
+    "extends": [
+      "react-app",
+      "prettier"
+    ],
+    "rules": {
+      "no-console": 1,
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react/require-default-props": [1],
+      "react/prop-types": 1,
+      "react/default-props-match-prop-types": 1,
+      "react/no-unused-prop-types": 1,
+      "react/jsx-no-bind": 1,
+      "react/display-name": 1,
+      "react/react-in-jsx-scope": 0,
+      "react/jsx-curly-brace-presence": ["warn", { "props": "never", "children": "never" }],
+      "prefer-const": ["warn", { "destructuring": "all" }],
+      "quotes": [
+        0,
+        "single"
+      ],
+      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
+    },
+    "plugins": [
+      "prettier"
+    ]
+  }

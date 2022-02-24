@@ -1,12 +1,12 @@
 import { adminRoutes, authedRoutes, unAuthedRoutes, commonRoutes } from '../routes'
 
-export const getRoutes = () => {
-  let isAdmin = false
-  let isAuth = true
+export const getRoutes = (states) => {
+  const { isAdmin, isAuth } = states
+
   let routes = []
 
   if (isAdmin) {
-    routes = adminRoutes
+    routes = adminRoutes.concat(authedRoutes)
   } 
   else if (isAuth) {
     routes = authedRoutes
@@ -15,7 +15,7 @@ export const getRoutes = () => {
     routes = unAuthedRoutes
   }
 
-  let allRoutes = [
+  const allRoutes = [
     ...routes,
     ...commonRoutes,
   ]

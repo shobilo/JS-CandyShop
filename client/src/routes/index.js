@@ -4,6 +4,7 @@ import Auth from "../pages/Auth"
 import Basket from "../pages/Basket"
 import CandyPage from "../pages/CandyPage"
 import ErrorPage from "../pages/ErrorPage"
+import Logout from "../pages/Logout"
 import Registration from "../pages/Registration"
 import Shop from "../pages/Shop"
 
@@ -13,6 +14,7 @@ export const adminRoutes = [
 
 export const authedRoutes = [
   { path: "/basket", element: <Basket /> },
+  { path: "/logout", element: <Logout /> }
 ]
 
 export const unAuthedRoutes = [

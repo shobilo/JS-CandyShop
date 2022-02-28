@@ -3,12 +3,15 @@ const Role = require('../role/roleModel')
 
 class UserRepository {
     async create(data) {
-        const {email, hashedPassword, name} = data
+        const {email, hashedPassword, name, surname, birthDate, address} = data
 
         const user = await User.create({
             email: email,
             password: hashedPassword,
-            name: name
+            name: name,
+            ...(surname && {surname}),
+            ...(birthDate && {birthDate}),
+            ...(address && {address})
         })
 
         const [role, setRole] = await Role.findOrCreate({

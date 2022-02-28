@@ -6,8 +6,10 @@ const User = sequelize.define('user', {
     email: {type: DataTypes.STRING, unique: true, allowNull: false},
     password: {type: DataTypes.STRING, allowNull: false},
     name: {type: DataTypes.STRING, allowNull: false},
-    surname: {type: DataTypes.STRING},
+    surname: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
     birthDate: {type: DataTypes.DATE},
+    address: {type: DataTypes.STRING}
 })
 
 module.exports = User

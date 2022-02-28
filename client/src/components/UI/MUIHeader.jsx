@@ -15,10 +15,11 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 
 import ClearLink from '../UI/ClearLink'
+import { Stack } from '@mui/material'
 
 const MUIHeader = (props) => {
-  const { pages, settings, title } = props
-  const { isAuth, userName } = props.userSettings
+  const { pages, settings, logo, title } = props
+  const { userName = "Login or register" } = props.userSettings
   
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -40,23 +41,34 @@ const MUIHeader = (props) => {
   }, [])
 
   return (
-    <AppBar position="static" style={{ background: "grey"}}>
+    <AppBar position="static" style={{ background: "#FFF5EE",}}>
       <Container maxWidth="xl">
 
 
         <Toolbar disableGutters>
-        
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            <ClearLink to="/">
-              {title}
-            </ClearLink>
+
             
-          </Typography>
+
+          <ClearLink to="/">
+            <Stack direction="row"  spacing={2}>
+            <img 
+                src={logo.src}
+                alt={logo.alt}
+                height="40vh" 
+              />
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, alignItems: "center" ,display: { xs: 'none', md: 'flex' } }}
+            >
+              {title}
+            </Typography>
+            </Stack>
+            
+          </ClearLink>
+
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -99,11 +111,13 @@ const MUIHeader = (props) => {
             </Menu>
           </Box>
 
+          
+
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            sx={{ flexGrow: 1, color: "black", display: { xs: 'flex', md: 'none' } }}
           >
             {title}
           </Typography>
@@ -114,7 +128,7 @@ const MUIHeader = (props) => {
               <ClearLink to={page.link} key={page.name}>
                 <Button
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'black', display: 'block' }}
                 >
                   {page.name}
                 </Button>
@@ -122,11 +136,10 @@ const MUIHeader = (props) => {
             ))}
           </Box>
 
-          {isAuth && 
           <Box sx={{ flexGrow: 0 }}>
             
             <Tooltip title="Open user settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'black' }} size="large">
 
                 <Typography textAlign="center">{userName}</Typography>
 
@@ -160,7 +173,7 @@ const MUIHeader = (props) => {
               ))}
             </Menu>
 
-          </Box>}
+          </Box>
           
         </Toolbar>
       </Container>
@@ -169,7 +182,10 @@ const MUIHeader = (props) => {
 };
 
 MUIHeader.propTypes = {
-  title: PropTypes.string,
+  logo: PropTypes.objectOf(
+    PropTypes.node,
+    PropTypes.string
+  ),
   pages: PropTypes.arrayOf(
     PropTypes.objectOf(
       PropTypes.string
@@ -181,18 +197,22 @@ MUIHeader.propTypes = {
       )
   ),
   userSettings: PropTypes.objectOf(
-    PropTypes.oneOfType(
-      PropTypes.string,
-      PropTypes.bool
-    )
-  )
+    PropTypes.string
+  ),
+  title: PropTypes.string
 }
 
 MUIHeader.defaultProps = {
-  title: "No name",
+  title: "Shop",
+  logo: {
+    src: "",
+    alt: "CandyShop Logo"
+  },
   pages: [],
   settings: [],
-  userSettings: {}
+  userSettings: {
+    userName: "No name",
+  }
 }
 
 

@@ -12,7 +12,7 @@ function App() {
           <Header/>
         </Grid>
         <Grid item xs={12}>
-          <Container maxWidth="md">
+          <Container maxWidth="sm">
             <AppRouter/>
           </Container>
         </Grid>

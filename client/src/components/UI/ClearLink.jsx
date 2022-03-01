@@ -1,12 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
+import { Link } from '@mui/material'
 import PropTypes from 'prop-types'
 
-const ClearLink = ({to, children}) => {
+const ClearLink = (props) => {
+  const { to, children } = props
+
   return (
-    <Link 
+    <Link
+      component={RouterLink}
+      underline="none"
+      color="black"
       to={to}
-      style={{ textDecoration: "none", color: "black" }}
       >
         {children}
     </Link>

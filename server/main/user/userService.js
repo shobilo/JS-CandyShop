@@ -5,7 +5,7 @@ const generateJwt = require('../../helpers/generateJwt')
 
 class UserService {
     async registration(data) {
-        const {email, password, name} = data
+        const {email, password} = data
 
         const candidate = await userRepository.readByEmail(email)
 
@@ -17,9 +17,8 @@ class UserService {
 
         try {
             const {user, role} = await userRepository.create({
-                email,
-                hashedPassword,
-                name
+                ...data,
+                password: hashedPassword
             })
     
             const jwtPayload = {

@@ -1,8 +1,9 @@
-import { Container, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import {BrowserRouter} from "react-router-dom"
 import AppRouter from "./components/AppRouter"
 import Footer from "./components/shared/Footer"
 import Header from "./components/shared/Header"
+import LinearProgress from "./components/shared/LinearProgress"
 
 function App() {
   return (
@@ -10,11 +11,10 @@ function App() {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Header/>
+          <LinearProgress />
         </Grid>
         <Grid item xs={12}>
-          <Container maxWidth="sm">
-            <AppRouter/>
-          </Container>
+          <AppRouter/>
         </Grid>
         <Grid item xs={12}>
           <Footer/>

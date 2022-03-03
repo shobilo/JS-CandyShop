@@ -36,13 +36,9 @@ export default MUISubmitButton
 
 MUISubmitButton.propTypes = {
   children: PropTypes.string,
-  otherProps: PropTypes.arrayOf(
-    PropTypes.string
-  )
 }
 
 MUISubmitButton.defaultProps = {
   children: 'button',
-  otherProps: []
 }
 

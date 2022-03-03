@@ -35,12 +35,4 @@ export default MUIDatePicker
 
 MUIDatePicker.propTypes = {
   name: PropTypes.string.isRequired,
-  otherProps: PropTypes.arrayOf(
-    PropTypes.string
-  )
 }
-
-MUIDatePicker.defaultProps = {
-  otherProps: []
-}
-

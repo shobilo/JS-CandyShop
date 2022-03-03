@@ -1,6 +1,6 @@
 import About from "../pages/About"
 import Admin from "../pages/Admin"
-import Auth from "../pages/Auth"
+import Login from "../pages/Login"
 import Basket from "../pages/Basket"
 import CandyPage from "../pages/CandyPage"
 import ErrorPage from "../pages/ErrorPage"
@@ -18,7 +18,7 @@ export const authedRoutes = [
 ]
 
 export const unAuthedRoutes = [
-  { path: "/auth", element: <Auth />},
+  { path: "/login", element: <Login />},
   { path: "/registration", element: <Registration />},
 ]
 

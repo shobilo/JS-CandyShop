@@ -10,8 +10,8 @@ class UserController {
         }
 
         try {
-            const {email, password, name} = req.body
-            const serviceResult = await userService.registration({email, password, name})
+            const data = req.body
+            const serviceResult = await userService.registration(data)
 
             return res.json({token: serviceResult})
         } catch (error) {

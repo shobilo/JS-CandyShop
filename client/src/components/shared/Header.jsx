@@ -32,7 +32,7 @@ const settings = isAuth
     ]
   :
     [
-      {name: "Login", link: "/auth"},
+      {name: "Login", link: "/login"},
       {name: "Register", link: "/registration"}
     ]
 

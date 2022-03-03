@@ -28,12 +28,4 @@ export default MUITextfield
 
 MUITextfield.propTypes = {
   name: PropTypes.string.isRequired,
-  otherProps: PropTypes.arrayOf(
-    PropTypes.string
-  )
 }
-
-MUITextfield.defaultProps = {
-  otherProps: []
-}
-

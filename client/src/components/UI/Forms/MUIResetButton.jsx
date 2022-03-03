@@ -36,12 +36,8 @@ export default MUIResetButton
 
 MUIResetButton.propTypes = {
   children: PropTypes.string,
-  otherProps: PropTypes.arrayOf(
-    PropTypes.string
-  )
 }
 
 MUIResetButton.defaultProps = {
   children: 'button',
-  otherProps: []
 }

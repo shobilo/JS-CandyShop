@@ -1,12 +1,12 @@
-import About from "../pages/About"
-import Admin from "../pages/Admin"
-import Login from "../pages/Login"
-import Basket from "../pages/Basket"
-import CandyPage from "../pages/CandyPage"
-import ErrorPage from "../pages/ErrorPage"
-import Logout from "../pages/Logout"
-import Registration from "../pages/Registration"
-import Shop from "../pages/Shop"
+import About from "../components/pages/About"
+import Admin from "../components/pages/Admin"
+import Login from "../components/pages/Login"
+import Basket from "../components/pages/Basket"
+import CandyPage from "../components/pages/CandyPage"
+import ErrorPage from "../components/pages/ErrorPage"
+import Logout from "../components/pages/Logout"
+import Registration from "../components/pages/Registration"
+import Shop from "../components/pages/Shop"
 
 export const adminRoutes = [
   { path: "/admin", element: <Admin /> },

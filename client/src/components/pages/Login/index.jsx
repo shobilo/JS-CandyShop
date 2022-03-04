@@ -1,31 +1,16 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { Grid, Container, Typography } from '@mui/material';
-import * as Yup from 'yup'
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
-import MUITextfield from '../components/UI/Forms/MUITextfield';
-import MUISubmitButton from '../components/UI/Forms/MUISubmitButton';
-import MUIResetButton from '../components/UI/Forms/MUIResetButton';
-import { login } from '../redux/features/user/userActionCreators';
+import { FORM_VALIDATION_SCHEMA, INITIAL_FORM_STATE } from './formValidation'
+import MUITextfield from '../../UI/Forms/MUITextfield';
+import MUISubmitButton from '../../UI/Forms/MUISubmitButton';
+import MUIResetButton from '../../UI/Forms/MUIResetButton';
+import { login } from '../../../redux/features/user/userActionCreators';
 
-
-const INITIAL_FORM_STATE = {
-  email: '',
-  password: '',
-}
-
-const FORM_VALIDATION_SCHEMA = Yup.object().shape({
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  password: Yup.string()
-    .min(6, 'Min value is 6')
-    .max(32, 'Max value is 32')
-    .required('Required'),
-})
 
 const Login = () => {
   const dispatch = useDispatch()

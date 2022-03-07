@@ -4,9 +4,9 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 
 const LinearProgressBar = () => {
-  const isUserLoading = useSelector((state) => state.user.isUserLoading)
+  const isLoading = useSelector((state) => state.user.isLoading)
   
-  if ( isUserLoading ) {
+  if ( isLoading ) {
     return (
         <LinearProgress color="secondary"/>
     )

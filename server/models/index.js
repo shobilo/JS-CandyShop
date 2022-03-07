@@ -9,7 +9,6 @@ const CandyProperty = require("./intermediateModels/candyPropertyModel")
 const Rating = require("./intermediateModels/ratingModel")
 const Type = require("../main/type/typeModel")
 const Brand = require("../main/brand/brandModel")
-const TypeBrand = require("./intermediateModels/typeBrandModel")
 
 User.belongsToMany(Role, {through: UserRole})
 Role.belongsToMany(User, {through: UserRole})
@@ -34,6 +33,3 @@ Candy.belongsTo(Type)
 
 Brand.hasMany(Candy)
 Candy.belongsTo(Brand)
-
-Type.belongsToMany(Brand, {through: TypeBrand})
-Brand.belongsToMany(Type, {through: TypeBrand})

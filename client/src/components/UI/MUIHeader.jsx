@@ -51,19 +51,19 @@ const MUIHeader = (props) => {
 
           <ClearLink to="/">
             <Stack direction="row"  spacing={2}>
-            <img 
-                src={logo.src}
-                alt={logo.alt}
-                height="40vh" 
-              />
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, alignItems: "center" ,display: { xs: 'none', md: 'flex' } }}
-            >
-              {title}
-            </Typography>
+              <img 
+                  src={logo.src}
+                  alt={logo.alt}
+                  height="40vh" 
+                />
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ mr: 2, alignItems: "center" ,display: { xs: 'none', md: 'flex' } }}
+              >
+                {title}
+              </Typography>
             </Stack>
             
           </ClearLink>

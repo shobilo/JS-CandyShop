@@ -4,7 +4,7 @@ import { checkAuth, login, logout, registration } from "./userActionCreators";
 const initialState = {
   isAdmin: false,
   isAuth: false,
-  isUserLoading: false,
+  isLoading: false,
   userData: {},
   error: "",
 };
@@ -45,7 +45,7 @@ const userSlice = createSlice({
         ),
         (state) => {
           state.error = "";
-          state.isUserLoading = true;
+          state.isLoading = true;
         }
       )
       .addMatcher(
@@ -57,7 +57,7 @@ const userSlice = createSlice({
         ),
         (state) => {
           state.error = "";
-          state.isUserLoading = false;
+          state.isLoading = false;
         }
       )
       .addMatcher(
@@ -69,7 +69,7 @@ const userSlice = createSlice({
         ),
         (state, action) => {
           state.error = action.payload;
-          state.isUserLoading = false;
+          state.isLoading = false;
         }
       );
   },

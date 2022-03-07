@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const ApiError = require('../helpers/ApiError')
+const roleCheck = require('../helpers/roleCheck')
 
 module.exports = function(role) {
     return function (req, res, next) {
@@ -15,9 +16,11 @@ module.exports = function(role) {
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
 
-            const isRoleUnvalid = decoded.roles.filter(decodedRole => decodedRole.name === role)
+            const isRoleValid = roleCheck(decoded.roles, role)
 
-            if (isRoleUnvalid) {
+            console.log(isRoleValid)
+
+            if (!isRoleValid) {
                 next(ApiError.forbiddenAccess("Forbidden access"))
                 
             }

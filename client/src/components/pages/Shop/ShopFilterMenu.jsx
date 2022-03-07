@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField } from '@mui/material'
+import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import { useState, useCallback } from 'react'
 import MUISelect from '../../UI/MUISelect'
 
@@ -24,10 +24,18 @@ const ShopFilterMenu = () => {
     <Container>
       <Grid 
         container
-        direction={"column"}
-        alignItems={"flex-start"}
-        spacing={1} 
+        direction="column"
+        alignItems="flex-start"
+        spacing={2} 
       >
+        <Grid item xs={12}>
+          <Typography
+            variant='h6'
+          >
+            Search candy
+          </Typography>
+        </Grid>
+        
         <Grid item xs={12}>
           <TextField
             sx={{minWidth: 150}}
@@ -36,6 +44,14 @@ const ShopFilterMenu = () => {
             value={searchField}
             onChange={handleSearchFieldChanged}
           />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography
+            variant='h6'
+          >
+            Filters
+          </Typography>
         </Grid>
 
         <Grid item xs={12}>

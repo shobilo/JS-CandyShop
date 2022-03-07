@@ -7,6 +7,7 @@ class CandyController {
 
             if (req.files) {
                 const {image} = req.files
+
                 data = {
                     ...data,
                     imageName: image.name,
@@ -35,6 +36,24 @@ class CandyController {
         try {
             const data = req.params
             const serviceResult = await candyService.readById(data)
+            return res.status(200).json(serviceResult)
+        } catch (error) {
+            return next(error)
+        }
+    }
+
+    async changeRating(req, res, next) {
+        try {
+            const {id} = req.params
+            const { userId, rating } = req.body
+
+            const data = {
+                candyId: id,
+                userId,
+                rating
+            }
+            
+            const serviceResult = await candyService.changeRating(data)
             return res.status(200).json(serviceResult)
         } catch (error) {
             return next(error)

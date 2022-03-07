@@ -1,25 +1,38 @@
 import { Card, CardActions, CardContent, CardMedia, Typography, Rating } from '@mui/material'
+import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useCallback } from 'react'
+
 import DefaultCandy from './DefaultCandy.svg'
-import { useCallback, useState } from 'react'
 
-const ShopListItem = () => {
-  const [ratingValue, setRatingValue] = useState(0)
+const ShopListItem = ({candy}) => {
+  const { brand, name, type, price, ratings, imageName, imageData } = candy
 
-  const handleRatingChanged = useCallback((event, newValue) => {
-    setRatingValue(newValue)
-  }, [])
+  const imageSrc = imageData.data.toString('base64');
+
+  // const [imageSrc, setImageSrc] = useState(null)
+  
+  // const imageSrc = imageData.data.toString('base64')
+  // const imageSrc = btoa(String.fromCharCodenull(...new Uint8Array(imageData.data)))
+
+  // const handleRatingChanged = useCallback((event, newValue) => {
+  //   setRatingValue(newValue)
+  // }, [])
 
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height={120}
-        src={DefaultCandy}
-        alt="candy"
+        // src={`data:image/png;base64,${imageSrc}`}
+        // src={imageSrc}
+        image={imageSrc}
+        alt={imageName}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Candy
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Mega candy for you and only you
@@ -30,8 +43,8 @@ const ShopListItem = () => {
           Rating
         </Typography>
         <Rating 
-          value={ratingValue}
-          onChange={handleRatingChanged}
+          // value={ratingValue}
+          // onChange={handleRatingChanged}
         />
       </CardActions>
     </Card>
@@ -39,3 +52,19 @@ const ShopListItem = () => {
 }
 
 export default ShopListItem
+
+ShopListItem.propTypes = {
+  candy: PropTypes.object
+}
+
+ShopListItem.defaultProps = {
+  candy: {
+    brand: {name: "No brand"},
+    imageData: {data: DefaultCandy},
+    imageName: "No image",
+    name: "No name",
+    price: "No price",
+    ratings: [],
+    type: {name: "No type"}
+  }
+}

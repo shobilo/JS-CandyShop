@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import jwt_decode from "jwt-decode";
 import { $authHost, $host } from "../../../api";
 import roleCheck from "../../../utils/roleCheck";
-import { setIsAdmin } from "./userReducer";
+import { setIsAdmin } from "./userSlice";
 
 export const registration = createAsyncThunk(
   "user/registration",
@@ -65,7 +65,7 @@ export const logout = createAsyncThunk(
 
   async (_, thunkAPI) => {
     try {
-      await localStorage.removeItem("token");
+      localStorage.removeItem("token");
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data.message);
     }

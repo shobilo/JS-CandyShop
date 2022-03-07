@@ -7,6 +7,10 @@ class CandyService {
             throw ApiError.badRequest("Wrong data (empty or invalid)")
         }
 
+        if (!data.image.name.endsWith('.png')) {
+            throw ApiError.badRequest("Only png files are supported")
+        }
+
         try {
             const properties = data.properties
             const objectProperties = properties.map(property => JSON.parse(property))
@@ -43,6 +47,16 @@ class CandyService {
             const {id} = data
 
             const repositoryResult = await candyRepository.readById(id)
+
+            return repositoryResult
+        } catch (error) {
+            throw ApiError.internal(error.message)
+        }
+    }
+
+    async changeRating(data) {
+        try {
+            const repositoryResult = await candyRepository.changeRating(data)
 
             return repositoryResult
         } catch (error) {

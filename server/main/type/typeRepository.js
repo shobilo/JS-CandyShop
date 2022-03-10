@@ -6,7 +6,9 @@ class TypeRepository {
     }
 
     async readAll() {
-        return await Type.findAll()
+        return await Type.findAll({
+            order: [["name", "ASC"]],
+        })
     }
 
     async update(data) {

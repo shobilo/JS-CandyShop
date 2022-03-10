@@ -6,7 +6,9 @@ class RoleRepository {
     }
 
     async readAll() {
-        return await Role.findAll()
+        return await Role.findAll({
+            order: [["name", "ASC"]],
+        })
     }
 }
 

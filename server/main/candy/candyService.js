@@ -27,7 +27,7 @@ class CandyService {
 
     async readAll(allQueries) {
         try {
-            const {query, typeId, brandId, sort = "name", order = "ASC", page = 1, limit = 9} = allQueries
+            const {query, typeId, brandId, sort = "name", order = "ASC", page = 1, limit = 6} = allQueries
 
             const offset = page * limit - limit
 

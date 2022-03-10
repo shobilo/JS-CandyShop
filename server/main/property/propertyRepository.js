@@ -6,7 +6,9 @@ class PropertyRepository {
     }
 
     async readAll() {
-        return await Property.findAll()
+        return await Property.findAll({
+            order: [["name", "ASC"]],
+        })
     }
 
     async update(data) {

@@ -44,11 +44,12 @@ class CandyController {
 
     async changeRating(req, res, next) {
         try {
-            const {id} = req.params
-            const { userId, rating } = req.body
+            const { id: candyId } = req.params
+            const { id: userId} = req.user
+            const { rating } = req.body
 
             const data = {
-                candyId: id,
+                candyId,
                 userId,
                 rating
             }

@@ -6,7 +6,9 @@ class BrandRepository {
     }
 
     async readAll() {
-        return await Brand.findAll()
+        return await Brand.findAll({
+            order: [["name", "ASC"]],
+        })
     }
 
     async update(data) {

@@ -1,18 +1,22 @@
-import { Container, Grid, Pagination } from '@mui/material'
-import React, { useCallback, useState } from 'react'
+import { Container, Grid, Pagination } from "@mui/material";
+import React, { useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../redux/features/candies/candiesSlice";
 
 const ShopPagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
+
+  const { currentPage, totalPages } = useSelector((state) => state.candies);
 
   const handleCurrentPageChanged = useCallback((event, value) => {
-    setCurrentPage(value)
-  }, [])
+    dispatch(setCurrentPage(value));
+  }, [dispatch]);
 
   return (
     <Container>
       <Grid container justifyContent="center">
-        <Pagination 
-          count={20}
+        <Pagination
+          count={totalPages}
           page={currentPage}
           onChange={handleCurrentPageChanged}
           color="secondary"
@@ -21,7 +25,7 @@ const ShopPagination = () => {
         />
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default ShopPagination
+export default ShopPagination;

@@ -74,15 +74,26 @@ class CandyRepository {
             where: {id},
             include: [
                 {
-                    model: Property, 
-                    as: "properties"
-                },
-                {
                     model: Rating,
                     as: 'ratings',
-                    attributes: ['rating']
+                    attributes: ['rating'],
+                },
+                {
+                    model: Brand,
+                    as: 'brand',
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Type,
+                    as: 'type',
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Property,
+                    as: 'properties',
+                    attributes: ["id", "name", "description"],
                 }
-            ]
+            ],
         })
     }
 

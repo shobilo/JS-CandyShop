@@ -1,70 +1,113 @@
-import { Card, CardActions, CardContent, CardMedia, Typography, Rating } from '@mui/material'
-import PropTypes from 'prop-types'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { useCallback } from 'react'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Rating,
+} from "@mui/material";
+import PropTypes from "prop-types";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { changeCandyRating } from "../../../redux/features/candies/candiesActionCreators";
+import { bytesBufferToBase64 } from "../../../utils/byteArrayToBase64";
+import { getAverageValue } from "../../../utils/getAverageValue";
 
-import DefaultCandy from './DefaultCandy.svg'
+import DefaultCandy from "../../../static/images/DefaultCandy.svg";
+import ClearLink from "../../UI/ClearLink";
 
-const ShopListItem = ({candy}) => {
-  const { brand, name, type, price, ratings, imageName, imageData } = candy
+const ShopListItem = ({ candy }) => {
+  const dispatch = useDispatch();
 
-  const imageSrc = imageData.data.toString('base64');
+  const { id, brand, name, type, price, ratings, imageName, imageData } = candy;
+  let rating = 0;
+  let imageSrc = DefaultCandy;
 
-  // const [imageSrc, setImageSrc] = useState(null)
-  
-  // const imageSrc = imageData.data.toString('base64')
-  // const imageSrc = btoa(String.fromCharCodenull(...new Uint8Array(imageData.data)))
+  if (imageData) {
+    const base64buffer = bytesBufferToBase64(imageData.data);
+    imageSrc = `data:image/jpg;base64,${base64buffer}`;
+  }
 
-  // const handleRatingChanged = useCallback((event, newValue) => {
-  //   setRatingValue(newValue)
-  // }, [])
+  if (ratings.length > 0) {
+    const ratingsArray = ratings.map((rating) => rating.rating);
+    rating = getAverageValue(ratingsArray);
+  }
+
+  const handleRatingChanged = useCallback((event, newValue) => {
+    dispatch(changeCandyRating({ id, rating: newValue }))
+      .unwrap()
+      .catch((error) => {
+        alert(error.message);
+      });
+  }, [dispatch, id]);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height={120}
-        // src={`data:image/png;base64,${imageSrc}`}
-        // src={imageSrc}
-        image={imageSrc}
-        alt={imageName}
-      />
+      <ClearLink to={`/candy/${id}`}>
+        <CardMedia
+          component="img"
+          height={120}
+          image={imageSrc}
+          alt={imageName}
+        />
+      </ClearLink>
+      
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
+        <ClearLink to={`/candy/${id}`}>
+          <Typography gutterBottom variant="h4" component="div">
+            {name}
+          </Typography>
+        </ClearLink>
+
+        <Typography variant="subtitle1">
+          {"Brand : "}
+          <span>
+            <Typography variant="h6" color="text.primary" display="inline">
+              {brand.name}
+            </Typography>
+          </span>
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Mega candy for you and only you
+        <Typography variant="subtitle1">
+          {"Type : "}
+          <span>
+            <Typography variant="h6" color="text.primary" display="inline">
+              {type.name}
+            </Typography>
+          </span>
+        </Typography>
+        <Typography variant="subtitle1">
+          {"Price : "}
+          <span>
+            <Typography variant="h6" color="text.primary" display="inline">
+              {price} RUB
+            </Typography>
+          </span>
         </Typography>
       </CardContent>
-      <CardActions sx={{justifyContent: "center"}}>
-        <Typography variant="body2" color="text.secondary">
+      <CardActions sx={{ justifyContent: "center" }}>
+        <Typography variant="body1" color="text.secondary">
           Rating
         </Typography>
-        <Rating 
-          // value={ratingValue}
-          // onChange={handleRatingChanged}
-        />
+        <Rating value={rating} onChange={handleRatingChanged} />
       </CardActions>
     </Card>
-  )
-}
+  );
+};
 
-export default ShopListItem
+export default ShopListItem;
 
 ShopListItem.propTypes = {
-  candy: PropTypes.object
-}
+  candy: PropTypes.object,
+};
 
 ShopListItem.defaultProps = {
   candy: {
-    brand: {name: "No brand"},
-    imageData: {data: DefaultCandy},
+    brand: { name: "No brand" },
+    imageData: { data: DefaultCandy },
     imageName: "No image",
     name: "No name",
     price: "No price",
     ratings: [],
-    type: {name: "No type"}
-  }
-}
+    type: { name: "No type" },
+  },
+};

@@ -72,6 +72,7 @@ class CandyRepository {
     async readById(id) {
         return await Candy.findOne({
             where: {id},
+            attributes: {exclude: ["brandId", "typeId"]},
             include: [
                 {
                     model: Rating,

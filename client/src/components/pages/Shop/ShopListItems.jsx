@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { readAllCandies } from "../../../redux/features/candies/candiesActionCreators";
@@ -7,7 +7,7 @@ import ShopListItem from "./ShopListItem";
 const ShopListItems = () => {
   const dispatch = useDispatch();
 
-  const { candies, isLoading, currentPage } = useSelector(
+  const { candies, currentPage } = useSelector(
     (state) => state.candies
   );
   const { searchQuery, typeFilter, brandFilter, orderFilter } = useSelector(
@@ -26,27 +26,16 @@ const ShopListItems = () => {
         orderFilter,
       })
     )
-      .unwrap()
-      .catch((error) => {
-        alert(error.message);
-      });
+    .unwrap()
+    .catch((error) => {
+      alert(error);
+    });
+      
   }, [currentPage, searchQuery, typeFilter, brandFilter, orderFilter, dispatch]);
 
   return (
     <Container>
       <Grid container spacing={3}>
-        {isLoading && (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            maxWidth="lg"
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <CircularProgress />
-          </Grid>
-        )}
         {areCandiesNotEmpty ? (
           candies.map((candy) => (
             <Grid key={candy.id} item xs={12} sm={6} md={4}>

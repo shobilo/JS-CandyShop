@@ -4,42 +4,25 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Rating,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { changeCandyRating } from "../../../redux/features/candies/candiesActionCreators";
-import { bytesBufferToBase64 } from "../../../utils/byteArrayToBase64";
 import { getAverageValue } from "../../../utils/getAverageValue";
 
 import DefaultCandy from "../../../static/images/DefaultCandy.svg";
 import ClearLink from "../../UI/ClearLink";
+import { getImage } from "../../../utils/getImage";
+import MUIRating from "../../UI/MUIRating";
 
 const ShopListItem = ({ candy }) => {
-  const dispatch = useDispatch();
-
   const { id, brand, name, type, price, ratings, imageName, imageData } = candy;
   let rating = 0;
-  let imageSrc = DefaultCandy;
 
-  if (imageData) {
-    const base64buffer = bytesBufferToBase64(imageData.data);
-    imageSrc = `data:image/jpg;base64,${base64buffer}`;
-  }
+  const imageSrc = getImage(imageData.data, DefaultCandy)
 
   if (ratings.length > 0) {
     const ratingsArray = ratings.map((rating) => rating.rating);
     rating = getAverageValue(ratingsArray);
   }
-
-  const handleRatingChanged = useCallback((event, newValue) => {
-    dispatch(changeCandyRating({ id, rating: newValue }))
-      .unwrap()
-      .catch((error) => {
-        alert(error.message);
-      });
-  }, [dispatch, id]);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -88,7 +71,10 @@ const ShopListItem = ({ candy }) => {
         <Typography variant="body1" color="text.secondary">
           Rating
         </Typography>
-        <Rating value={rating} onChange={handleRatingChanged} />
+        <MUIRating 
+          id={id}
+          rating={rating}
+        />
       </CardActions>
     </Card>
   );

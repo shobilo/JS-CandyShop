@@ -1,11 +1,12 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { changeCandyRating, readAllCandies } from "./candiesActionCreators";
+import { changeCandyRating, readAllCandies, readCandyById } from "./candiesActionCreators";
 
 const initialState = {
   currentPage: 1,
   totalPages: 0,
   isLoading: false,
   candies: [],
+  candy: {},
   error: "",
   filters: {
     searchQuery: '',
@@ -47,15 +48,18 @@ const candiesSlice = createSlice({
       state.candies = action.payload.candies
       state.totalPages = action.payload.totalPages
     })
+    .addCase(readCandyById.fulfilled, (state, action) => {
+      state.candy = action.payload
+    })
     .addCase(changeCandyRating.fulfilled, () => {
-      
       // const index = action.payload.changedCandyIndex
       // state.candies.candies[index] = action.payload.rating
     })
     .addMatcher(
       isAnyOf(
         readAllCandies.pending,
-        changeCandyRating.pending
+        readCandyById.pending,
+        changeCandyRating.pending,
       ),
       (state) => {
         state.error = "";
@@ -65,6 +69,7 @@ const candiesSlice = createSlice({
     .addMatcher(
       isAnyOf(
         readAllCandies.fulfilled,
+        readCandyById.fulfilled,
         changeCandyRating.fulfilled
       ),
       (state) => {
@@ -75,6 +80,7 @@ const candiesSlice = createSlice({
     .addMatcher(
       isAnyOf(
         readAllCandies.rejected,
+        readCandyById.rejected,
         changeCandyRating.rejected
       ),
       (state, action) => {

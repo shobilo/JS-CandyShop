@@ -32,7 +32,7 @@ const ShopFilterMenu = () => {
     dispatch(readAllFiltersData())
       .unwrap()
       .catch((error) => {
-        alert(error.message);
+        alert(error);
       });
   }, [dispatch]);
 
@@ -61,9 +61,7 @@ const ShopFilterMenu = () => {
       <Container>
         <Grid container direction="column" alignItems="flex-start" spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h6">
-              <CircularProgress />
-            </Typography>
+            <CircularProgress />
           </Grid>
         </Grid>
       </Container>

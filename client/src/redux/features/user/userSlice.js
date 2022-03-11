@@ -12,11 +12,7 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    setIsAdmin: (state, action) => {
-      state.isAdmin = action.payload
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(registration.fulfilled, (state, action) => {
@@ -25,7 +21,8 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isAuth = true
-        state.userData = action.payload
+        state.userData = action.payload.userData
+        state.isAdmin = action.payload.isAdmin
       })
       .addCase(logout.fulfilled, (state) => {
         state.isAuth = false
@@ -34,7 +31,13 @@ const userSlice = createSlice({
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isAuth = true
-        state.userData = action.payload
+        state.userData = action.payload.userData
+        state.isAdmin = action.payload.isAdmin
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.isAuth = false
+        state.isAdmin = false
+        state.userData = {}
       })
       .addMatcher(
         isAnyOf(
@@ -75,5 +78,4 @@ const userSlice = createSlice({
   },
 });
 
-export const {setIsAdmin} = userSlice.actions;
 export default userSlice.reducer;

@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import jwt_decode from "jwt-decode";
 import { $authHost, $host } from "../../../api";
 import roleCheck from "../../../utils/roleCheck";
-import { setIsAdmin } from "./userSlice";
 
 export const registration = createAsyncThunk(
   "user/registration",
@@ -33,11 +32,10 @@ export const login = createAsyncThunk(
 
       const isAdmin = roleCheck(decodedData.roles, "admin")
 
-      if (isAdmin) {
-          thunkAPI.dispatch(setIsAdmin(isAdmin))
+      return {
+        userData: decodedData,
+        isAdmin: isAdmin
       }
-
-      return jwt_decode(data.token);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
@@ -53,7 +51,14 @@ export const checkAuth = createAsyncThunk(
 
       localStorage.setItem("token", data.token);
 
-      return jwt_decode(data.token);
+      const decodedData = jwt_decode(data.token)
+
+      const isAdmin = roleCheck(decodedData.roles, "admin")
+
+      return {
+        userData: decodedData,
+        isAdmin: isAdmin
+      }
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data.message);
     }

@@ -29,6 +29,19 @@ export const readAllCandies = createAsyncThunk(
   }
 )
 
+export const readCandyById = createAsyncThunk(
+  "candies/readCandyById",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await $authHost.get(`candy/${id}`)
+
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+)
+
 export const changeCandyRating = createAsyncThunk(
   "candies/changeCandyRating",
   async (data, thunkAPI) => {

@@ -5,41 +5,43 @@ export const readAllBrands = createAsyncThunk(
   "filtersData/readAllBrands",
   async (_, thunkAPI) => {
     try {
-      const { data } = await $host.get("brand")
+      const { data } = await $host.get("brand");
 
-      return data
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
-)
+);
 
 export const readAllTypes = createAsyncThunk(
   "filtersData/readAllTypes",
   async (_, thunkAPI) => {
     try {
-      const { data } = await $host.get("type")
+      const { data } = await $host.get("type");
 
-      return data
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
-)
+);
 
 export const readAllFiltersData = createAsyncThunk(
   "filterData/readAllFiltersData",
-  async(_, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const { data: types } = await $host.get("type")
-      const { data: brands } = await $host.get("brand")
+      const [{ data: types }, { data: brands }] = await Promise.all([
+        await $host.get("type"),
+        await $host.get("brand"),
+      ]);
 
       return {
         types,
-        brands
-      }
+        brands,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
-)
+);

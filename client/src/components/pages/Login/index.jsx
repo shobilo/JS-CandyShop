@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Paper } from '@mui/material';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
@@ -29,57 +29,59 @@ const Login = () => {
 
   return (
     <Container maxWidth="sm">
-      <Formik
-        initialValues={{
-          ...INITIAL_FORM_STATE
-        }}
-        validationSchema={FORM_VALIDATION_SCHEMA}
-        onSubmit={onFormSubmit}
-      
-      >
-        <Form>
+      <Paper>
+        <Formik
+          initialValues={{
+            ...INITIAL_FORM_STATE
+          }}
+          validationSchema={FORM_VALIDATION_SCHEMA}
+          onSubmit={onFormSubmit}
+        
+        >
+          <Form>
 
-          <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{padding: "15px"}}>
 
-            <Grid item xs={12}>
-              <Typography variant="h4">
-                Login form
-              </Typography>
+              <Grid item xs={12}>
+                <Typography variant="h4">
+                  Login form
+                </Typography>
+              </Grid>
+
+              <Grid item xs={12}>
+                <MUITextfield 
+                  name="email"
+                  label="Email"
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <MUITextfield 
+                  name="password"
+                  label="Password"
+                  type="password"
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <MUISubmitButton>
+                  Submit
+                </MUISubmitButton>
+              </Grid>
+
+              <Grid item xs={6}>
+                <MUIResetButton>
+                  Reset
+                </MUIResetButton>
+              </Grid>
+
             </Grid>
 
-            <Grid item xs={12}>
-              <MUITextfield 
-                name="email"
-                label="Email"
-                required
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <MUITextfield 
-                name="password"
-                label="Password"
-                type="password"
-                required
-              />
-            </Grid>
-
-            <Grid item xs={6}>
-              <MUISubmitButton>
-                Submit
-              </MUISubmitButton>
-            </Grid>
-
-            <Grid item xs={6}>
-              <MUIResetButton>
-                Reset
-              </MUIResetButton>
-            </Grid>
-
-          </Grid>
-
-        </Form>
-      </Formik>
+          </Form>
+        </Formik>
+      </Paper>
     </Container>
   )
 }

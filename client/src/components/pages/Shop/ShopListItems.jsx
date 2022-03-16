@@ -1,7 +1,8 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { readAllCandies } from "../../../redux/features/candies/candiesActionCreators";
+import { resetCandies } from "../../../redux/features/candies/candiesSlice";
 import ShopListItem from "./ShopListItem";
 
 const ShopListItems = () => {
@@ -30,8 +31,13 @@ const ShopListItems = () => {
     .catch((error) => {
       alert(error);
     });
-      
   }, [currentPage, searchQuery, typeFilter, brandFilter, orderFilter, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetCandies())
+    }
+  }, [dispatch])
 
   return (
     <Container>
@@ -44,7 +50,9 @@ const ShopListItems = () => {
           ))
         ) : (
           <Grid item xs={12} sm={6} md={4} sx={{justifyContent: "center"}}>
-            <Typography variant="h4">No candies to show</Typography>
+            <Paper>
+              <Typography variant="h4">No candies to show</Typography>
+            </Paper>
           </Grid>
         )}
       </Grid>

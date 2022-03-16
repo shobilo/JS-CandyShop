@@ -1,42 +1,46 @@
-import * as React from 'react'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import Logo from '../../static/images/CandyShopLogo.svg'
 
 import MUIHeader from '../UI/MUIHeader'
 
+const logo = {
+  src: Logo,
+  alt: "CandyShop"
+}
+const title = "CandyShop"
+
 const Header = () => {
-  const isAuth = useSelector((state) => state.user.isAuth)
-  const isAdmin = useSelector((state) => state.user.isAdmin)
+  const {isAuth, isAdmin } = useSelector((state) => state.user)
   const userName = useSelector((state) => state.user.userData?.name)
-
-  const logo = {
-    src: Logo,
-    alt: "CandyShop"
-  }
-  const title = "CandyShop"
-
-  const pages = [
-    {name: "Main", link: "/"},
-    {name: "About", link: "/about"}
-  ]
-
-  isAdmin && pages.push(
-    {name: "Admin panel", link: "/admin"}
-)
-
-const settings = isAuth 
-  ? 
-    [
-      {name: "Basket", link: "/basket"},
-      {name: "Logout", link: "/logout"}
-    ]
-  :
-    [
-      {name: "Login", link: "/login"},
-      {name: "Register", link: "/registration"}
+  const userSettings = { userName }
+  
+  const pages = useMemo(() => {
+    const pages = [
+      {name: "Main", link: "/"},
+      {name: "About", link: "/about"}
     ]
 
-const userSettings = { userName }
+    isAdmin && pages.push(
+      {name: "Admin panel", link: "/admin"}
+    )
+
+    return pages
+  }, [isAdmin])
+
+  const settings = useMemo(() => {
+    return isAuth 
+    ? 
+      [
+        {name: "Basket", link: "/basket"},
+        {name: "Logout", link: "/logout"}
+      ]
+    :
+      [
+        {name: "Login", link: "/login"},
+        {name: "Register", link: "/registration"}
+      ]
+  }, [isAuth]) 
 
   return (
     <MUIHeader

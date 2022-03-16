@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
-import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
+import { Card, CardContent, Container, Grid, Paper, Typography } from '@mui/material';
 import MUIRating from '../../UI/MUIRating';
 
 
@@ -9,66 +9,68 @@ const CandyInfo = (props) => {
 
   return (
     <Container>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography
-            variant="h3"
-          >
-            {name}
-          </Typography>
+      <Paper>
+        <Grid container spacing={2} sx={{padding: "0.5em", marginTop: "0"}}>
+          <Grid item xs={12}>
+            <Typography
+              variant="h3"
+              component="span"
+            >
+              {name.toUpperCase()}
+            </Typography>
 
-          <Typography variant="body1" color="text.secondary">
-            Rating
-          </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Rating
+            </Typography>
 
-          <MUIRating 
-            id={id} 
-            rating={rating}
-          />
+            <MUIRating 
+              id={id} 
+              rating={rating}
+            />
 
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h4" color="red">
-            {`${price} RUB`}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="button">
-            {"Brand : "}
-            <span>
-              <Typography variant="h6" color="text.primary" display="inline">
-                {brand.name}
-              </Typography>
-            </span>
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="button">
-            {"Type : "}
-            <span>
-              <Typography variant="h6" color="text.primary" display="inline">
-                {type.name}
-              </Typography>
-            </span>
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant='h5'>
-            Properties
-          </Typography>
-          {properties.map((property) => (
-            <Card key={property.id}>
-              <CardContent>
-                <Typography
-                variant='subtitle1'
-                >
-                  {`${property.name} : ${property.description}`}
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h4" color="red">
+              {`${price} RUB`}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="button">
+              {"Brand : "}
+              <span>
+                <Typography variant="h6" color="text.primary" display="inline">
+                  {brand.name}
                 </Typography>
-              </CardContent>
-            </Card>
-          ))}
+              </span>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="button">
+              {"Type : "}
+              <span>
+                <Typography variant="h6" color="text.primary" display="inline">
+                  {type.name}
+                </Typography>
+              </span>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant='h5'>
+              Properties
+            </Typography>
+              {properties?.map((property, index) => (
+                <Typography
+                  component="div"
+                  variant='button'
+                  key={property.id}
+                  sx={{marginTop:"10px"}}
+                >
+                  {`${index + 1}. ${property.name} : ${property.description}`}
+                </Typography>
+              ))}
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </Container>
   )
 }

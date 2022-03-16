@@ -18,7 +18,7 @@ const Shop = () => {
               <ShopListItems />
             </Grid>
             <Grid item xs={12}>
-              <ShopPagination />
+              <ShopPagination paper/>
             </Grid>
           </Grid>
         </Grid>

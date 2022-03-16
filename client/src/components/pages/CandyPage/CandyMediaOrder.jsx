@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card, CardMedia, Container, Grid } from '@mui/material'
+import { Button, ButtonGroup, Card, CardMedia, Container, Grid, Paper } from '@mui/material'
 import React, { useState } from 'react'
 import { useCallback } from 'react'
 import PropTypes from "prop-types";
@@ -36,17 +36,20 @@ const CandyMediaOrder = (props) => {
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <ButtonGroup size="small" aria-label="small outlined button group">
-            <Button 
-            onClick={handleDecrement}
-            disabled={isAllowedToDecrement}
-            >-
-            </Button>
+          <Paper>
+            <ButtonGroup size="small" aria-label="small outlined button group">
+              <Button 
+              onClick={handleDecrement}
+              disabled={isAllowedToDecrement}
+              >-
+              </Button>
 
-            <Button disabled>{candiesCount}</Button>
+              <Button disabled>{candiesCount}</Button>
 
-            <Button onClick={handleIncrement}>+</Button>
-          </ButtonGroup>
+              <Button onClick={handleIncrement}>+</Button>
+            </ButtonGroup>
+          </Paper>
+          
         </Grid>
         <Grid item xs={12}>
           <Button

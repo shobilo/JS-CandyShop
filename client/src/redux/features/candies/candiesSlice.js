@@ -40,6 +40,14 @@ const candiesSlice = createSlice({
       state.filters.typeFilter = ''
       state.filters.brandFilter = ''
       state.filters.orderFilter = ''
+    },
+    resetCandy: (state) => {
+      state.candy = {}
+    },
+    resetCandies: (state) => {
+      state.candies = []
+      state.currentPage = 1
+      state.totalPages = 0
     }
   },
   extraReducers: (builder) => {
@@ -91,5 +99,5 @@ const candiesSlice = createSlice({
   }
 })
 
-export const { setCurrentPage, setBrandFilter, setOrderFilter, setSearchQueryFilter, setTypeFilter, resetFilters } = candiesSlice.actions
+export const { setCurrentPage, setBrandFilter, setOrderFilter, setSearchQueryFilter, setTypeFilter, resetFilters, resetCandy, resetCandies } = candiesSlice.actions
 export default candiesSlice.reducer

@@ -1,5 +1,5 @@
 import { Rating } from '@mui/material'
-import React, { useCallback } from 'react'
+import React, { useCallback, memo } from 'react'
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { changeCandyRating } from '../../redux/features/candies/candiesActionCreators';
@@ -30,7 +30,7 @@ const MUIRating = (props) => {
   )
 }
 
-export default MUIRating
+export default memo(MUIRating)
 
 MUIRating.propTypes = {
   id: PropTypes.PropTypes.oneOfType([

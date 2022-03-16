@@ -6,6 +6,7 @@ import CandyInfo from "./CandyInfo";
 import CandyMediaOrder from "./CandyMediaOrder";
 import { readCandyById } from "../../../redux/features/candies/candiesActionCreators";
 import { getAverageValue } from "../../../utils/getAverageValue";
+import { resetCandy } from "../../../redux/features/candies/candiesSlice";
 
 
 const CandyPage = () => {
@@ -28,6 +29,12 @@ const CandyPage = () => {
         alert(error);
       });
   }, [dispatch, id]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetCandy())
+    }
+  }, [dispatch])
 
   return (
     <Container maxWidth="xl">

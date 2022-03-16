@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, memo } from 'react'
 import PropTypes from 'prop-types'
 
 import AppBar from '@mui/material/AppBar'
@@ -54,7 +54,7 @@ const MUIHeader = (props) => {
               <img 
                   src={logo.src}
                   alt={logo.alt}
-                  height="40vh" 
+                  height="40vh"// 
                 />
               <Typography
                 variant="h6"
@@ -216,4 +216,4 @@ MUIHeader.defaultProps = {
 }
 
 
-export default MUIHeader;
+export default memo(MUIHeader);

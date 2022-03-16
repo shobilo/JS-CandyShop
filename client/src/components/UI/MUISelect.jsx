@@ -1,9 +1,10 @@
-import React from "react";
+import React, {memo} from "react";
 import PropTypes from 'prop-types'
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const MUISelect = ({ value, onChange, options, label, isNone }) => {
   return (
+
     <FormControl sx={{ minWidth: 150 }}>
       <InputLabel id={`select${label}`}>{label}</InputLabel>
       <Select
@@ -33,7 +34,7 @@ const MUISelect = ({ value, onChange, options, label, isNone }) => {
   );
 };
 
-export default MUISelect;
+export default memo(MUISelect);
 
 MUISelect.propTypes = {
   value: PropTypes.string,

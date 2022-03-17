@@ -11,7 +11,12 @@ const initialState = {
 const filtersDataSlice = createSlice({
   name: 'filtersData',
   initialState,
-  reducers: {},
+  reducers: {
+    resetFiltersData: (state) => {
+      state.types = []
+      state.brands = []
+    }
+  },
   extraReducers: (builder) => {
     builder
     .addCase(readAllTypes.fulfilled, (state, action) => {
@@ -57,4 +62,5 @@ const filtersDataSlice = createSlice({
   }
 })
 
+export const { resetFiltersData } = filtersDataSlice.actions
 export default filtersDataSlice.reducer

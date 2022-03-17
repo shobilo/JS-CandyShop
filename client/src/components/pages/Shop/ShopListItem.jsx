@@ -12,6 +12,7 @@ import DefaultCandy from "../../../static/images/DefaultCandy.svg";
 import ClearLink from "../../UI/ClearLink";
 import { getImage } from "../../../utils/getImage";
 import MUIRating from "../../UI/MUIRating";
+import { getTitleCase } from "../../../utils/getTitleCase";
 
 const ShopListItem = ({ candy }) => {
   const { id, brand, name, type, price, ratings, imageName, imageData } = candy;
@@ -28,6 +29,7 @@ const ShopListItem = ({ candy }) => {
     <Card sx={{ maxWidth: 345 }}>
       <ClearLink to={`/candy/${id}`}>
         <CardMedia
+          sx={{padding: "1em", borderRadius: "10em"}}
           component="img"
           height={120}
           image={imageSrc}
@@ -38,7 +40,7 @@ const ShopListItem = ({ candy }) => {
       <CardContent>
         <ClearLink to={`/candy/${id}`}>
           <Typography gutterBottom variant="h4" component="div">
-            {name}
+            {getTitleCase(name)}
           </Typography>
         </ClearLink>
 
@@ -46,7 +48,7 @@ const ShopListItem = ({ candy }) => {
           {"Brand : "}
           <span>
             <Typography variant="h6" color="text.primary" display="inline">
-              {brand.name}
+              {getTitleCase(brand.name)}
             </Typography>
           </span>
         </Typography>
@@ -54,7 +56,7 @@ const ShopListItem = ({ candy }) => {
           {"Type : "}
           <span>
             <Typography variant="h6" color="text.primary" display="inline">
-              {type.name}
+              {getTitleCase(type.name)}
             </Typography>
           </span>
         </Typography>

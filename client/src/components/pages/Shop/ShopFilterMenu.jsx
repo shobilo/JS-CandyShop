@@ -17,6 +17,8 @@ import {
   setTypeFilter,
 } from "../../../redux/features/candies/candiesSlice";
 import { readAllFiltersData } from "../../../redux/features/filtersData/filtersDataActionCreators";
+import { resetFiltersData } from "../../../redux/features/filtersData/filtersDataSlice";
+import { getTitleCase } from "../../../utils/getTitleCase";
 import MUISelect from "../../UI/MUISelect";
 
 const ShopFilterMenu = () => {
@@ -32,14 +34,14 @@ const ShopFilterMenu = () => {
   const memoBrands = useMemo(() => {
     return brands?.map((brand) => ({
       value: `${brand.id}`,
-      label: brand.name,
+      label: getTitleCase(brand.name),
     }));
   }, [brands]);
 
   const memoTypes = useMemo(() => {
     return types?.map((type) => ({
       value: `${type.id}`,
-      label: type.name,
+      label: getTitleCase(type.name),
     }))
   }, [types])
 
@@ -50,6 +52,13 @@ const ShopFilterMenu = () => {
         alert(error);
       });
   }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetFilters())
+      dispatch(resetFiltersData())
+    }
+  }, [dispatch])
 
   const handleSearchFieldChanged = useCallback(
     (event) => {

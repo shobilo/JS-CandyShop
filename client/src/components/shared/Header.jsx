@@ -17,8 +17,8 @@ const Header = () => {
   
   const pages = useMemo(() => {
     const pages = [
-      {name: "Main", link: "/"},
-      {name: "About", link: "/about"}
+      // {name: "Main", link: "/"},
+      // {name: "About", link: "/about"}
     ]
 
     isAdmin && pages.push(

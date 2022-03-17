@@ -10,6 +10,7 @@ const CandyItem = ({ candy }) => {
   const {id, name, price } = candy
   return (
     <ListItem
+      sx={{border: "1px solid black", borderRadius: "0.5em", borderColor: "ButtonShadow"}}
       secondaryAction={
         <>
           <IconButton edge="end" aria-label="change">

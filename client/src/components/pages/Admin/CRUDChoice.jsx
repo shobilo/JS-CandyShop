@@ -2,6 +2,12 @@ import { Button, ButtonGroup, Container, Paper, Typography } from "@mui/material
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 
+const CRUDTypes = [
+  "CANDIES",
+  "TYPES",
+  "BRANDS"
+]
+
 const CRUDChoice = (props) => {
   const {setCurrentCRUD} = props
 
@@ -20,21 +26,14 @@ const CRUDChoice = (props) => {
           color="secondary"
           fullWidth
         >
-          <Button
-            onClick={handleButtonClicked}
-          >
-            Candies
+          {CRUDTypes.map((name, index) => (
+            <Button
+              key={index}
+              onClick={handleButtonClicked}
+            >
+              {name}
           </Button>
-          <Button
-            onClick={handleButtonClicked}
-          >
-            Types
-          </Button>
-          <Button
-            onClick={handleButtonClicked}
-          >
-            Brands
-          </Button>
+          ))}
         </ButtonGroup>
       </Paper>
       

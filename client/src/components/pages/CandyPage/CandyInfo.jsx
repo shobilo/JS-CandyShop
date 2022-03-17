@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
-import { Card, CardContent, Container, Grid, Paper, Typography } from '@mui/material';
+import { Container, Grid, Paper, Typography } from '@mui/material';
 import MUIRating from '../../UI/MUIRating';
 
 
@@ -10,7 +10,7 @@ const CandyInfo = (props) => {
   return (
     <Container>
       <Paper>
-        <Grid container spacing={2} sx={{padding: "0.5em", marginTop: "0"}}>
+        <Grid container spacing={1} sx={{padding: "0.5em", marginTop: "0"}}>
           <Grid item xs={12}>
             <Typography
               variant="h3"
@@ -35,24 +35,29 @@ const CandyInfo = (props) => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="button">
-              {"Brand : "}
-              <span>
-                <Typography variant="h6" color="text.primary" display="inline">
-                  {brand.name}
-                </Typography>
-              </span>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="button">
-              {"Type : "}
-              <span>
-                <Typography variant="h6" color="text.primary" display="inline">
-                  {type.name}
-                </Typography>
-              </span>
-            </Typography>
+            <Grid container spacing={0} sx={{padding: "1em 0 1em 0"}}>
+              <Grid item xs={12}>
+                <Typography variant="button">
+                {"Brand : "}
+                <span>
+                  <Typography variant="h6" color="text.primary" display="inline">
+                    {brand.name}
+                  </Typography>
+                </span>
+              </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="button">
+                {"Type : "}
+                <span>
+                  <Typography variant="h6" color="text.primary" display="inline">
+                    {type.name}
+                  </Typography>
+                </span>
+              </Typography>
+              </Grid>
+            </Grid>
+            
           </Grid>
           <Grid item xs={12}>
             <Typography variant='h5'>

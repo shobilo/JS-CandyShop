@@ -14,13 +14,18 @@ class BrandRepository {
     async update(data) {
         const {id, name} = data
 
-        return await Brand.update({
+        const [count, rows] = await Brand.update({
             name: name
         }, {
             where: {
                 id: id
-            }
+            },
+            returning: true
         })
+
+        const updatedBrand = rows[0]
+
+        return updatedBrand
     }
     
     async delete(data) {

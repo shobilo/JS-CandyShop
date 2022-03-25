@@ -7,16 +7,16 @@ class CandyService {
             throw ApiError.badRequest("Wrong data (empty or invalid)")
         }
 
-        if (!data.image.name.endsWith('.png')) {
+        if (data.image && !data?.image?.name?.endsWith('.png')) {
+            console.log(data)
             throw ApiError.badRequest("Only png files are supported")
         }
 
         try {
-            const properties = data.properties
-            const objectProperties = properties.map(property => JSON.parse(property))
+            const properties = JSON.parse(data?.properties) || []
             const dataWithProperties = {
                 ...data,
-                properties: objectProperties
+                properties: properties
             }
             const repositoryResult = await candyRepository.create(dataWithProperties)
             return repositoryResult
@@ -54,11 +54,56 @@ class CandyService {
         }
     }
 
+    async update(data) {
+        if (!data.id) {
+            throw ApiError.badRequest("Wrong id (empty or invalid)")
+        }
+
+        if (!data.name || !data.price) {
+            throw ApiError.badRequest("Wrong data (empty or invalid)")
+        }
+
+        if (data.image && !data?.image?.name?.endsWith('.png')) {
+            console.log(data.image)
+            throw ApiError.badRequest("Only png files are supported")
+        }
+
+        try {
+            const properties = JSON.parse(data?.properties) || []
+            const dataWithProperties = {
+                ...data,
+                properties: properties
+            }
+            const repositoryResult = await candyRepository.update(dataWithProperties)
+            return repositoryResult
+        } catch (error) {
+            throw ApiError.internal(error.message)
+        }
+    }
+
     async changeRating(data) {
         try {
             const repositoryResult = await candyRepository.changeRating(data)
 
             return repositoryResult
+        } catch (error) {
+            throw ApiError.internal(error.message)
+        }
+    }
+
+    async delete(data) {
+        if (!data.id) {
+            throw ApiError.badRequest("Wrong id (empty or invalid)")
+        }
+
+        try {
+            const deletedRows = await candyRepository.delete(data)
+            
+            if (deletedRows === 0) {
+                throw new Error(`No candy with such id: ${data.id}`)
+            }
+
+            return deletedRows
         } catch (error) {
             throw ApiError.internal(error.message)
         }

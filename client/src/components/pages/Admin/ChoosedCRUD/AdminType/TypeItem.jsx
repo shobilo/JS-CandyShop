@@ -1,32 +1,29 @@
 import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux"
+import PropTypes from "prop-types";
 import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import CakeIcon from '@mui/icons-material/Cake';
 import EditIcon from '@mui/icons-material/Edit';
-import ClearLink from "../../../../UI/ClearLink";
-import { deleteCandy } from "../../../../../redux/features/candies/candiesActionCreators";
-import UpdateCandyModal from "./UpdateCandyModal";
+import { deleteType } from "../../../../../redux/features/filtersData/filtersDataActionCreators";
+import UpdateTypeModal from "./UpdateTypeModal";
 
-const CandyItem = ({ candy }) => {
-  const {id, name, price } = candy
+const TypeTtem = ({ type }) => {
+  const dispatch = useDispatch()
+
+  const { id, name } = type
 
   const [updateModalState, setUpdateModalState] = useState(false)
 
   const handleUpdateModalOpened = useCallback(() => setUpdateModalState(true), [])
   const handleUpdateModalClosed = useCallback(() => setUpdateModalState(false), [])
-
-  const dispatch = useDispatch()
-
   const handleDeleteClicked = useCallback(() => {
-    dispatch(deleteCandy(id))
+    dispatch(deleteType(id))
     .unwrap()
     .catch((error) => {
       alert(error)
     })
   }, [dispatch, id])
-
 
   return (
     <ListItem
@@ -52,29 +49,24 @@ const CandyItem = ({ candy }) => {
       }
     >
       <ListItemAvatar>
-      <ClearLink to={`/candy/${id}`}>
         <Avatar>
           <CakeIcon />
         </Avatar>
-      </ClearLink>
       </ListItemAvatar>
       <ListItemText>
-      <ClearLink to={`/candy/${id}`}>
         <Typography variant="button">
-          {`id: ${id}. Name: ${name} , ${price} RUB`}
+          {`${name}, id: ${id}`}
         </Typography>
-      </ClearLink>
       </ListItemText>
 
-      {updateModalState && <UpdateCandyModal candy={candy} modalState={updateModalState} handleModalClosed={handleUpdateModalClosed} />}
-
+      {updateModalState && <UpdateTypeModal type={type} modalState={updateModalState} handleModalClosed={handleUpdateModalClosed} />}
 
     </ListItem>
   );
 };
 
-export default CandyItem;
+export default TypeTtem;
 
-CandyItem.propTypes = {
-  candy: PropTypes.object.isRequired,
+TypeTtem.propTypes = {
+  type: PropTypes.object.isRequired,
 };

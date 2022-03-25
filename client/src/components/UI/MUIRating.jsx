@@ -24,7 +24,6 @@ const MUIRating = (props) => {
       });
   }, [dispatch, id, rating]);
 
-
   return (
     <Rating value={rating} onChange={handleRatingChanged} />
   )
@@ -43,7 +42,3 @@ MUIRating.propTypes = {
 MUIRating.defaultProps = {
   rating: 0
 }
-
-
-
-

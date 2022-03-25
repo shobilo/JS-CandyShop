@@ -18,8 +18,6 @@ module.exports = function(role) {
 
             const isRoleValid = roleCheck(decoded.roles, role)
 
-            console.log(isRoleValid)
-
             if (!isRoleValid) {
                 next(ApiError.forbiddenAccess("Forbidden access"))
                 

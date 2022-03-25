@@ -32,9 +32,9 @@ class BrandController {
 
     async delete(req, res, next) {
         try {
-            const data = req.body
-            await brandService.delete(data)
-            return res.status(204)
+            const data = req.params
+            const deletedRows = await brandService.delete(data)
+            return res.status(204).json(deletedRows)
         } catch (error) {
             return next(error)
         }

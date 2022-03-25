@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import AdminBrand from './AdminBrand'
 import AdminCandy from './AdminCandy'
 import AdminType from './AdminType'
+import AdminProperty from './AdminProperty';
 
 const ChoosedCRUD = (props) => {
   const {currentCRUD} = props
@@ -16,6 +17,8 @@ const ChoosedCRUD = (props) => {
         return <AdminType />
       case 'BRANDS':
         return <AdminBrand />
+      case 'PROPERTIES':
+        return <AdminProperty />
       default: 
         return (
         <Typography

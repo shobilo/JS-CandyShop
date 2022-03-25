@@ -41,7 +41,7 @@ const CandyInfo = (props) => {
                 {"Brand : "}
                 <span>
                   <Typography variant="h6" color="text.primary" display="inline">
-                    {brand.name}
+                    {brand?.name}
                   </Typography>
                 </span>
               </Typography>
@@ -51,7 +51,7 @@ const CandyInfo = (props) => {
                 {"Type : "}
                 <span>
                   <Typography variant="h6" color="text.primary" display="inline">
-                    {type.name}
+                    {type?.name}
                   </Typography>
                 </span>
               </Typography>

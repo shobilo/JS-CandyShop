@@ -14,18 +14,24 @@ class TypeRepository {
     async update(data) {
         const {id, name} = data
 
-        return await Type.update({
+        const [count, rows] = await Type.update({
             name: name
         }, {
             where: {
                 id: id
-            }
+            },
+            returning: true
         })
+
+        const updatedType = rows[0]
+
+        return updatedType
     }
     
     async delete(data) {
         const {id} = data
-        await Type.destroy({
+
+        return await Type.destroy({
             where: {
                 id: id
             }

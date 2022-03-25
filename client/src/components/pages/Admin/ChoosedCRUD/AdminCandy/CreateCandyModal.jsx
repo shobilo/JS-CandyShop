@@ -7,19 +7,25 @@ import * as Yup from 'yup'
 import MUIModal from "../../../../UI/MUIModal";
 import MUITextfield from "../../../../UI/Forms/MUITextfield";
 import MUISubmitButton from "../../../../UI/Forms/MUISubmitButton";
-import MUIResetButton from "../../../../UI/Forms/MUIResetButton";
 import { readAllFiltersData } from "../../../../../redux/features/filtersData/filtersDataActionCreators";
 import FormSelect from "../../../../UI/Forms/FormSelect";
 import { resetFiltersData } from "../../../../../redux/features/filtersData/filtersDataSlice";
+import FormInputFile from "../../../../UI/Forms/FormInputImage";
+import FormErrorMessage from "../../../../UI/Forms/FormErrorMessage";
+import { createCandy } from "../../../../../redux/features/candies/candiesActionCreators";
+import { getStringifiedObjectOrBase } from "../../../../../utils/getStringifiedObjectOrBase";
+import FormMultiSelectChip from "../../../../UI/Forms/FormMultiSelectChip";
 
 const INITIAL_FORM_STATE = {
   name: '',
   price: '',
-  type: '',
-  brand: '',
-  image: null,
+  typeId: '',
+  brandId: '',
+  image: '',
   properties: [],
 }
+
+const SUPPORTED_IMAGE_FORMATS = ["image/png"]
 
 const FORM_VALIDATION_SCHEMA = Yup.object().shape({
   name: Yup.string()
@@ -29,28 +35,24 @@ const FORM_VALIDATION_SCHEMA = Yup.object().shape({
   price: Yup.number('Only numbers')
     .moreThan(0)
     .required('Required'),
-  type: Yup.number()
+  typeId: Yup.number()
     .moreThan(0)
     .required('Required'),
-  brand: Yup.number()
+  brandId: Yup.number()
     .moreThan(0)
     .required('Required'),
-  properties: Yup.array().of(
-    Yup.object().shape({
-      name: Yup.string()
-        .min(3, 'Min value is 3')
-        .max(20, 'Max value is 20'),
-      description: Yup.string()
-        .min(3, 'Min value is 3')
-        .max(20, 'Max value is 20')
-    })
-  )
+  properties: Yup.array(),
+  image: Yup
+    .mixed()
+    .nullable()
+    .test("FILE_SIZE", "Uploaded file is too big", (value) => !value || (value && (value.size <= 1024 * 1024)))
+    .test("FILE_FORMAT", "Uploaded file has unsupported format", (value) => !value || (value && SUPPORTED_IMAGE_FORMATS.includes(value?.type)))
 })
 
-const AddCandyModal = ({ modalState, handleModalClosed }) => {
+const CreateCandyModal = ({ modalState, handleModalClosed }) => {
   const dispatch = useDispatch()
 
-  const { types, brands, isLoading } = useSelector(
+  const { types, brands, properties, isLoading } = useSelector(
     (state) => state.filtersData
   );
 
@@ -64,20 +66,32 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
 
   useEffect(() => {
     return () => dispatch(resetFiltersData())
-  }, [])
+  }, [dispatch])
 
   const onFormSubmit = useCallback((values) => {
+    const formData = new FormData()
+
+    for (const key in values) {
+      formData.append(key, getStringifiedObjectOrBase(values[key]))
+    }
+
+    dispatch(createCandy(formData))
+    .unwrap()
+    .then(() => {
+      handleModalClosed()
+    })
+    .catch(error => {
+      alert(error)
+    })
     
-  }, [])
+  }, [dispatch, handleModalClosed])
 
   if (isLoading) {
     return (
       <Container>
         <Paper>
           <Grid container direction="column" alignItems="flex-start" spacing={2}>
-            <Grid item xs={12}>
-              <CircularProgress />
-            </Grid>
+            
           </Grid>
         </Paper>
       </Container>
@@ -100,6 +114,11 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
           <Form>
 
             <Grid container spacing={2} sx={{padding: "15px"}}>
+
+              {isLoading ? (
+              <Grid item xs={12}>
+                <CircularProgress />
+              </Grid>) : (<></>)}
 
               <Grid item xs={12}>
                 <Typography variant="h4">
@@ -124,7 +143,7 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
               </Grid>
               <Grid item xs={12}>
                 <FormSelect
-                  name="type"
+                  name="typeId"
                   label="Type"
                   options={types}
                   required
@@ -133,7 +152,7 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
 
               <Grid item xs={12}>
                 <FormSelect
-                  name="brand"
+                  name="brandId"
                   label="Brand"
                   options={brands}
                   required
@@ -141,7 +160,20 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
               </Grid>
 
               <Grid item xs={12}>
-                <input type={"file"}></input>
+                <FormMultiSelectChip
+                  name="properties"
+                  label="Properties"
+                  options={properties}
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <FormInputFile 
+                  name="image"
+                  inputProps={{accept: "image/png"}}
+                />
+                <FormErrorMessage name="image"/>
               </Grid>
 
               <Grid item xs={6}>
@@ -149,13 +181,6 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
                   Submit
                 </MUISubmitButton>
               </Grid>
-
-              <Grid item xs={6}>
-                <MUIResetButton>
-                  Reset
-                </MUIResetButton>
-              </Grid>
-
             </Grid>
           </Form>
         </Formik>
@@ -163,9 +188,9 @@ const AddCandyModal = ({ modalState, handleModalClosed }) => {
   );
 };
 
-export default AddCandyModal;
+export default CreateCandyModal;
 
-AddCandyModal.propTypes = {
+CreateCandyModal.propTypes = {
   modalState: PropTypes.bool.isRequired,
   handleModalClosed: PropTypes.func.isRequired,
 }

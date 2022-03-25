@@ -6,14 +6,14 @@ import ShopPagination from '../../../Shop/ShopPagination'
 import { readAllCandies } from '../../../../../redux/features/candies/candiesActionCreators'
 import { resetCandies, setSearchQueryFilter } from '../../../../../redux/features/candies/candiesSlice'
 import CandyItem from './CandyItem'
-import AddCandyModal from './AddCandyModal'
+import CreateCandyModal from './CreateCandyModal'
 
 
 const AdminCandy = () => {
   const dispatch = useDispatch()
 
-  const { candies } = useSelector((state) => state.candies) 
-  const { searchQuery, currentPage } = useSelector((state) => state.candies.filters)
+  const { candies, currentPage } = useSelector((state) => state.candies) 
+  const { searchQuery } = useSelector((state) => state.candies.filters)
 
   const [modalState, setModalState] = useState(false);
   const handleModalOpened = useCallback(() => setModalState(true), [])
@@ -39,8 +39,6 @@ const AdminCandy = () => {
       dispatch(resetCandies())
     }
   }, [dispatch])
-
-
 
   const handleSearchFieldChanged = useCallback(
     (event) => {
@@ -96,7 +94,7 @@ const AdminCandy = () => {
           <ShopPagination />
         </Grid>
       </Grid>
-      {modalState && <AddCandyModal modalState={modalState} handleModalClosed={handleModalClosed}/>}
+      {modalState && <CreateCandyModal modalState={modalState} handleModalClosed={handleModalClosed}/>}
     </Container>
   )
 }

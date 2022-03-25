@@ -14,19 +14,25 @@ class PropertyRepository {
     async update(data) {
         const {id, name, description} = data
 
-        return await Property.update({
+        const [count, rows] = await Property.update({
             name: name,
             description: description
         }, {
             where: {
                 id: id
-            }
+            },
+            returning: true
         })
+
+        const updatedProperty = rows[0]
+
+        return updatedProperty
     }
     
     async delete(data) {
         const {id} = data
-        await Property.destroy({
+
+        return await Property.destroy({
             where: {
                 id: id
             }

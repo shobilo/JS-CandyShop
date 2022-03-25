@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 const CRUDTypes = [
   "CANDIES",
   "TYPES",
-  "BRANDS"
+  "BRANDS",
+  "PROPERTIES"
 ]
 
 const CRUDChoice = (props) => {

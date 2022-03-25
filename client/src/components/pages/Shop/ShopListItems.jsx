@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { CircularProgress, Container, Grid, Paper, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { readAllCandies } from "../../../redux/features/candies/candiesActionCreators";
@@ -8,7 +8,7 @@ import ShopListItem from "./ShopListItem";
 const ShopListItems = () => {
   const dispatch = useDispatch();
 
-  const { candies, currentPage } = useSelector(
+  const { candies, currentPage, isLoading } = useSelector(
     (state) => state.candies
   );
   const { searchQuery, typeFilter, brandFilter, orderFilter } = useSelector(
@@ -38,6 +38,14 @@ const ShopListItems = () => {
       dispatch(resetCandies())
     }
   }, [dispatch])
+
+  if (isLoading) {
+    return (
+      <Paper sx={{justifyContent: "center", display: "flex"}}>
+        <CircularProgress />
+      </Paper>
+    )
+  }
 
   return (
     <Container>

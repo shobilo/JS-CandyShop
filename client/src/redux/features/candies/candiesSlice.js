@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { changeCandyRating, readAllCandies, readCandyById } from "./candiesActionCreators";
+import { changeCandyRating, createCandy, deleteCandy, readAllCandies, readCandyById, updateCandy } from "./candiesActionCreators";
 
 const initialState = {
   currentPage: 1,
@@ -52,6 +52,9 @@ const candiesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(createCandy.fulfilled, (state, action) => {
+      state.candies.push(action.payload)
+    })
     .addCase(readAllCandies.fulfilled, (state, action) => {
       state.candies = action.payload.candies
       state.totalPages = action.payload.totalPages
@@ -59,15 +62,27 @@ const candiesSlice = createSlice({
     .addCase(readCandyById.fulfilled, (state, action) => {
       state.candy = action.payload
     })
+    .addCase(updateCandy.fulfilled, (state, action) => {
+      const changedCandy = state.candies.find((candy) => candy.id === action.payload.id)
+      for (const item in changedCandy) {
+        changedCandy[item] = action.payload[item]
+      }
+    })
     .addCase(changeCandyRating.fulfilled, () => {
       // const index = action.payload.changedCandyIndex
       // state.candies.candies[index] = action.payload.rating
     })
+    .addCase(deleteCandy.fulfilled, (state, action) => {
+      state.candies = state.candies.filter((candy) => candy.id !== action.payload)
+    })
     .addMatcher(
       isAnyOf(
+        createCandy.pending,
         readAllCandies.pending,
         readCandyById.pending,
         changeCandyRating.pending,
+        updateCandy.pending,
+        deleteCandy.pending,
       ),
       (state) => {
         state.error = "";
@@ -76,9 +91,12 @@ const candiesSlice = createSlice({
     )
     .addMatcher(
       isAnyOf(
+        createCandy.fulfilled,
         readAllCandies.fulfilled,
         readCandyById.fulfilled,
-        changeCandyRating.fulfilled
+        changeCandyRating.fulfilled,
+        updateCandy.fulfilled,
+        deleteCandy.fulfilled,
       ),
       (state) => {
         state.error = "";
@@ -87,9 +105,12 @@ const candiesSlice = createSlice({
     )
     .addMatcher(
       isAnyOf(
+        createCandy.rejected,
         readAllCandies.rejected,
         readCandyById.rejected,
-        changeCandyRating.rejected
+        changeCandyRating.rejected,
+        updateCandy.rejected,
+        deleteCandy.rejected,
       ),
       (state, action) => {
         state.error = action.payload;

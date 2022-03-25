@@ -8,6 +8,8 @@ router.post('/', checkRole('admin'), candyController.create)
 router.post('/rating/:id', authCheck, candyController.changeRating)
 router.get('/', candyController.readAll)
 router.get('/:id', candyController.readById)
+router.put('/:id', checkRole('admin'), candyController.update)
+router.delete('/:id', checkRole('admin'), candyController.delete)
 
 
 module.exports = router

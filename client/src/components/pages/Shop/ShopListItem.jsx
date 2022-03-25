@@ -14,13 +14,13 @@ import { getImage } from "../../../utils/getImage";
 import MUIRating from "../../UI/MUIRating";
 import { getTitleCase } from "../../../utils/getTitleCase";
 
-const ShopListItem = ({ candy }) => {
-  const { id, brand, name, type, price, ratings, imageName, imageData } = candy;
+const ShopListItem = (props) => {
+  const { id, brand, name, type, price, ratings, imageName, imageData } = props?.candy;
   let rating = 0;
 
-  const imageSrc = getImage(imageData.data, DefaultCandy)
+  const imageSrc = getImage(imageData?.data, DefaultCandy)
 
-  if (ratings.length > 0) {
+  if (ratings?.length > 0) {
     const ratingsArray = ratings.map((rating) => rating.rating);
     rating = getAverageValue(ratingsArray);
   }
@@ -48,7 +48,7 @@ const ShopListItem = ({ candy }) => {
           {"Brand : "}
           <span>
             <Typography variant="h6" color="text.primary" display="inline">
-              {getTitleCase(brand.name)}
+              {getTitleCase(brand?.name)}
             </Typography>
           </span>
         </Typography>
@@ -56,7 +56,7 @@ const ShopListItem = ({ candy }) => {
           {"Type : "}
           <span>
             <Typography variant="h6" color="text.primary" display="inline">
-              {getTitleCase(type.name)}
+              {getTitleCase(type?.name)}
             </Typography>
           </span>
         </Typography>

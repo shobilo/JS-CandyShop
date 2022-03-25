@@ -44,7 +44,13 @@ class PropertyService {
         }
 
         try {
-            await propertyRepository.delete(data)
+            const deletedRows = await propertyRepository.delete(data)
+            
+            if (deletedRows === 0) {
+                throw new Error(`No type with such id: ${data.id}`)
+            }
+
+            return deletedRows
         } catch (error) {
             throw ApiError.internal(error.message)
         }

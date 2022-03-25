@@ -10,8 +10,8 @@ const store = configureStore({
     filtersData: filtersDataReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    immutableCheck: { warnAfter: 128 },
-    serializableCheck: { warnAfter: 128 },
+    immutableCheck: { warnAfter: 512 },
+    serializableCheck: { warnAfter: 512 },
   })
 })
 

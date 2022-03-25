@@ -1,25 +1,18 @@
 import React from 'react'
 import { TextField, MenuItem } from '@mui/material'
-import { useCallback } from 'react'
-import { useField, useFormikContext } from 'formik'
+import PropTypes from 'prop-types'
+import { useField } from 'formik'
 import { getTitleCase } from '../../../utils/getTitleCase'
 
 const FormSelect = (props) => {
   const {name, options, ...otherProps} = props
 
-  const { setFieldValue } = useFormikContext()
   const [field, meta] = useField(name)
-
-  const handleChange = useCallback((event) => {
-    const { value } = event.target
-    setFieldValue(name, value)
-  }, [])
 
   const configSelect = {
     select: true,
     variant: 'outlined',
     fullWidth: true,
-    onChange: handleChange,
     ...field,
     ...otherProps,
   }
@@ -43,3 +36,8 @@ const FormSelect = (props) => {
 }
 
 export default FormSelect
+
+FormSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired
+}

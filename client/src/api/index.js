@@ -15,6 +15,18 @@ const authInterceptor = (config) => {
 
 
 $authHost.interceptors.request.use(authInterceptor)
+$authHost.interceptors.response.use(
+  (config) => config,
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem("token");
+      throw error
+    }
+    else {
+      throw error
+    }
+  }
+)
 
 export {
   $host,

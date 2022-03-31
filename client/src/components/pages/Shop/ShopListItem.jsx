@@ -6,8 +6,6 @@ import {
   Typography,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { getAverageValue } from "../../../utils/getAverageValue";
-
 import DefaultCandy from "../../../static/images/DefaultCandy.svg";
 import ClearLink from "../../UI/ClearLink";
 import { getImage } from "../../../utils/getImage";
@@ -15,21 +13,15 @@ import MUIRating from "../../UI/MUIRating";
 import { getTitleCase } from "../../../utils/getTitleCase";
 
 const ShopListItem = (props) => {
-  const { id, brand, name, type, price, ratings, imageName, imageData } = props?.candy;
-  let rating = 0;
+  const { id, brand, name, type, price, averageRating, imageName, imageData } = props?.candy;
 
   const imageSrc = getImage(imageData?.data, DefaultCandy)
 
-  if (ratings?.length > 0) {
-    const ratingsArray = ratings.map((rating) => rating.rating);
-    rating = getAverageValue(ratingsArray);
-  }
-
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, borderRadius: "1rem"}}>
       <ClearLink to={`/candy/${id}`}>
         <CardMedia
-          sx={{padding: "1em", borderRadius: "10em"}}
+          sx={{padding: "1em", borderRadius: "15em"}}
           component="img"
           height={120}
           image={imageSrc}
@@ -63,7 +55,7 @@ const ShopListItem = (props) => {
         <Typography variant="subtitle1">
           {"Price : "}
           <span>
-            <Typography variant="h6" color="text.primary" display="inline">
+            <Typography variant="h6" color="text.primary" display="inline" fontWeight="bold">
               {price} RUB
             </Typography>
           </span>
@@ -75,7 +67,7 @@ const ShopListItem = (props) => {
         </Typography>
         <MUIRating 
           id={id}
-          rating={rating}
+          rating={averageRating}
         />
       </CardActions>
     </Card>

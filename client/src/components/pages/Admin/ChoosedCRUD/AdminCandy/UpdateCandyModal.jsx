@@ -1,22 +1,22 @@
-import { CircularProgress, Grid, Typography } from "@mui/material";
+import {CircularProgress, Grid, Typography} from "@mui/material";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { Formik, Form } from 'formik';
+import React, {useCallback, useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux"
+import {Formik, Form} from 'formik';
 import * as Yup from 'yup'
 import MUIModal from "../../../../UI/MUIModal";
 import MUITextfield from "../../../../UI/Forms/MUITextfield";
 import MUISubmitButton from "../../../../UI/Forms/MUISubmitButton";
-import { readAllFiltersData } from "../../../../../redux/features/filtersData/filtersDataActionCreators";
-import { resetFiltersData } from "../../../../../redux/features/filtersData/filtersDataSlice";
-import { getStringifiedObjectOrBase } from "../../../../../utils/getStringifiedObjectOrBase";
+import {readAllFiltersData} from "../../../../../redux/features/filtersData/filtersDataActionCreators";
+import {resetFiltersData} from "../../../../../redux/features/filtersData/filtersDataSlice";
+import {getStringifiedObjectOrBase} from "../../../../../utils/getStringifiedObjectOrBase";
 import FormSelect from "../../../../UI/Forms/FormSelect";
 import FormMultiSelectChip from "../../../../UI/Forms/FormMultiSelectChip";
 import FormInputFile from "../../../../UI/Forms/FormInputImage";
 import FormErrorMessage from "../../../../UI/Forms/FormErrorMessage";
-import { updateCandy } from "../../../../../redux/features/candies/candiesActionCreators";
+import {updateCandy} from "../../../../../redux/features/candies/candiesActionCreators";
 import DefaultCandy from "../../../../../static/images/DefaultCandy.svg";
-import { getImage } from "../../../../../utils/getImage";
+import {getImage} from "../../../../../utils/getImage";
 
 const SUPPORTED_IMAGE_FORMATS = ["image/png"]
 
@@ -35,7 +35,7 @@ const FORM_VALIDATION_SCHEMA = Yup.object().shape({
     .moreThan(0)
     .required('Required'),
   properties: Yup
-  .array(),
+    .array(),
   image: Yup
     .mixed()
     .nullable()
@@ -43,26 +43,27 @@ const FORM_VALIDATION_SCHEMA = Yup.object().shape({
     .test("FILE_FORMAT", "Uploaded file has unsupported format", (value) => !value || (value && SUPPORTED_IMAGE_FORMATS.includes(value?.type)))
 })
 
-const UpdateCandyModal = ({ candy, modalState, handleModalClosed }) => {
+const UpdateCandyModal = ({candy, modalState, handleModalClosed}) => {
   const dispatch = useDispatch()
-
-  const {id, name, price, brand, type, imageName, imageData} = candy
-
+  
+  const {id, name, price, brand, type, imageName, imageData, properties: candyProperties} = candy
+  
   const imageSrc = getImage(imageData?.data, DefaultCandy)
-
-  const { types, brands, properties, isLoading } = useSelector(
+  const [formikImage, setFormikImage] = useState("")
+  
+  const {types, brands, properties, isLoading} = useSelector(
     (state) => state.filtersData
   );
-
+  
   const INITIAL_FORM_STATE = {
     name: name,
     price: price,
     typeId: type?.id,
     brandId: brand?.id,
     image: '',
-    properties: [],
+    properties: candyProperties,
   }
-
+  
   useEffect(() => {
     dispatch(readAllFiltersData())
       .unwrap()
@@ -70,68 +71,73 @@ const UpdateCandyModal = ({ candy, modalState, handleModalClosed }) => {
         alert(error);
       });
   }, [dispatch]);
-
+  
   useEffect(() => {
     return () => dispatch(resetFiltersData())
   }, [dispatch])
-
+  
   const onFormSubmit = useCallback((values) => {
     const formData = new FormData()
-
+    
     formData.append("id", id)
     for (const key in values) {
       formData.append(key, getStringifiedObjectOrBase(values[key]))
     }
-
+    
     dispatch(updateCandy({id, formData}))
-    .unwrap()
-    .then(() => {
-      handleModalClosed()
-    })
-    .catch(error => {
-      alert(error)
-    })
+      .unwrap()
+      .then(() => {
+        handleModalClosed()
+      })
+      .catch(error => {
+        alert(error)
+      })
     
   }, [dispatch, handleModalClosed, id])
-
+  
+  const handleImageChanged = useCallback((formikActions) =>
+    (formikActions
+      ? setFormikImage(formikActions.values?.image)
+      : setFormikImage("")), [])
+  
   return (
     <MUIModal
-    modalState={modalState} 
-    handleModalClosed={handleModalClosed}
-  >
-    <Formik
+      modalState={modalState}
+      handleModalClosed={handleModalClosed}
+    >
+      <Formik
         initialValues={{
           ...INITIAL_FORM_STATE
         }}
         validationSchema={FORM_VALIDATION_SCHEMA}
         onSubmit={onFormSubmit}
-      
+        innerRef={handleImageChanged}
       >
         <Form>
-
+          
           <Grid container spacing={2} sx={{padding: "15px"}}>
-
+            
             {isLoading ? (
-            <Grid item xs={12}>
-              <CircularProgress />
-            </Grid>) : (<></>)}
-
+              <Grid item xs={12}>
+                <CircularProgress/>
+              </Grid>) : (<></>)}
+            
             <Grid item xs={12}>
               <Typography variant="h4">
                 Update Candy
               </Typography>
             </Grid>
-
+            
             <Grid item xs={12}>
-              <MUITextfield 
+              <MUITextfield
                 name="name"
                 label="Name"
                 required
               />
             </Grid>
-
+            
             <Grid item xs={12}>
-              <MUITextfield 
+              <MUITextfield
                 name="price"
                 label="Price"
                 required
@@ -145,7 +151,7 @@ const UpdateCandyModal = ({ candy, modalState, handleModalClosed }) => {
                 required
               />
             </Grid>
-
+            
             <Grid item xs={12}>
               <FormSelect
                 name="brandId"
@@ -154,7 +160,7 @@ const UpdateCandyModal = ({ candy, modalState, handleModalClosed }) => {
                 required
               />
             </Grid>
-
+            
             <Grid item xs={12}>
               <FormMultiSelectChip
                 name="properties"
@@ -163,24 +169,27 @@ const UpdateCandyModal = ({ candy, modalState, handleModalClosed }) => {
                 required
               />
             </Grid>
-
+            
             <Grid item xs={12}>
-              <FormInputFile 
+              <FormInputFile
                 name="image"
                 inputProps={{accept: "image/png"}}
               />
               <FormErrorMessage name="image"/>
             </Grid>
-
-            <Grid item xs={12} sx={{display: "flex", justifyContent: "center"}}>
-              <img
-                src={imageSrc}
-                alt={imageName}
-                height={140}
-              >
-              </img>
-            </Grid>
-
+            
+            {
+              (formikImage) ? null : (
+                <Grid item xs={12} sx={{display: "flex", justifyContent: "center"}}>
+                  <img
+                    src={imageSrc}
+                    alt={imageName}
+                    height={140}
+                  >
+                  </img>
+                </Grid>
+              )}
+            
             <Grid item xs={6}>
               <MUISubmitButton>
                 Submit
@@ -189,7 +198,7 @@ const UpdateCandyModal = ({ candy, modalState, handleModalClosed }) => {
           </Grid>
         </Form>
       </Formik>
-  </MUIModal>
+    </MUIModal>
   );
 };
 

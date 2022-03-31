@@ -105,7 +105,7 @@ class CandyRepository {
     async update(data) {
         const {id, name, price, imageName, imageData, typeId, brandId, properties} = data
 
-        const [count, rows] = await Candy.update({
+        await Candy.update({
             name,
             price,
             ...(imageName && {imageName}),
@@ -114,12 +114,11 @@ class CandyRepository {
             brandId,
         }, {
             where: {id},
-            returning: true,
         })
 
-        const updatedCandy = rows[0]
+        const updatedCandy = await this.readById(id)
 
-        updatedCandy.setProperties([])
+        await updatedCandy.setProperties([])
         
         properties?.forEach(async (property) => {
             const [ dbProperty ] = await Property.findOrCreate({
@@ -131,7 +130,7 @@ class CandyRepository {
             await updatedCandy.addProperty(dbProperty)
         })
 
-        return this.readById(id)
+        return updatedCandy
     }
 
     async changeRating(data) {
@@ -148,12 +147,14 @@ class CandyRepository {
         })
 
         if (!created) {
-            dbRating.update({
+            await dbRating.update({
                 rating
             })
         }
 
-        return dbRating
+        const changedCandy = await this.readById(candyId)
+
+        return changedCandy
     }
 
     async delete(data) {

@@ -1,4 +1,4 @@
-import { Container, Paper, Typography } from '@mui/material'
+import { Container, Paper } from '@mui/material'
 import React, { useCallback } from 'react'
 import PropTypes from "prop-types";
 import AdminBrand from './AdminBrand'
@@ -19,14 +19,8 @@ const ChoosedCRUD = (props) => {
         return <AdminBrand />
       case 'PROPERTIES':
         return <AdminProperty />
-      default: 
-        return (
-        <Typography
-          variant='h5'
-        >
-          Choose CRUD
-        </Typography>
-        )
+      default:
+        return <AdminCandy />
     }
   }, [])
 

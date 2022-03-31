@@ -5,7 +5,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const MUISelect = ({ value, onChange, options, label, isNone }) => {
   return (
 
-    <FormControl sx={{ minWidth: 150 }}>
+    <FormControl sx={{ minWidth: 150 }} fullWidth>
       <InputLabel id={`select${label}`}>{label}</InputLabel>
       <Select
         sx={{backgroundColor: 'white'}}

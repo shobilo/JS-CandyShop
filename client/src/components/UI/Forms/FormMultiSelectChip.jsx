@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useField } from 'formik'
+import {useField, useFormikContext} from 'formik'
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -10,7 +10,7 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 
 import { getTitleCase } from '../../../utils/getTitleCase'
-import { useCallback } from 'react';
+import {useCallback, useState} from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -34,10 +34,13 @@ function getStyles(option, options, theme) {
 
 const FormMultiSelectChip = (props) => {
   const {name, options, label = "Options", ...otherProps} = props
-
+  
   const theme = useTheme();
-
   const [field, meta] = useField(name)
+  
+  const selectedItems = options.filter((option) => {
+    return field.value.some((value) => value.id === option.id)
+  })
 
   const handleChipViewChange = useCallback((selected) => (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -60,6 +63,7 @@ const FormMultiSelectChip = (props) => {
     renderValue: handleChipViewChange,
     MenuProps: MenuProps,
     ...field,
+    value: selectedItems,
     ...otherProps,
   }
 
@@ -67,7 +71,7 @@ const FormMultiSelectChip = (props) => {
     configMultiSelect.error = true
     configMultiSelect.helperText = meta.error
   }
-
+  
   return (
     <div>
       <FormControl fullWidth>
@@ -79,7 +83,7 @@ const FormMultiSelectChip = (props) => {
             <MenuItem
               key={option?.id}
               value={option}
-              style={getStyles(option, field.value, theme)}
+              style={getStyles(option, options, theme)}
             >
               {getTitleCase(`${option?.name} : ${option?.description}`)}
             </MenuItem>

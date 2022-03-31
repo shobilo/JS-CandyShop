@@ -68,9 +68,9 @@ const candiesSlice = createSlice({
         changedCandy[item] = action.payload[item]
       }
     })
-    .addCase(changeCandyRating.fulfilled, () => {
-      // const index = action.payload.changedCandyIndex
-      // state.candies.candies[index] = action.payload.rating
+    .addCase(changeCandyRating.fulfilled, (state, action) => {
+      const changedCandy = state.candies.find((candy) => candy.id === action.payload.id)
+      changedCandy.averageRating = action.payload.averageRating
     })
     .addCase(deleteCandy.fulfilled, (state, action) => {
       state.candies = state.candies.filter((candy) => candy.id !== action.payload)

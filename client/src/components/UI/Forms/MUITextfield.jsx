@@ -10,6 +10,7 @@ const MUITextfield = (props) => {
   const configTextfield = {
     fullWidth: true,
     variant: 'outlined',
+    inputProps: { maxLength: 20 },
     ...otherProps,
     ...field
   }

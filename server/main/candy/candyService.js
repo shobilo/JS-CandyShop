@@ -35,7 +35,25 @@ class CandyService {
                 query, sort, order, typeId, brandId, limit, offset
             })
 
-            return repositoryResult
+            const repositoryObjects = repositoryResult.rows.map((row) => {
+                const repositoryObject = row.get({ plain: true})
+
+                const sumRating = repositoryObject.ratings.reduce((accum, currValue) => {
+                    return accum + currValue.rating
+                }, 0)
+
+                const averageRating = sumRating / repositoryObject.ratings.length
+
+                delete repositoryObject.ratings
+                repositoryObject.averageRating = averageRating
+
+                return repositoryObject
+            })
+
+            return {
+                count: repositoryResult.count,
+                rows: repositoryObjects
+            }
             
         } catch (error) {
             throw ApiError.internal(error.message)
@@ -47,8 +65,18 @@ class CandyService {
             const {id} = data
 
             const repositoryResult = await candyRepository.readById(id)
+            const repositoryObject = repositoryResult.get({ plain: true })
 
-            return repositoryResult
+            const sumRating = repositoryResult.ratings.reduce((accum, currValue) => {
+                return accum + currValue.rating
+            }, 0)
+
+            const averageRating = sumRating / repositoryObject.ratings.length
+
+            delete repositoryObject.ratings
+            repositoryObject.averageRating = averageRating
+
+            return repositoryObject
         } catch (error) {
             throw ApiError.internal(error.message)
         }
@@ -74,7 +102,9 @@ class CandyService {
                 ...data,
                 properties: properties
             }
+
             const repositoryResult = await candyRepository.update(dataWithProperties)
+            
             return repositoryResult
         } catch (error) {
             throw ApiError.internal(error.message)
@@ -83,9 +113,20 @@ class CandyService {
 
     async changeRating(data) {
         try {
-            const repositoryResult = await candyRepository.changeRating(data)
+            const changedCandyModel = await candyRepository.changeRating(data)
 
-            return repositoryResult
+            const changedCandyObject = changedCandyModel.get({ plain: true })
+
+            const sumRating = changedCandyModel.ratings.reduce((accum, currValue) => {
+                return accum + currValue.rating
+            }, 0)
+
+            const averageRating = sumRating / changedCandyObject.ratings.length
+
+            delete changedCandyObject.ratings
+            changedCandyObject.averageRating = averageRating
+
+            return changedCandyObject
         } catch (error) {
             throw ApiError.internal(error.message)
         }

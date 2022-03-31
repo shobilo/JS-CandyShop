@@ -5,7 +5,7 @@ import MUIRating from '../../UI/MUIRating';
 
 
 const CandyInfo = (props) => {
-  const {id, brand, name, price, properties, rating, type} = props
+  const {id, brand, name, price, properties, averageRating, type} = props
 
   return (
     <Container>
@@ -25,7 +25,7 @@ const CandyInfo = (props) => {
 
             <MUIRating 
               id={id} 
-              rating={rating}
+              rating={averageRating}
             />
 
           </Grid>
@@ -103,7 +103,7 @@ CandyInfo.propTypes = {
       PropTypes.number
     ])
   }),
-  rating: PropTypes.number,
+  averageRating: PropTypes.number,
   properties: PropTypes.arrayOf(
     PropTypes.object
   )
@@ -120,6 +120,6 @@ CandyInfo.defaultProps = {
     name: 'No type',
     id: '0',
   },
-  rating: 0,
+  averageRating: 0,
   properties: []
 }

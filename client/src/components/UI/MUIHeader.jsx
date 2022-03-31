@@ -41,143 +41,146 @@ const MUIHeader = (props) => {
   }, [])
 
   return (
-    <AppBar position="static" style={{ background: "#FFF5EE",}}>
-      <Container maxWidth="xl">
+    <Container maxWidth="lg" sx={{padding: "0px"}}>
+      <AppBar position="static" style={{ background: "#FFF5EE",}}>
+        <Container maxWidth="md">
 
 
-        <Toolbar disableGutters>
+          <Toolbar disableGutters>
+
+              
+
+            <ClearLink to="/">
+              <Stack direction="row"  spacing={2}>
+                <img 
+                    src={logo.src}
+                    alt={logo.alt}
+                    height="40vh"// 
+                  />
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  sx={{ mr: 2, alignItems: "center" ,display: { xs: 'none', md: 'flex' } }}
+                >
+                  {title}
+                </Typography>
+              </Stack>
+              
+            </ClearLink>
 
             
 
-          <ClearLink to="/">
-            <Stack direction="row"  spacing={2}>
-              <img 
-                  src={logo.src}
-                  alt={logo.alt}
-                  height="40vh"// 
-                />
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ mr: 2, alignItems: "center" ,display: { xs: 'none', md: 'flex' } }}
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {title}
-              </Typography>
-            </Stack>
+                <MenuIcon />
+              </IconButton>
+
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <ClearLink to={page.link} key={page.name}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.name}</Typography>
+                    </MenuItem>
+                  </ClearLink>
+                  
+                ))}
+              </Menu>
+            </Box>
+
             
-          </ClearLink>
 
-          
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, color: "black", display: { xs: 'flex', md: 'none' } }}
             >
-              <MenuIcon />
-            </IconButton>
+              {title}
+            </Typography>
 
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <ClearLink to={page.link} key={page.name}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.name}</Typography>
-                  </MenuItem>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'black', display: 'block' }}
+                  >
+                    {page.name}
+                  </Button>
                 </ClearLink>
-                
               ))}
-            </Menu>
-          </Box>
+            </Box>
 
-          
+            <Box sx={{ flexGrow: 0 }}>
+              
+              <Tooltip title="Open user settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'black' }} size="large">
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, color: "black", display: { xs: 'flex', md: 'none' } }}
-          >
-            {title}
-          </Typography>
+                  <Typography textAlign="center">{userName}</Typography>
 
+                  <AccountCircle />
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <ClearLink to={page.link} key={page.name}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
-                >
-                  {page.name}
-                </Button>
-              </ClearLink>
-            ))}
-          </Box>
+                </IconButton>
+              </Tooltip>
 
-          <Box sx={{ flexGrow: 0 }}>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <ClearLink to={setting.link} key={setting.name}>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </MenuItem>
+                  </ClearLink>
+                ))}
+              </Menu>
+
+            </Box>
             
-            <Tooltip title="Open user settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'black' }} size="large">
-
-                <Typography textAlign="center">{userName}</Typography>
-
-                <AccountCircle />
-
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <ClearLink to={setting.link} key={setting.name}>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting.name}</Typography>
-                  </MenuItem>
-                </ClearLink>
-              ))}
-            </Menu>
-
-          </Box>
-          
-        </Toolbar>
-      </Container>
-    </AppBar>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </Container>
+    
   );
 };
 

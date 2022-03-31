@@ -4,6 +4,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import IconButton from "@mui/material/IconButton";
 
 const style = {
   position: "absolute",
@@ -32,6 +33,15 @@ const MUIModal = ({ modalState, handleModalClosed, children }) => {
       >
         <Fade in={modalState}>
           <Box sx={style}>
+            <div
+              style={{display: "flex", justifyContent: "flex-end"}}
+            >
+              <IconButton
+                onClick={handleModalClosed}
+              >
+                X
+              </IconButton>
+            </div>
             {children}
           </Box>
         </Fade>

@@ -1,10 +1,14 @@
 import { Container, Grid, Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, {useCallback, useState} from 'react'
 import ChoosedCRUD from './ChoosedCRUD'
 import CRUDChoice from './CRUDChoice'
 
 const Admin = () => {
-  const [currentCRUD, setCurrentCRUD] = useState('')
+  const [currentCRUD, setCurrentCRUD] = useState('CANDIES')
+
+  const handleCRUDChanged = useCallback((event) => {
+    setCurrentCRUD(event.target.innerText)
+  }, [setCurrentCRUD])
 
   return (
     <Container maxWidth="xl">
@@ -19,7 +23,7 @@ const Admin = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={3}>
-          <CRUDChoice setCurrentCRUD={setCurrentCRUD}/>
+          <CRUDChoice handleCRUDChanged={handleCRUDChanged} currentCRUD={currentCRUD}/>
         </Grid>
         <Grid item xs={12} md={9}>
           <ChoosedCRUD currentCRUD={currentCRUD}/>

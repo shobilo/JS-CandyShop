@@ -15,7 +15,9 @@ const CandyMediaOrder = (props) => {
   const isAllowedToDecrement = candiesCount === 1;
 
   const handleIncrement = useCallback(() => {
-    setCandiesCount(candiesCount + 1)
+    if (candiesCount < 20) {
+      setCandiesCount(candiesCount + 1)
+    }
   }, [candiesCount])
 
   const handleDecrement = useCallback(() => {

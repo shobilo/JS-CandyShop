@@ -31,6 +31,8 @@ export const readAllCandies = createAsyncThunk(
         }
       })
 
+
+
       const totalPages = getPagesCount(data.count, 6)
 
       return {
@@ -67,20 +69,7 @@ export const changeCandyRating = createAsyncThunk(
         rating
       })
 
-      // const state = thunkAPI.getState()
-
-      // const candies = state.candies.candies
-
-      // console.log(candies)
-
-      // const changedCandyIndex = candies.findIndex((candy) => candy.id == serverData.candyId)
-      // candies[changedCandyIndex].ratings.push({rating})
-
-      // console.log(candies[changedCandyIndex])
-
-      return {
-        serverData
-      }
+      return serverData
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }

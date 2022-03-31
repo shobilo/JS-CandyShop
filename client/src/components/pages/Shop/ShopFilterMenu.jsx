@@ -5,8 +5,8 @@ import {
   Grid,
   Paper,
   TextField,
-  Typography,
 } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -107,28 +107,25 @@ const ShopFilterMenu = () => {
   }
 
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Paper sx={{padding: "1em"}}>
-        <Grid container direction="column" alignItems="flex-start" spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h6">Search candy</Typography>
-          </Grid>
-
-          <Grid item xs={12}>
+        <Grid container direction="row" justifyContent="center" spacing={2}>
+          <Grid item xs={12} md={2} alignSelf="flex-start">
             <TextField
               sx={{ minWidth: 150 }}
               id="searchField"
-              label="Search..."
+              label="Search candy by name"
               value={searchQuery}
               onChange={handleSearchFieldChanged}
+              inputProps={{ maxLength: 20 }}
+              InputProps={{
+                startAdornment: (<SearchIcon />)
+              }}
+              fullWidth
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant="h6">Filters</Typography>
-          </Grid>
-
-          <Grid item xs={12}>
+          <Grid item xs={12} md={2}>
             <MUISelect
               value={typeFilter}
               onChange={handleTypeSelected}
@@ -138,7 +135,7 @@ const ShopFilterMenu = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} md={2}>
             <MUISelect
               value={brandFilter}
               onChange={handleBrandSelected}
@@ -148,7 +145,7 @@ const ShopFilterMenu = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} md={2}>
             <MUISelect
               value={orderFilter}
               onChange={handleOrderSelected}
@@ -161,7 +158,7 @@ const ShopFilterMenu = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} md={2} sx={{display: "flex", justifyContent: "flex-start"}}>
             <Button color="error" variant="outlined" onClick={handleResetClicked}>
               Reset
             </Button>

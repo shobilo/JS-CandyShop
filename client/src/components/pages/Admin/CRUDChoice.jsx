@@ -1,5 +1,5 @@
-import { Button, ButtonGroup, Container, Paper, Typography } from "@mui/material";
-import React, { useCallback } from "react";
+import {Container, Paper, Tab, Tabs, Typography} from "@mui/material";
+import React from "react";
 import PropTypes from "prop-types";
 
 const CRUDTypes = [
@@ -10,34 +10,32 @@ const CRUDTypes = [
 ]
 
 const CRUDChoice = (props) => {
-  const {setCurrentCRUD} = props
-
-  const handleButtonClicked = useCallback((event) => {
-    setCurrentCRUD(event.target.innerText)
-  }, [setCurrentCRUD])
-
+  const {currentCRUD, handleCRUDChanged} = props
+  
   return (
-    <Container>
+    <Container maxWidth="xl">
       <Paper sx={{padding: "1em"}}>
         <Typography variant="h5">Open Crud's</Typography>
-        <ButtonGroup
+        <Tabs
           orientation="vertical"
-          aria-label="vertical contained button group"
-          variant="outlined"
-          color="secondary"
-          fullWidth
+          variant="fullWidth"
+          textColor="secondary"
+          indicatorColor="secondary"
+          value={currentCRUD}
+          onChange={handleCRUDChanged}
+          aria-label="Vertical tabs"
+          sx={{borderRight: 1, borderColor: 'divider'}}
         >
           {CRUDTypes.map((name, index) => (
-            <Button
+            <Tab
               key={index}
-              onClick={handleButtonClicked}
-            >
-              {name}
-          </Button>
+              label={name}
+              value={name}
+            />
           ))}
-        </ButtonGroup>
+        </Tabs>
       </Paper>
-      
+    
     </Container>
   );
 };
@@ -45,5 +43,6 @@ const CRUDChoice = (props) => {
 export default CRUDChoice;
 
 CRUDChoice.propTypes = {
-  setCurrentCRUD: PropTypes.func.isRequired
+  handleCRUDChanged: PropTypes.func.isRequired,
+  currentCRUD: PropTypes.string.isRequired
 }

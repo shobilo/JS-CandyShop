@@ -1,16 +1,29 @@
 import { Button, Container, Grid, TextField, Typography } from '@mui/material'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import debounce from 'lodash.debounce'
 import ShopPagination from '../../../Shop/ShopPagination'
 import { readAllCandies } from '../../../../../redux/features/candies/candiesActionCreators'
 import { resetCandies, setSearchQueryFilter } from '../../../../../redux/features/candies/candiesSlice'
 import CandyItem from './CandyItem'
 import CreateCandyModal from './CreateCandyModal'
 
-
 const AdminCandy = () => {
   const dispatch = useDispatch()
+
+  const debouncedRead = useMemo(()=> debounce((currentPage, searchQuery) => {
+        dispatch(
+          readAllCandies({
+            currentPage,
+            searchQuery,
+          })
+        )
+        .unwrap()
+        .catch((error) => {
+          alert(error);
+        });
+      }, 500), [dispatch]);
 
   const { candies, currentPage } = useSelector((state) => state.candies) 
   const { searchQuery } = useSelector((state) => state.candies.filters)
@@ -22,17 +35,8 @@ const AdminCandy = () => {
   const areCandiesNotEmpty = candies.length > 0;
 
   useEffect(() => {
-    dispatch(
-      readAllCandies({
-        currentPage,
-        searchQuery,
-      })
-    )
-    .unwrap()
-    .catch((error) => {
-      alert(error);
-    });
-  }, [currentPage, searchQuery, dispatch]);
+    debouncedRead(currentPage, searchQuery)
+  }, [currentPage, searchQuery, debouncedRead, candies.length]);
 
   useEffect(() => {
     return () => {

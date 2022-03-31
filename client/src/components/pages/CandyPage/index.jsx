@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import CandyInfo from "./CandyInfo";
 import CandyMediaOrder from "./CandyMediaOrder";
 import { readCandyById } from "../../../redux/features/candies/candiesActionCreators";
-import { getAverageValue } from "../../../utils/getAverageValue";
 import { resetCandy } from "../../../redux/features/candies/candiesSlice";
 
 
@@ -14,13 +13,7 @@ const CandyPage = () => {
 
   const { id } = useParams();
   const { candy, isLoading } = useSelector((state) => state.candies);
-  const { brand, name, imageData, imageName, price, properties, ratings, type } = candy
-  let rating = 0
-
-  if (ratings?.length > 0) {
-    const ratingsArray = ratings.map((rating) => rating.rating);
-    rating = getAverageValue(ratingsArray);
-  }
+  const { brand, name, imageData, imageName, price, properties, averageRating, type } = candy
 
   useEffect(() => {
     dispatch(readCandyById(id))
@@ -58,7 +51,7 @@ const CandyPage = () => {
                 name={name}
                 price={price}
                 properties={properties}
-                rating={rating}
+                averageRating={averageRating}
                 type={type}
               />
             </Grid>

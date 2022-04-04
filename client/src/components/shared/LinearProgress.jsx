@@ -7,14 +7,15 @@ const LinearProgressBar = () => {
   const isUserLoading = useSelector((state) => state.user.isLoading)
   const isCandiesLoading = useSelector((state) => state.candies.isLoading)
   
-  if ( isUserLoading || isCandiesLoading ) {
-    return (
-        <LinearProgress color="secondary"/>
-    )
+  const styles = {
+    visibility: ( isUserLoading || isCandiesLoading ) ? 'visible' : 'hidden'
   }
-
+  
   return (
-    null
+    <LinearProgress
+      color="secondary"
+      style={styles}
+    />
   )
 }
 

@@ -129,6 +129,8 @@ class CandyRepository {
             })
             await updatedCandy.addProperty(dbProperty)
         })
+    
+        await updatedCandy.save()
 
         return updatedCandy
     }

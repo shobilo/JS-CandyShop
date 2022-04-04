@@ -42,7 +42,7 @@ const MUIHeader = (props) => {
 
   return (
     <Container maxWidth="lg" sx={{padding: "0px"}}>
-      <AppBar position="static" style={{ background: "#FFF5EE",}}>
+      <AppBar position="static" style={{ background: "#FFF5EE", borderRadius: "0.2rem 0.2rem 1rem 1rem"}}>
         <Container maxWidth="md">
 
 

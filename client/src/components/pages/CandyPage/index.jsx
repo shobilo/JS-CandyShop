@@ -11,17 +11,17 @@ import { resetCandy } from "../../../redux/features/candies/candiesSlice";
 const CandyPage = () => {
   const dispatch = useDispatch();
 
-  const { id } = useParams();
+  const { id: candyId } = useParams();
   const { candy, isLoading } = useSelector((state) => state.candies);
   const { brand, name, imageData, imageName, price, properties, averageRating, type } = candy
-
+  
   useEffect(() => {
-    dispatch(readCandyById(id))
+    dispatch(readCandyById(candyId))
       .unwrap()
       .catch((error) => {
         alert(error);
       });
-  }, [dispatch, id]);
+  }, [dispatch, candyId]);
 
   useEffect(() => {
     return () => {
@@ -39,14 +39,15 @@ const CandyPage = () => {
         ) : (
           <>
             <Grid item xs={12} md={5}>
-              <CandyMediaOrder 
+              <CandyMediaOrder
+                candyId={candyId}
                 imageData={imageData}
                 imageName={imageName}
               />
             </Grid>
             <Grid item xs={12} md={7}>
               <CandyInfo 
-                id={id}
+                id={candyId}
                 brand={brand}
                 name={name}
                 price={price}

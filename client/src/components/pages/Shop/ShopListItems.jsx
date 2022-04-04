@@ -1,4 +1,4 @@
-import {CircularProgress, Container, Grid, Paper, Typography} from "@mui/material";
+import {Container, Grid, Paper, Typography} from "@mui/material";
 import React, {useEffect, useMemo} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import debounce from 'lodash.debounce'
@@ -9,7 +9,7 @@ import ShopListItem from "./ShopListItem";
 const ShopListItems = () => {
   const dispatch = useDispatch();
   
-  const {candies, currentPage, isLoading} = useSelector(
+  const {candies, currentPage} = useSelector(
     (state) => state.candies
   );
   const {searchQuery, typeFilter, brandFilter, orderFilter} = useSelector(
@@ -44,16 +44,8 @@ const ShopListItems = () => {
     }
   }, [dispatch])
   
-  if (isLoading) {
-    return (
-      <Paper sx={{justifyContent: "center", display: "flex"}}>
-        <CircularProgress/>
-      </Paper>
-    )
-  }
-  
   return (
-    <Container>
+    <Container maxWidth="xl">
       <Grid container spacing={3} justifyContent="flex-start">
         {areCandiesNotEmpty ? (
           candies.map((candy) => (

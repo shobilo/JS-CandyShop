@@ -33,7 +33,7 @@ const CandyItem = ({ candy }) => {
       .catch((error) => {
         alert(error)
       })
-  }, [dispatch, id])
+  }, [dispatch, id, handleDeleteModalClosed])
   
   return (
     <ListItem

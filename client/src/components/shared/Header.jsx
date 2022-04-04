@@ -11,7 +11,7 @@ const logo = {
 const title = "CandyShop"
 
 const Header = () => {
-  const {isAuth, isAdmin } = useSelector((state) => state.user)
+  const {isAuth, isAdmin} = useSelector((state) => state.user)
   const userName = useSelector((state) => state.user.userData?.name)
   const userSettings = { userName }
   
@@ -20,13 +20,17 @@ const Header = () => {
       // {name: "Main", link: "/"},
       // {name: "About", link: "/about"}
     ]
+  
+    isAuth && pages.push(
+      {name: "Basket", link: "/basket"},
+    )
 
     isAdmin && pages.push(
       {name: "Admin panel", link: "/admin"}
     )
-
+    
     return pages
-  }, [isAdmin])
+  }, [isAdmin, isAuth])
 
   const settings = useMemo(() => {
     return isAuth 

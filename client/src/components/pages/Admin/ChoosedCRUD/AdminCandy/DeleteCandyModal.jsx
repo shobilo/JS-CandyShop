@@ -1,6 +1,7 @@
 import React from 'react';
 import MUIModal from "../../../../UI/MUIModal";
 import {Button, Grid, Typography} from "@mui/material";
+import PropTypes from "prop-types";
 
 function DeleteCandyModal(props) {
   const { modalState, handleModalClosed, handleDeleteClicked } = props
@@ -43,3 +44,9 @@ function DeleteCandyModal(props) {
 }
 
 export default DeleteCandyModal;
+
+DeleteCandyModal.propTypes = {
+  modalState: PropTypes.bool.isRequired,
+  handleModalClosed: PropTypes.func.isRequired,
+  handleDeleteClicked: PropTypes.func.isRequired
+}

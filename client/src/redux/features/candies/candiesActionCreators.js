@@ -19,7 +19,7 @@ export const readAllCandies = createAsyncThunk(
   "candies/readAllCandies",
   async (filterData, thunkAPI) => {
     try {
-      const { searchQuery, typeFilter, brandFilter, orderFilter, currentPage } = filterData
+      const { searchQuery, typeFilter, brandFilter, orderFilter, currentPage = 1 } = filterData
 
       const { data } = await $host.get("candy", {
         params: {
@@ -30,8 +30,6 @@ export const readAllCandies = createAsyncThunk(
           ...(orderFilter && {order: orderFilter}),
         }
       })
-
-
 
       const totalPages = getPagesCount(data.count, 6)
 

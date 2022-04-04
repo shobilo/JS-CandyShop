@@ -94,7 +94,7 @@ const ShopFilterMenu = () => {
 
   if (isLoading) {
     return (
-      <Container>
+      <Container maxWidth="xl">
         <Paper>
           <Grid container direction="column" alignItems="flex-start" spacing={2}>
             <Grid item xs={12}>
@@ -108,7 +108,7 @@ const ShopFilterMenu = () => {
 
   return (
     <Container maxWidth="lg">
-      <Paper sx={{padding: "1em"}}>
+      <Paper sx={{padding: "1em", borderRadius: "1rem"}}>
         <Grid container direction="row" justifyContent="center" spacing={2}>
           <Grid item xs={12} md={2} alignSelf="flex-start">
             <TextField

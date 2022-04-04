@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import {useField, useFormikContext} from 'formik'
-import { useTheme } from '@mui/material/styles';
+import {useField} from 'formik'
+import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -9,8 +9,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 
-import { getTitleCase } from '../../../utils/getTitleCase'
-import {useCallback, useState} from 'react';
+import {getTitleCase} from '../../../utils/getTitleCase'
+import {useCallback} from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -26,7 +26,7 @@ const MenuProps = {
 function getStyles(option, options, theme) {
   return {
     fontWeight:
-    options.indexOf(option) === -1
+      options.indexOf(option) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -41,32 +41,32 @@ const FormMultiSelectChip = (props) => {
   const selectedItems = options.filter((option) => {
     return field.value.some((value) => value.id === option.id)
   })
-
+  
   const handleChipViewChange = useCallback((selected) => (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+    <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
       {selected.map((option) => (
-        <Chip 
-          key={option.id} 
-          label={getTitleCase(`${option?.name} : ${option?.description}`)} 
+        <Chip
+          key={option.id}
+          label={getTitleCase(`${option?.name} : ${option?.description}`)}
         />
       ))}
     </Box>
   ), [])
-
+  
   const configMultiSelect = {
     multiple: true,
     variant: 'outlined',
     fullWidth: true,
-    labelId:`multiple-chip-label-${name}`,
-    id:`multiple-chip-${name}`,
-    input: <OutlinedInput id="select-multiple-chip" label={label} />,
+    labelId: `multiple-chip-label-${name}`,
+    id: `multiple-chip-${name}`,
+    input: <OutlinedInput id="select-multiple-chip" label={label}/>,
     renderValue: handleChipViewChange,
     MenuProps: MenuProps,
     ...field,
     value: selectedItems,
     ...otherProps,
   }
-
+  
   if (meta && meta.touched && meta.error) {
     configMultiSelect.error = true
     configMultiSelect.helperText = meta.error

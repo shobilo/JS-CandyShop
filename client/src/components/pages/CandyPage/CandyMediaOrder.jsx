@@ -5,24 +5,42 @@ import PropTypes from "prop-types";
 
 import DefaultCandy from "../../../static/images/DefaultCandy.svg"
 import { getImage } from '../../../utils/getImage'
+import {useDispatch} from "react-redux";
+import {updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 
 const CandyMediaOrder = (props) => {
-  const { imageData, imageName } = props
+  const { imageData, imageName, candyId} = props
+  
+  const dispatch = useDispatch()
 
-  const [candiesCount, setCandiesCount] = useState(1)
+  const [quantity, setQuantity] = useState(1)
 
   const imageSrc = getImage(imageData?.data, DefaultCandy)
-  const isAllowedToDecrement = candiesCount === 1;
+  const isAllowedToDecrement = quantity === 1;
 
   const handleIncrement = useCallback(() => {
-    if (candiesCount < 20) {
-      setCandiesCount(candiesCount + 1)
+    if (quantity < 20) {
+      setQuantity(quantity + 1)
     }
-  }, [candiesCount])
+  }, [quantity])
 
   const handleDecrement = useCallback(() => {
-    setCandiesCount(candiesCount - 1)
-  }, [candiesCount])
+    setQuantity(quantity - 1)
+  }, [quantity])
+  
+  const handleSubmitClicked = useCallback(() => {
+    dispatch(updateBasketCandies({
+      candyId,
+      quantity
+    }))
+      .unwrap()
+      .then()
+      .catch((error) => {
+        alert(error)
+      })
+    
+    setQuantity(1)
+  }, [candyId, quantity, dispatch])
 
   return (
     <Container >
@@ -46,7 +64,7 @@ const CandyMediaOrder = (props) => {
               >-
               </Button>
 
-              <Button disabled>{candiesCount}</Button>
+              <Button disabled>{quantity}</Button>
 
               <Button onClick={handleIncrement}>+</Button>
             </ButtonGroup>
@@ -55,6 +73,7 @@ const CandyMediaOrder = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Button
+            onClick={handleSubmitClicked}
             variant='contained'
             color='success'
           >

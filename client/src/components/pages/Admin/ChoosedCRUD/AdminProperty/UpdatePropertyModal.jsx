@@ -37,7 +37,7 @@ const UpdatePropertyModal = ({ property, modalState, handleModalClosed }) => {
       handleModalClosed()
     })
     .catch(error => {
-      alert(error)
+      console.error(error)
     })
   }, [dispatch, handleModalClosed, id])
 

@@ -18,13 +18,13 @@ const Login = () => {
 
   const onFormSubmit = useCallback((values) => {
     dispatch(login(values))
-    .unwrap()
-    .then(() => {
-      navigate("/")
-    })
-    .catch((error) => {
-      alert( error )
-    })
+      .unwrap()
+      .then(() => {
+        navigate("/")
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }, [dispatch, navigate])
 
   return (

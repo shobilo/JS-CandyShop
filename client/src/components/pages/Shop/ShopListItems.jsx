@@ -30,7 +30,7 @@ const ShopListItems = () => {
     )
       .unwrap()
       .catch((error) => {
-        alert(error);
+        console.error(error);
       });
   }, 500), [dispatch, typeFilter, brandFilter, orderFilter]);
   

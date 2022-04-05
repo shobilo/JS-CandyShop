@@ -37,7 +37,7 @@ const BasketItem = ({candy, quantity}) => {
       .unwrap()
       .then()
       .catch((error) => {
-        alert(error)
+        console.error(error)
       })
   }, 500), [dispatch]);
   
@@ -57,7 +57,7 @@ const BasketItem = ({candy, quantity}) => {
     dispatch(deleteBasketCandies({candyId: id}))
       .unwrap()
       .catch((error) => {
-        alert(error)
+        console.error(error)
       })
   }, [dispatch, id])
   

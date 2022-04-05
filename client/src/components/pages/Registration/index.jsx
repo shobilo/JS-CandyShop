@@ -22,9 +22,9 @@ const Registration = () => {
     .then(() => {
       navigate("/")
     })
-    .catch((error) => {
-      alert(error.message)
-    })
+      .catch(error => {
+        console.error(error)
+      })
   }, [dispatch, navigate])
 
   return (

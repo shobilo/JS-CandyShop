@@ -60,7 +60,7 @@ const CreateCandyModal = ({ modalState, handleModalClosed }) => {
     dispatch(readAllFiltersData())
       .unwrap()
       .catch((error) => {
-        alert(error);
+        console.error(error);
       });
   }, [dispatch]);
 
@@ -81,7 +81,7 @@ const CreateCandyModal = ({ modalState, handleModalClosed }) => {
       handleModalClosed()
     })
     .catch(error => {
-      alert(error)
+      console.error(error)
     })
     
   }, [dispatch, handleModalClosed])

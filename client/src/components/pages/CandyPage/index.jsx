@@ -20,7 +20,7 @@ const CandyPage = () => {
     dispatch(readCandyById(candyId))
       .unwrap()
       .catch((error) => {
-        alert(error);
+        console.error(error);
       });
   }, [dispatch, candyId]);
 

@@ -22,7 +22,7 @@ const AdminType = () => {
     dispatch(readAllTypes())
     .unwrap()
     .catch((error) => {
-      alert(error);
+      console.error(error);
     });
   }, [dispatch]);
 

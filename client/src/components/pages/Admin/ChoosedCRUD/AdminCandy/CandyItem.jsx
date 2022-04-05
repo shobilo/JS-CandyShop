@@ -31,7 +31,7 @@ const CandyItem = ({ candy }) => {
         handleDeleteModalClosed()
       })
       .catch((error) => {
-        alert(error)
+        console.error(error)
       })
   }, [dispatch, id, handleDeleteModalClosed])
   

@@ -22,7 +22,7 @@ const AdminProperty = () => {
     dispatch(readAllProperties())
     .unwrap()
     .catch((error) => {
-      alert(error);
+      console.error(error);
     });
   }, [dispatch]);
 

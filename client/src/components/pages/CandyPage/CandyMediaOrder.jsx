@@ -35,7 +35,7 @@ const CandyMediaOrder = (props) => {
       .unwrap()
       .then()
       .catch((error) => {
-        alert(error)
+        console.error(error)
       })
     
     setQuantity(1)

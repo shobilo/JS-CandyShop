@@ -21,7 +21,7 @@ const AdminCandy = () => {
         )
         .unwrap()
         .catch((error) => {
-          alert(error);
+          console.error(error);
         });
       }, 500), [dispatch]);
 

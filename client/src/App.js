@@ -9,6 +9,7 @@ import Header from "./components/shared/Header"
 import LinearProgress from "./components/shared/LinearProgress"
 import {checkAuth, logout} from "./redux/features/user/userActionCreators"
 import ErrorBoundary from "./components/pages/ErrorPage/ErrorBoundary";
+import ErrorNotification from "./components/shared/ErrorNotification";
 
 function App() {
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ function App() {
           </Grid>
         </ErrorBoundary>
       </Container>
+      <ErrorNotification />
     </BrowserRouter>
   )
 }

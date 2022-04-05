@@ -22,7 +22,7 @@ const PropertyTtem = ({ property }) => {
     dispatch(deleteProperty(id))
     .unwrap()
     .catch((error) => {
-      alert(error)
+      console.error(error)
     })
   }, [dispatch, id])
 

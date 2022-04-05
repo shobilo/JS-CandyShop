@@ -30,7 +30,7 @@ const CreateBrandModal = ({ modalState, handleModalClosed }) => {
       handleModalClosed()
     })
     .catch(error => {
-      alert(error)
+      console.error(error)
     })
   }, [dispatch, handleModalClosed])
 

@@ -21,7 +21,7 @@ const TypeTtem = ({ type }) => {
     dispatch(deleteType(id))
     .unwrap()
     .catch((error) => {
-      alert(error)
+      console.error(error)
     })
   }, [dispatch, id])
 

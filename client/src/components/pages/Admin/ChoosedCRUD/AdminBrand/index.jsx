@@ -22,7 +22,7 @@ const AdminBrand = () => {
     dispatch(readAllBrands())
     .unwrap()
     .catch((error) => {
-      alert(error);
+      console.error(error);
     });
   }, [dispatch]);
 

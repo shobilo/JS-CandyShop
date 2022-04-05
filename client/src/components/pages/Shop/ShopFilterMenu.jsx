@@ -49,7 +49,7 @@ const ShopFilterMenu = () => {
     dispatch(readAllFiltersData())
       .unwrap()
       .catch((error) => {
-        alert(error);
+        console.error(error);
       });
   }, [dispatch]);
 

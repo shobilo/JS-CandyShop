@@ -23,7 +23,7 @@ const Header = () => {
       dispatch(readBasketCandies())
         .unwrap()
         .catch((error) => {
-          alert(error)
+          console.error(error)
         })
     } else {
       dispatch(resetBasketCandies())

@@ -31,7 +31,7 @@ const UpdateBrandModal = ({ brand, modalState, handleModalClosed }) => {
       handleModalClosed()
     })
     .catch(error => {
-      alert(error)
+      console.error(error)
     })
   }, [dispatch, handleModalClosed, id])
 

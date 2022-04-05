@@ -21,7 +21,7 @@ const BrandTtem = ({ brand }) => {
     dispatch(deleteBrand(id))
     .unwrap()
     .catch((error) => {
-      alert(error)
+      console.error(error)
     })
   }, [dispatch, id])
 

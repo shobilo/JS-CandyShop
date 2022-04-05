@@ -20,7 +20,7 @@ const MUIRating = (props) => {
     dispatch(changeCandyRating({ id, rating: userRating }))
       .unwrap()
       .catch((error) => {
-        alert(error);
+        console.error(error)
       });
   }, [dispatch, id, rating]);
 

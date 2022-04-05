@@ -1,11 +1,12 @@
 import { CircularProgress, Container, Grid } from "@mui/material";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import CandyInfo from "./CandyInfo";
 import CandyMediaOrder from "./CandyMediaOrder";
 import { readCandyById } from "../../../redux/features/candies/candiesActionCreators";
 import { resetCandy } from "../../../redux/features/candies/candiesSlice";
+import BackButton from "../../UI/BackButton";
 
 
 const CandyPage = () => {
@@ -39,11 +40,14 @@ const CandyPage = () => {
         ) : (
           <>
             <Grid item xs={12} md={5}>
-              <CandyMediaOrder
-                candyId={candyId}
-                imageData={imageData}
-                imageName={imageName}
-              />
+              <div style={{display: "flex"}}>
+                <BackButton path="/"/>
+                <CandyMediaOrder
+                  candyId={candyId}
+                  imageData={imageData}
+                  imageName={imageName}
+                />
+              </div>
             </Grid>
             <Grid item xs={12} md={7}>
               <CandyInfo 

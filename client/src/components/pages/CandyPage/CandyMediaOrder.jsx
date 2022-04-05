@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Card, CardMedia, Container, Grid, Paper } from '@mui/material'
+import {Button, ButtonGroup, Card, CardMedia, Container, Grid, Paper, Typography} from '@mui/material'
 import React, { useState } from 'react'
 import { useCallback } from 'react'
 import PropTypes from "prop-types";
@@ -12,7 +12,6 @@ const CandyMediaOrder = (props) => {
   const { imageData, imageName, candyId} = props
   
   const dispatch = useDispatch()
-
   const [quantity, setQuantity] = useState(1)
 
   const imageSrc = getImage(imageData?.data, DefaultCandy)
@@ -64,7 +63,11 @@ const CandyMediaOrder = (props) => {
               >-
               </Button>
 
-              <Button disabled>{quantity}</Button>
+              <Button disabled>
+                <Typography fontWeight="normal" color="black">
+                  {quantity}
+                </Typography>
+              </Button>
 
               <Button onClick={handleIncrement}>+</Button>
             </ButtonGroup>

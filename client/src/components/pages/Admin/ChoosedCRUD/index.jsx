@@ -28,7 +28,7 @@ const ChoosedCRUD = (props) => {
 
   return (
     <Container>
-      <Paper sx={{padding: "1em"}}>
+      <Paper sx={{padding: "1em", borderRadius: "2rem"}}>
         {CrudContent}
       </Paper>
     </Container>

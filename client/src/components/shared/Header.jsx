@@ -1,8 +1,10 @@
-import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import {useEffect, useMemo} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import Logo from '../../static/images/CandyShopLogo.svg'
 
 import MUIHeader from '../UI/MUIHeader'
+import {readBasketCandies} from "../../redux/features/basket/basketActionCreators";
+import {resetBasketCandies} from "../../redux/features/basket/basketSlice";
 
 const logo = {
   src: Logo,
@@ -11,9 +13,22 @@ const logo = {
 const title = "CandyShop"
 
 const Header = () => {
+  const dispatch = useDispatch()
   const {isAuth, isAdmin} = useSelector((state) => state.user)
   const userName = useSelector((state) => state.user.userData?.name)
   const userSettings = { userName }
+  
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(readBasketCandies())
+        .unwrap()
+        .catch((error) => {
+          alert(error)
+        })
+    } else {
+      dispatch(resetBasketCandies())
+    }
+  }, [dispatch, isAuth])
   
   const pages = useMemo(() => {
     const pages = [

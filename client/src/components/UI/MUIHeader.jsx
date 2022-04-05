@@ -44,11 +44,8 @@ const MUIHeader = (props) => {
     <Container maxWidth="lg" sx={{padding: "0px"}}>
       <AppBar position="static" style={{ background: "#FFF5EE", borderRadius: "0.2rem 0.2rem 1rem 1rem"}}>
         <Container maxWidth="md">
-
-
+          
           <Toolbar disableGutters>
-
-              
 
             <ClearLink to="/">
               <Stack direction="row"  spacing={2}>
@@ -68,9 +65,7 @@ const MUIHeader = (props) => {
               </Stack>
               
             </ClearLink>
-
             
-
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -111,9 +106,7 @@ const MUIHeader = (props) => {
                 ))}
               </Menu>
             </Box>
-
             
-
             <Typography
               variant="h6"
               noWrap
@@ -122,8 +115,7 @@ const MUIHeader = (props) => {
             >
               {title}
             </Typography>
-
-
+            
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <ClearLink to={page.link} key={page.name}>
@@ -140,7 +132,7 @@ const MUIHeader = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               
               <Tooltip title="Open user settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'black' }} size="large">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: '0.5rem', color: 'black', borderRadius: '0.5rem' }} size="large">
 
                   <Typography textAlign="center">{userName}</Typography>
 

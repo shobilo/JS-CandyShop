@@ -55,7 +55,6 @@ const ShopFilterMenu = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(resetFilters())
       dispatch(resetFiltersData())
     }
   }, [dispatch])

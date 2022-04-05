@@ -24,9 +24,11 @@ class BrandService {
         return accum + (+currValue.candy.price * currValue.quantity)
       }, 0)
       
+      const totalPriceRounded = Math.ceil((totalPrice)*100)/100
+      
       return {
         candies: basketCandiesObjectsArray,
-        totalPrice: totalPrice
+        totalPrice: totalPriceRounded
       }
     } catch (error) {
       throw ApiError.internal((error.message))

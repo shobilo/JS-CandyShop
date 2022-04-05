@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -17,40 +17,41 @@ import DefaultCandy from "../../../static/images/DefaultCandy.svg"
 import {getTitleCase} from "../../../utils/getTitleCase";
 import {useDispatch} from "react-redux";
 import {deleteBasketCandies, updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
+import debounce from "lodash.debounce";
+import {readAllCandies} from "../../../redux/features/candies/candiesActionCreators";
 
 const BasketItem = ({candy, quantity}) => {
   const {id, name, imageData, imageName, price} = candy
   
   const dispatch = useDispatch()
+  const [visibleQuantity, setVisibleQuantity] = useState(quantity)
   
   const imageSrc = getImage(imageData?.data, DefaultCandy)
-  const isAllowedToDecrement = quantity === 1;
+  const isAllowedToDecrement = visibleQuantity === 1;
   
-  const handleIncrement = useCallback(() => {
-    if (quantity < 20) {
-      dispatch(updateBasketCandies({
-        candyId: id,
-        quantity: quantity + 1
-      }))
-        .unwrap()
-        .then()
-        .catch((error) => {
-          alert(error)
-        })
-    }
-  }, [dispatch, quantity, id])
-  
-  const handleDecrement = useCallback(() => {
+  const debouncedUpdate = useMemo(() => debounce((id, visibleQuantity) => {
     dispatch(updateBasketCandies({
       candyId: id,
-      quantity: quantity - 1
+      quantity: visibleQuantity
     }))
       .unwrap()
       .then()
       .catch((error) => {
         alert(error)
       })
-  }, [dispatch, quantity, id])
+  }, 500), [dispatch]);
+  
+  const handleIncrement = useCallback(() => {
+    if (visibleQuantity < 20) {
+      setVisibleQuantity(visibleQuantity + 1)
+      debouncedUpdate(id, visibleQuantity + 1)
+    }
+  }, [debouncedUpdate, visibleQuantity, id])
+  
+  const handleDecrement = useCallback(() => {
+    setVisibleQuantity(visibleQuantity - 1)
+    debouncedUpdate(id, visibleQuantity - 1)
+  }, [debouncedUpdate, visibleQuantity, id ])
   
   const handleDelete = useCallback(() => {
     dispatch(deleteBasketCandies({candyId: id}))
@@ -72,7 +73,11 @@ const BasketItem = ({candy, quantity}) => {
             >-
             </Button>
     
-            <Button disabled>{quantity}</Button>
+            <Button disabled>
+              <Typography fontWeight="normal" color="black">
+                {visibleQuantity}
+              </Typography>
+            </Button>
     
             <Button onClick={handleIncrement}>+</Button>
           </ButtonGroup>

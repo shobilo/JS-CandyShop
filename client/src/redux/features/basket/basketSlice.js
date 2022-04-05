@@ -53,4 +53,5 @@ const basketSlice = createSlice({
   })
 })
 
+export const {resetBasketCandies} = basketSlice.actions
 export default basketSlice.reducer

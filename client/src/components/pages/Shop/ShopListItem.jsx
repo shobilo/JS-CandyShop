@@ -1,4 +1,5 @@
 import {
+  Button, ButtonGroup,
   Card,
   CardActions,
   CardContent,
@@ -11,6 +12,7 @@ import ClearLink from "../../UI/ClearLink";
 import { getImage } from "../../../utils/getImage";
 import MUIRating from "../../UI/MUIRating";
 import { getTitleCase } from "../../../utils/getTitleCase";
+import React from "react";
 
 const ShopListItem = (props) => {
   const { id, brand, name, type, price, averageRating, imageName, imageData } = props?.candy;
@@ -30,11 +32,25 @@ const ShopListItem = (props) => {
       </ClearLink>
       
       <CardContent>
-        <ClearLink to={`/candy/${id}`}>
-          <Typography gutterBottom variant="h4" component="div">
-            {getTitleCase(name)}
-          </Typography>
-        </ClearLink>
+        
+        <div>
+          <div style={{margin: "0rem 0rem -1rem 0rem"}}>
+            <ClearLink to={`/candy/${id}`}>
+              <Typography gutterBottom variant="h4" component="div">
+                {getTitleCase(name)}
+              </Typography>
+            </ClearLink>
+          </div>
+          <div style={{margin: "0rem 0rem 0.5rem 0rem"}}>
+            <MUIRating
+              id={id}
+              rating={averageRating}
+            />
+          </div>
+        </div>
+        
+  
+        
 
         <Typography variant="subtitle1">
           {"Brand : "}
@@ -61,14 +77,15 @@ const ShopListItem = (props) => {
           </span>
         </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: "center" }}>
-        <Typography variant="body1" color="text.secondary">
-          Rating
-        </Typography>
-        <MUIRating 
-          id={id}
-          rating={averageRating}
-        />
+      <CardActions sx={{justifyContent: "center"}}>
+          <Button
+            // onClick={handleSubmitClicked}
+            variant='contained'
+            color='success'
+            sx={{marginLeft: "0.5rem"}}
+          >
+            To Basket
+          </Button>
       </CardActions>
     </Card>
   );

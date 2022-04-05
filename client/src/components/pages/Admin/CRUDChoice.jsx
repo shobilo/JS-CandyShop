@@ -14,7 +14,7 @@ const CRUDChoice = (props) => {
   
   return (
     <Container maxWidth="xl">
-      <Paper sx={{padding: "1em"}}>
+      <Paper sx={{padding: "1em", borderRadius: "2rem"}}>
         <Typography variant="h5">Open Crud's</Typography>
         <Tabs
           orientation="vertical"

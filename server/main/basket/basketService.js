@@ -54,6 +54,16 @@ class BrandService {
       throw ApiError.internal(error.message)
     }
   }
+  
+  async order(data) {
+    try {
+      await basketRepository.order(data)
+  
+      return await this.read(data)
+    } catch (error) {
+      throw ApiError.internal(error.message)
+    }
+  }
 }
 
 module.exports = new BrandService()

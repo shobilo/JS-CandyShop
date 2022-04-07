@@ -55,9 +55,19 @@ class BasketController {
   
   async order(req, res, next) {
     try {
-    
+      const data = req.body
+      const userId = req.user.id
+  
+      const dataWithUserId = {
+        ...data,
+        userId
+      }
+  
+      const serviceResult = await basketService.order(dataWithUserId)
+  
+      return res.status(201).json(serviceResult)
     } catch (error) {
-    
+      return next(error)
     }
   }
 }

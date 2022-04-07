@@ -40,8 +40,6 @@ class BasketRepository {
     
     basketCandy.setDataValue('quantity', quantity)
     await basketCandy.save()
-    
-    return basket
   }
   
   async delete(data) {
@@ -56,8 +54,28 @@ class BasketRepository {
     })
     
     await basket.removeCandy(candy)
+  }
+  
+  async order(data) {
+    const {userId} = data
+    const currentDate = new Date()
     
-    return basket
+    await Basket.update({
+      ...data,
+      state: "ordered",
+      deliveryStartDate: currentDate,
+      
+    }, {
+      where: {
+        userId,
+        state: "active"
+      }
+    })
+    
+    await Basket.create({
+      userId,
+      state: "active"
+    })
   }
 }
 

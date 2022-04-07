@@ -34,9 +34,10 @@ const MUIModal = ({ modalState, handleModalClosed, children }) => {
         <Fade in={modalState}>
           <Box sx={style}>
             <div
-              style={{display: "flex", justifyContent: "flex-end"}}
+              style={{position: "relative"}}
             >
               <IconButton
+                sx={{position: "absolute", left: "90%", top: "0.8rem"}}
                 onClick={handleModalClosed}
               >
                 X

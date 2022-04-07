@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import {deleteBasketCandies, readBasketCandies, updateBasketCandies} from "./basketActionCreators";
+import {deleteBasketCandies, orderBasketCandies, readBasketCandies, updateBasketCandies} from "./basketActionCreators";
 
 const initialState = {
   totalPrice: 0,
@@ -13,6 +13,7 @@ const basketSlice = createSlice({
   initialState,
   reducers: {
     resetBasketCandies: (state) => {
+      state.error = ""
       state.candies = []
     }
   },
@@ -23,6 +24,7 @@ const basketSlice = createSlice({
           readBasketCandies.pending,
           updateBasketCandies.pending,
           deleteBasketCandies.pending,
+          orderBasketCandies.pending,
         ), (state) => {
           state.error = ""
           state.isLoading = true
@@ -33,6 +35,7 @@ const basketSlice = createSlice({
           readBasketCandies.fulfilled,
           updateBasketCandies.fulfilled,
           deleteBasketCandies.fulfilled,
+          orderBasketCandies.fulfilled,
         ), (state, action) => {
           state.candies = action.payload.candies
           state.totalPrice = action.payload.totalPrice
@@ -45,6 +48,7 @@ const basketSlice = createSlice({
           readBasketCandies.rejected,
           updateBasketCandies.rejected,
           deleteBasketCandies.rejected,
+          orderBasketCandies.rejected,
         ), (state, action) => {
           state.error = action.payload;
           state.isLoading = false;

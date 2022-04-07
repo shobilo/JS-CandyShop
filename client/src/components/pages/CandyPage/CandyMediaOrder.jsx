@@ -89,7 +89,7 @@ const CandyMediaOrder = (props) => {
 export default CandyMediaOrder
 
 CandyMediaOrder.propTypes = {
-  candyId: PropTypes.number.isRequired,
+  candyId: PropTypes.string.isRequired,
   imageName: PropTypes.string,
   imageData: PropTypes.shape({
     type: PropTypes.string,

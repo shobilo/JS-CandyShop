@@ -14,9 +14,7 @@ const BasketItems = () => {
   useEffect(() => {
     dispatch(readBasketCandies())
       .unwrap()
-      .catch((error) => {
-        alert(error.message);
-      });
+      .catch(() => {});
   }, [dispatch]);
   
   return (

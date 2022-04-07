@@ -36,15 +36,18 @@ const candiesSlice = createSlice({
       state.filters.searchQuery = action.payload
     },
     resetFilters: (state) => {
+      state.error = ""
       state.filters.searchQuery = ''
       state.filters.typeFilter = ''
       state.filters.brandFilter = ''
       state.filters.orderFilter = ''
     },
     resetCandy: (state) => {
+      state.error = ""
       state.candy = {}
     },
     resetCandies: (state) => {
+      state.error = ""
       state.candies = []
       state.currentPage = 1
       state.totalPages = 0

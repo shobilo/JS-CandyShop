@@ -14,6 +14,7 @@ const filtersDataSlice = createSlice({
   initialState,
   reducers: {
     resetFiltersData: (state) => {
+      state.error = ""
       state.types = []
       state.brands = []
       state.properties = []

@@ -13,7 +13,7 @@ const Brand = require("../main/brand/brandModel")
 User.belongsToMany(Role, {through: UserRole})
 Role.belongsToMany(User, {through: UserRole})
 
-User.hasOne(Basket)
+User.hasMany(Basket)
 Basket.belongsTo(User)
 
 Basket.belongsToMany(Candy, {through: BasketCandy})

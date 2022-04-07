@@ -40,3 +40,16 @@ export const deleteBasketCandies = createAsyncThunk(
     }
   }
 )
+
+export const orderBasketCandies = createAsyncThunk(
+  "basket/orderBasketCandie",
+  async (orderData, thunkAPI) => {
+    try {
+      const { data } = await $authHost.post(`basket/order`, orderData)
+      
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message)
+    }
+  }
+)

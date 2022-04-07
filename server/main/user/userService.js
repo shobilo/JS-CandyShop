@@ -25,7 +25,10 @@ class UserService {
                 id: user.id,
                 email: user.email,
                 name: user.name,
-                roles: role
+                surname: user.surname,
+                phone: user.phone,
+                address: user?.address || "",
+                roles: roles,
             }
     
             const token = generateJwt(jwtPayload)
@@ -58,6 +61,9 @@ class UserService {
             id: user.id,
             email: user.email,
             name: user.name,
+            surname: user.surname,
+            phone: user.phone,
+            address: user?.address || "",
             roles: roles
         }
 
@@ -70,11 +76,14 @@ class UserService {
         const user = await userRepository.readByEmail(email)
 
         const roles = await user.getRoles()
-
+    
         const jwtPayload = {
             id: user.id,
             email: user.email,
             name: user.name,
+            surname: user.surname,
+            phone: user.phone,
+            address: user?.address || "",
             roles: roles
         }
 

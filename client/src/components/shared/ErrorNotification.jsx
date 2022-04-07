@@ -1,21 +1,23 @@
 import {Alert, Slide, Snackbar, Typography, IconButton} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
 }
 
-const ErrorNotification = (props) => {
-
-  
+const ErrorNotification = () => {
   const {error: candyError} = useSelector((state) => state.candies)
   const {error: basketError} = useSelector((state) => state.basket)
   const {error: filterError} = useSelector((state) => state.filtersData)
   const {error: userError} = useSelector((state) => state.user)
   
   const [actualError, setActualError] = useState("")
+  
+  const handleClick = useCallback(() => {
+    setActualError("");
+  }, [])
   
   useEffect(() => {
     const error = candyError || basketError || filterError || userError
@@ -36,9 +38,7 @@ const ErrorNotification = (props) => {
             aria-label="close"
             color="inherit"
             size="small"
-            onClick={() => {
-              setActualError("");
-            }}
+            onClick={handleClick}
           >
             <CloseIcon fontSize="inherit" />
           </IconButton>

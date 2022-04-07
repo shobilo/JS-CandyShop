@@ -22,8 +22,8 @@ const Header = () => {
     if (isAuth) {
       dispatch(readBasketCandies())
         .unwrap()
-        .catch((error) => {
-          console.error(error)
+        .catch(() => {
+          
         })
     } else {
       dispatch(resetBasketCandies())

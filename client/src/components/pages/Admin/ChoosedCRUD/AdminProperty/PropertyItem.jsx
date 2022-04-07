@@ -21,9 +21,7 @@ const PropertyTtem = ({ property }) => {
   const handleDeleteClicked = useCallback(() => {
     dispatch(deleteProperty(id))
     .unwrap()
-    .catch((error) => {
-      console.error(error)
-    })
+    .catch(() => {})
   }, [dispatch, id])
 
   return (

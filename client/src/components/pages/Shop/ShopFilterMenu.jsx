@@ -48,9 +48,7 @@ const ShopFilterMenu = () => {
   useEffect(() => {
     dispatch(readAllFiltersData())
       .unwrap()
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() => {});
   }, [dispatch]);
 
   useEffect(() => {

@@ -20,9 +20,7 @@ const BrandTtem = ({ brand }) => {
   const handleDeleteClicked = useCallback(() => {
     dispatch(deleteBrand(id))
     .unwrap()
-    .catch((error) => {
-      console.error(error)
-    })
+    .catch(() => {})
   }, [dispatch, id])
 
   return (

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $authHost } from "../../../api";
+import { $authHost } from "../../../api/APIAccess";
 
 export const readBasketCandies = createAsyncThunk(
   "basket/readBasketCandies",

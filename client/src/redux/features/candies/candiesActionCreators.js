@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $authHost, $host } from "../../../api";
+import { $authHost, $host } from "../../../api/APIAccess";
 import { getPagesCount } from "../../../utils/getPagesCount";
 
 export const createCandy = createAsyncThunk(

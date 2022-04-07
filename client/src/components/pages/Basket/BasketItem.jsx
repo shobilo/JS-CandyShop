@@ -18,7 +18,6 @@ import {getTitleCase} from "../../../utils/getTitleCase";
 import {useDispatch} from "react-redux";
 import {deleteBasketCandies, updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 import debounce from "lodash.debounce";
-import {readAllCandies} from "../../../redux/features/candies/candiesActionCreators";
 
 const BasketItem = ({candy, quantity}) => {
   const {id, name, imageData, imageName, price} = candy
@@ -36,9 +35,7 @@ const BasketItem = ({candy, quantity}) => {
     }))
       .unwrap()
       .then()
-      .catch((error) => {
-        console.error(error)
-      })
+      .catch(() => {})
   }, 500), [dispatch]);
   
   const handleIncrement = useCallback(() => {
@@ -56,9 +53,7 @@ const BasketItem = ({candy, quantity}) => {
   const handleDelete = useCallback(() => {
     dispatch(deleteBasketCandies({candyId: id}))
       .unwrap()
-      .catch((error) => {
-        console.error(error)
-      })
+      .catch(() => {})
   }, [dispatch, id])
   
   return (
@@ -121,5 +116,14 @@ const BasketItem = ({candy, quantity}) => {
 export default BasketItem;
 
 BasketItem.propTypes = {
-
+  candy: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    imageName: PropTypes.string,
+    imageData: PropTypes.shape({
+      data: PropTypes.array,
+    }),
+    price: PropTypes.string,
+  }).isRequired,
+  quantity: PropTypes.number.isRequired
 };

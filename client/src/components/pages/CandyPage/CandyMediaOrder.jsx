@@ -34,9 +34,7 @@ const CandyMediaOrder = (props) => {
     }))
       .unwrap()
       .then()
-      .catch((error) => {
-        console.error(error)
-      })
+      .catch(() => {})
     
     setQuantity(1)
   }, [candyId, quantity, dispatch])
@@ -91,6 +89,7 @@ const CandyMediaOrder = (props) => {
 export default CandyMediaOrder
 
 CandyMediaOrder.propTypes = {
+  candyId: PropTypes.number.isRequired,
   imageName: PropTypes.string,
   imageData: PropTypes.shape({
     type: PropTypes.string,

@@ -1,4 +1,4 @@
-import { adminRoutes, authedRoutes, unAuthedRoutes, commonRoutes } from '../routes'
+import { adminRoutes, authedRoutes, unAuthedRoutes, commonRoutes } from '../routes/routes'
 
 export const getRoutes = (states) => {
   const { isAdmin, isAuth } = states

@@ -20,9 +20,7 @@ const TypeTtem = ({ type }) => {
   const handleDeleteClicked = useCallback(() => {
     dispatch(deleteType(id))
     .unwrap()
-    .catch((error) => {
-      console.error(error)
-    })
+    .catch(() => {})
   }, [dispatch, id])
 
   return (

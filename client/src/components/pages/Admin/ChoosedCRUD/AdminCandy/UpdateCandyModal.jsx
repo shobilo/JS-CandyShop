@@ -67,9 +67,7 @@ const UpdateCandyModal = ({candy, modalState, handleModalClosed}) => {
   useEffect(() => {
     dispatch(readAllFiltersData())
       .unwrap()
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() => {});
   }, [dispatch]);
   
   useEffect(() => {
@@ -89,10 +87,7 @@ const UpdateCandyModal = ({candy, modalState, handleModalClosed}) => {
       .then(() => {
         handleModalClosed()
       })
-      .catch(error => {
-        console.error(error)
-      })
-    
+      .catch(() => {})
   }, [dispatch, handleModalClosed, id])
   
   const handleImageChanged = useCallback((formikActions) =>

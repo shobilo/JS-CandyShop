@@ -30,9 +30,7 @@ const CandyItem = ({ candy }) => {
       .then(() => {
         handleDeleteModalClosed()
       })
-      .catch((error) => {
-        console.error(error)
-      })
+      .catch(() => {})
   }, [dispatch, id, handleDeleteModalClosed])
   
   return (

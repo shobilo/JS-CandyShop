@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import jwt_decode from "jwt-decode";
-import { $authHost, $host } from "../../../api";
+import { $authHost, $host } from "../../../api/APIAccess";
 import roleCheck from "../../../utils/roleCheck";
 
 export const registration = createAsyncThunk(

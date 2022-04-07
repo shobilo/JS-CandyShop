@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { $authHost, $host } from "../../../api";
+import { $authHost, $host } from "../../../api/APIAccess";
 
 export const createBrand = createAsyncThunk(
   "filtersData/createBrand",

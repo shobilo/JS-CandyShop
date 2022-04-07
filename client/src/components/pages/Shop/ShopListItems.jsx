@@ -29,9 +29,7 @@ const ShopListItems = () => {
       })
     )
       .unwrap()
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch(() => {});
   }, 500), [dispatch, typeFilter, brandFilter, orderFilter]);
   
   useEffect(() => {

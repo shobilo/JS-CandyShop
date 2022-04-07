@@ -1,9 +1,2 @@
-import React from 'react'
-
-const About = () => {
-  return (
-    <div>About</div>
-  )
-}
-
+import About from "./About";
 export default About

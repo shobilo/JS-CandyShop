@@ -12,8 +12,12 @@ class ErrorBoundary extends Component {
     };
   }
   
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  resetError = () => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null
+    })
   }
   
   componentDidCatch(error, errorInfo) {
@@ -26,7 +30,7 @@ class ErrorBoundary extends Component {
   
   render() {
     if (this.state.hasError) {
-      return <ErrorPage error={this.state.error} errorInfo={this.state.errorInfo}/>
+      return <ErrorPage errorMessage={this.state.error?.message} resetError={this.resetError}/>
     }
     return this.props.children;
   }

@@ -51,6 +51,18 @@ class UserRepository {
             order: [["deliveryStartDate", "DESC"]],
         })
     }
+    
+    async readOrderById(orderData) {
+        const {orderId} = orderData
+    
+        const order = await Basket.findOne({
+            where: {
+                id: orderId
+            }
+        })
+    
+        return order
+    }
 }
 
 module.exports = new UserRepository()

@@ -85,7 +85,22 @@ export const readUserOrders = createAsyncThunk(
       
       return data
     } catch (error) {
-      return thunkAPI.rejectWithValue((error.response.data.message))
+      return thunkAPI.rejectWithValue(error.response.data.message)
+    }
+  }
+)
+
+export const readOrderById = createAsyncThunk(
+  "user/readOrderById",
+  async (orderInfo, thunkAPI) => {
+    try {
+      const {orderId} = orderInfo
+      
+      const {data} = await $authHost.get(`user/orders/${orderId}`)
+      
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.message)
     }
   }
 )

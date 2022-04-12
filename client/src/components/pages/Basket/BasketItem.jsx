@@ -18,6 +18,7 @@ import {getTitleCase} from "../../../utils/getTitleCase";
 import {useDispatch} from "react-redux";
 import {deleteBasketCandies, updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 import debounce from "lodash.debounce";
+import {getPrettyPrice} from "../../../utils/getPrettyPrice";
 
 const BasketItem = ({candy, quantity}) => {
   const {id, name, imageData, imageName, price} = candy
@@ -107,7 +108,7 @@ const BasketItem = ({candy, quantity}) => {
             {`${getTitleCase(name)} `}
           </Typography>
           <Typography variant="text2" fontWeight="lighter">
-            {`${price} RUB/piece, ${Math.ceil((price * quantity)*100)/100} RUB total`}
+            {`${price} RUB/piece, ${getPrettyPrice(price, quantity)} RUB total`}
           </Typography>
         </ClearLink>
       </ListItemText>

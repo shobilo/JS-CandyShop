@@ -13,9 +13,7 @@ const OrdersList = () => {
     dispatch(readUserOrders())
       .unwrap()
       .catch(() => {})
-  }, [dispatch])
   
-  useEffect(() => {
     return () => {
       dispatch(resetOrders())
     }

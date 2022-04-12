@@ -1,11 +1,18 @@
-import React from "react"
+import React, {useCallback} from "react"
 import PropTypes from "prop-types";
 import {Button, Grid, Typography} from "@mui/material";
 import {getPrettyDate} from "../../../utils/getPrettyDate";
 import InventoryIcon from '@mui/icons-material/Inventory';
+import {useNavigate} from "react-router-dom";
 
 const OrdersListItem = ({order}) => {
-  const {id, state, email, address, name, surname, phone, totalPrice, deliveryStartDate, deliveryProcessDate, deliveryEndDate} = order
+  const {id, state, totalPrice, deliveryStartDate} = order
+  
+  const navigate = useNavigate()
+  
+  const handleDetailsClick = useCallback(() => {
+    navigate(`/orders/${id}`)
+  }, [id, navigate])
   
   return (
     <Grid container border="0.1rem solid lightgrey" padding="1rem" borderRadius="2rem" direction="row" justifyItems="center" alignItems="center">
@@ -43,6 +50,7 @@ const OrdersListItem = ({order}) => {
         <Button
           startIcon={<InventoryIcon />}
           color="secondary"
+          onClick={handleDetailsClick}
         >
           Details
         </Button>

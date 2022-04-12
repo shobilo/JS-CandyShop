@@ -56,6 +56,17 @@ class UserController {
             return next(error)
         }
     }
+    
+    async readOrderById(req, res, next) {
+        try {
+            const orderData = req.params
+            const serviceResult = await userService.readOrderById(orderData)
+            
+            return res.status(200).json(serviceResult)
+        } catch (error) {
+            return next(error)
+        }
+    }
 }
 
 module.exports = new UserController()

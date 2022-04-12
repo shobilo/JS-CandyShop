@@ -8,6 +8,7 @@ import Logout from "../components/pages/Logout"
 import Registration from "../components/pages/Registration"
 import Orders from "../components/pages/Orders"
 import Shop from "../components/pages/Shop"
+import OrderPage from "../components/pages/OrderPage/OrderPage";
 
 export const adminRoutes = [
   { path: "/admin", element: <Admin /> },
@@ -16,6 +17,7 @@ export const adminRoutes = [
 export const authedRoutes = [
   { path: "/basket", element: <Basket /> },
   { path: "/orders", element: <Orders />},
+  { path: "/orders/:orderId", element: <OrderPage />},
   { path: "/logout", element: <Logout /> }
 ]
 

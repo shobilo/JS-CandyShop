@@ -21,4 +21,6 @@ router.get('/auth', authCheckMiddleware, userController.auth)
 
 router.get('/orders', authCheckMiddleware, userController.readUserOrders)
 
+router.get('/orders/:orderId', authCheckMiddleware, userController.readOrderById)
+
 module.exports = router

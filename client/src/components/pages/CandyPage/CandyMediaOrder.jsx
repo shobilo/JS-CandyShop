@@ -5,14 +5,16 @@ import PropTypes from "prop-types";
 
 import DefaultCandy from "../../../static/images/DefaultCandy.svg"
 import { getImage } from '../../../utils/getImage'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 
 const CandyMediaOrder = (props) => {
-  const { imageData, imageName, candyId} = props
+  const { imageData, imageName, candyId } = props
+  const {candies: basketCandies} = useSelector((state) => state.basket)
+  const candyInBasket = basketCandies?.filter(({candy}) => candy.id === +candyId)[0]
   
   const dispatch = useDispatch()
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(candyInBasket?.quantity || 1)
 
   const imageSrc = getImage(imageData?.data, DefaultCandy)
   const isAllowedToDecrement = quantity === 1;
@@ -35,8 +37,6 @@ const CandyMediaOrder = (props) => {
       .unwrap()
       .then()
       .catch(() => {})
-    
-    setQuantity(1)
   }, [candyId, quantity, dispatch])
 
   return (
@@ -74,11 +74,12 @@ const CandyMediaOrder = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Button
+            fullWidth
             onClick={handleSubmitClicked}
             variant='contained'
             color='success'
           >
-            To Basket
+            Update Basket
           </Button>
         </Grid>
       </Grid>

@@ -1,45 +1,34 @@
-import React from 'react'
+import React from "react"
 import {Container, Grid, Paper, Typography} from "@mui/material";
-import BasketItems from "./BasketItems";
-import BasketOrder from "./BasketOrder";
-import {useSelector} from "react-redux";
 import BackButton from "../../UI/BackButton";
+import OrdersList from "./OrdersList";
 
-const Basket = () => {
-  const {totalPrice, isLoading} = useSelector((state) => state.basket )
-  
+const Orders = () => {
   return (
     <main style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
-      
-      <Container maxWidth='xl'>
+      <Container maxWidth="xl">
         <Paper sx={{height: "auto", padding: "1rem", borderRadius: "1rem"}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <div style={{display: "flex"}}>
-                <BackButton path="/"/>
+                <BackButton/>
                 <div style={{display: "flex", justifyContent: "center", width: "90%"}}>
                   <Typography
                     variant='h4'
                   >
-                    Shop basket
+                    My orders
                   </Typography>
                 </div>
               </div>
             </Grid>
             <Grid item xs={12} sx={{height: "75vh", overflow: "auto"}}>
-              <BasketItems/>
-            </Grid>
-            <Grid item xs={12}>
-              <BasketOrder totalPrice={totalPrice} isLoading={isLoading}/>
+              <OrdersList />
             </Grid>
           </Grid>
         </Paper>
       </Container>
-    
     </main>
-  
-  
   )
 }
 
-export default Basket
+export default Orders

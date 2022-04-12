@@ -23,6 +23,16 @@ const ErrorNotification = () => {
     const error = candyError || basketError || filterError || userError
     
     setActualError(error)
+    
+    const timeout = setTimeout(() => {
+      setActualError("")
+    }, 5000)
+    
+    return (() => {
+      clearTimeout(timeout)
+    })
+    
+    
   }, [candyError, basketError, filterError, userError])
   
   return (

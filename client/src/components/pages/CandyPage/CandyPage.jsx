@@ -13,8 +13,10 @@ const CandyPage = () => {
   const dispatch = useDispatch();
   
   const { id: candyId } = useParams();
-  const { candy, isLoading } = useSelector((state) => state.candies);
-  const { brand, name, imageData, imageName, price, properties, averageRating, type } = candy
+  const { candy: currentCandy, isLoading } = useSelector((state) => state.candies);
+  
+  
+  const { brand, name, imageData, imageName, price, properties, averageRating, type } = currentCandy
   
   useEffect(() => {
     dispatch(readCandyById(candyId))
@@ -39,7 +41,7 @@ const CandyPage = () => {
           <>
             <Grid item xs={12} md={5}>
               <div style={{display: "flex"}}>
-                <BackButton path="/"/>
+                <BackButton/>
                 <CandyMediaOrder
                   candyId={candyId}
                   imageData={imageData}

@@ -19,4 +19,6 @@ router.post(
 )
 router.get('/auth', authCheckMiddleware, userController.auth)
 
+router.get('/orders', authCheckMiddleware, userController.readUserOrders)
+
 module.exports = router

@@ -91,6 +91,10 @@ class UserService {
 
         return token
     }
+    
+    async readUserOrders(userData) {
+        return await userRepository.readUserOrders(userData)
+    }
 }
 
 module.exports = new UserService()

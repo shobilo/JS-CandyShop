@@ -1,5 +1,7 @@
 const User = require('./userModel')
 const Role = require('../role/roleModel')
+const Basket = require('../basket/basketModel')
+const {Op} = require("sequelize");
 
 class UserRepository {
     async create(data) {
@@ -16,7 +18,7 @@ class UserRepository {
             ...(phone && {phone})
         })
 
-        const [role, setRole] = await Role.findOrCreate({
+        const [role] = await Role.findOrCreate({
             where: {
                 name: "user"
             }
@@ -34,6 +36,19 @@ class UserRepository {
     async readByEmail(email) {
         return await User.findOne({
             where: {email}
+        })
+    }
+    
+    async readUserOrders(userData) {
+        const {id} = userData
+        return await Basket.findAll({
+            where: {
+                userId: id,
+                state: {
+                    [Op.ne]: "active"
+                }
+            },
+            order: [["deliveryStartDate", "DESC"]],
         })
     }
 }

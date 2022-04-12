@@ -73,7 +73,7 @@ const MUIHeader = (props) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                color="neutral"
               >
                 <MenuIcon />
               </IconButton>
@@ -98,11 +98,10 @@ const MUIHeader = (props) => {
               >
                 {pages.map((page) => (
                   <ClearLink to={page.link} key={page.name}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page.name}</Typography>
-                    </MenuItem>
+                      <MenuItem onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">{page.name}</Typography>
+                      </MenuItem>
                   </ClearLink>
-                  
                 ))}
               </Menu>
             </Box>
@@ -119,12 +118,12 @@ const MUIHeader = (props) => {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <ClearLink to={page.link} key={page.name}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'black', display: 'block' }}
-                  >
-                    {page.name}
-                  </Button>
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'black', display: 'block' }}
+                    >
+                      {page.name}
+                    </Button>
                 </ClearLink>
               ))}
             </Box>

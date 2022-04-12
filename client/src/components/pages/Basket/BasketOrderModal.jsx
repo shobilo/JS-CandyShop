@@ -1,12 +1,12 @@
 import MUIModal from "../../UI/MUIModal";
 import {useDispatch} from "react-redux";
 import React, {useCallback} from "react";
-import {createBrand} from "../../../redux/features/filtersData/filtersDataActionCreators";
 import {Form, Formik} from "formik";
+import PropTypes from "prop-types";
+import * as Yup from "yup";
 import {Grid, Typography} from "@mui/material";
 import MUITextfield from "../../UI/Forms/MUITextfield";
 import MUISubmitButton from "../../UI/Forms/MUISubmitButton";
-import * as Yup from "yup";
 import {orderBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 
 
@@ -49,7 +49,7 @@ const BasketOrderModal = ({ modalState, handleModalClosed, user, totalPrice }) =
         handleModalClosed()
       })
       .catch(() => {})
-  }, [dispatch, handleModalClosed])
+  }, [dispatch, handleModalClosed, totalPrice])
   
   const INITIAL_FORM_STATE = {
     name: user?.name,
@@ -144,3 +144,16 @@ const BasketOrderModal = ({ modalState, handleModalClosed, user, totalPrice }) =
 }
 
 export default BasketOrderModal
+
+BasketOrderModal.propTypes = {
+  modalState: PropTypes.bool.isRequired,
+  handleModalClosed: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    surname: PropTypes.string,
+    address: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
+  totalPrice: PropTypes.number.isRequired,
+}

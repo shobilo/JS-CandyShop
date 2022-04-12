@@ -68,10 +68,10 @@ const AdminCandy = () => {
             onChange={handleSearchFieldChanged}
           />
           <Button
+            sx={{margin: "0.5rem"}}
             variant="contained"
             size="large"
             color="success"
-            sx={{height: "100%"}}
             onClick={handleModalOpened}
           >
             Add Candy

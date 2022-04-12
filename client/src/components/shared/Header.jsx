@@ -52,6 +52,7 @@ const Header = () => {
     ? 
       [
         {name: "Basket", link: "/basket"},
+        {name: "My orders", link: "/orders"},
         {name: "Logout", link: "/logout"}
       ]
     :

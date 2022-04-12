@@ -1,5 +1,5 @@
 import {
-  Button, ButtonGroup,
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -9,18 +9,39 @@ import {
 import PropTypes from "prop-types";
 import DefaultCandy from "../../../static/images/DefaultCandy.svg";
 import ClearLink from "../../UI/ClearLink";
-import { getImage } from "../../../utils/getImage";
+import {getImage} from "../../../utils/getImage";
 import MUIRating from "../../UI/MUIRating";
-import { getTitleCase } from "../../../utils/getTitleCase";
-import React from "react";
+import {getTitleCase} from "../../../utils/getTitleCase";
+import React, {useCallback} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteBasketCandies, updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 
 const ShopListItem = (props) => {
-  const { id, brand, name, type, price, averageRating, imageName, imageData } = props?.candy;
-
+  const dispatch = useDispatch()
+  const {id, brand, name, type, price, averageRating, imageName, imageData} = props?.candy;
+  const {candies: basketCandies} = useSelector((state) => state.basket)
+  
+  const isCandyInBasket = basketCandies?.filter(({candy}) => candy.id === id)?.length !== 0
   const imageSrc = getImage(imageData?.data, DefaultCandy)
-
+  
+  const handleAddClicked = useCallback(() => {
+    dispatch(updateBasketCandies({
+      candyId: id,
+      quantity: 1
+    }))
+      .unwrap()
+      .then()
+      .catch(() => {})
+  }, [dispatch, id])
+  
+  const handleDelete = useCallback(() => {
+    dispatch(deleteBasketCandies({candyId: id}))
+      .unwrap()
+      .catch(() => {})
+  }, [dispatch, id])
+  
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: "1rem"}}>
+    <Card sx={{maxWidth: 345, borderRadius: "1rem"}}>
       <ClearLink to={`/candy/${id}`}>
         <CardMedia
           sx={{padding: "1em", borderRadius: "15em"}}
@@ -49,9 +70,7 @@ const ShopListItem = (props) => {
           </div>
         </div>
         
-  
         
-
         <Typography variant="subtitle1">
           {"Brand : "}
           <span>
@@ -78,14 +97,24 @@ const ShopListItem = (props) => {
         </Typography>
       </CardContent>
       <CardActions sx={{justifyContent: "center"}}>
+        {isCandyInBasket ? (
           <Button
-            // onClick={handleSubmitClicked}
+            onClick={handleDelete}
             variant='contained'
-            color='success'
-            sx={{marginLeft: "0.5rem"}}
+            color="neutral"
           >
-            To Basket
+            Already in basket
           </Button>
+        ) : (
+          <Button
+            onClick={handleAddClicked}
+            variant='contained'
+            color="success"
+          >
+            Add to basket
+          </Button>
+        )}
+        
       </CardActions>
     </Card>
   );
@@ -99,12 +128,12 @@ ShopListItem.propTypes = {
 
 ShopListItem.defaultProps = {
   candy: {
-    brand: { name: "No brand" },
-    imageData: { data: DefaultCandy },
+    brand: {name: "No brand"},
+    imageData: {data: DefaultCandy},
     imageName: "No image",
     name: "No name",
     price: "No price",
     ratings: [],
-    type: { name: "No type" },
+    type: {name: "No type"},
   },
 };

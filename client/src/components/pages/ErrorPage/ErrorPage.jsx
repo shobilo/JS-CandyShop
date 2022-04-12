@@ -6,13 +6,12 @@ import ClearLink from "../../UI/ClearLink";
 const ErrorPage = (props) => {
   const {errorInfo} = props
   return (
-    
     <Container maxWidth="lg">
       <Paper>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h4">
-              ErrorInfo: {errorInfo}
+              ErrorInfo: {errorInfo || "Some error has occured"}
             </Typography>
           </Grid>
           <Grid item xs={12} padding="2rem">
@@ -28,16 +27,11 @@ const ErrorPage = (props) => {
         </Grid>
       </Paper>
     </Container>
-  
   )
 }
 
-export default ErrorPage
-
 ErrorPage.propTypes = {
-  errorInfo: PropTypes.string
+  errorInfo: PropTypes.shape({componentStack: PropTypes.string})
 }
 
-ErrorPage.defaultProps = {
-  errorInfo: "Some error has occured"
-}
+export default ErrorPage

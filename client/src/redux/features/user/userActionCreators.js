@@ -76,3 +76,16 @@ export const logout = createAsyncThunk(
     }
   }
 );
+
+export const readUserOrders = createAsyncThunk(
+  "user/readUserOrders",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await $authHost.get("user/orders")
+      
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue((error.response.data.message))
+    }
+  }
+)

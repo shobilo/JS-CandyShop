@@ -45,6 +45,17 @@ class UserController {
             return next(error)
         }
     }
+    
+    async readUserOrders(req, res, next) {
+        try {
+            const userData = req.user
+            const serviceResult = await userService.readUserOrders(userData)
+    
+            return res.status(200).json(serviceResult)
+        } catch (error) {
+            return next(error)
+        }
+    }
 }
 
 module.exports = new UserController()

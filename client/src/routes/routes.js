@@ -6,6 +6,7 @@ import CandyPage from "../components/pages/CandyPage"
 import ErrorPage from "../components/pages/ErrorPage"
 import Logout from "../components/pages/Logout"
 import Registration from "../components/pages/Registration"
+import Orders from "../components/pages/Orders"
 import Shop from "../components/pages/Shop"
 
 export const adminRoutes = [
@@ -14,6 +15,7 @@ export const adminRoutes = [
 
 export const authedRoutes = [
   { path: "/basket", element: <Basket /> },
+  { path: "/orders", element: <Orders />},
   { path: "/logout", element: <Logout /> }
 ]
 

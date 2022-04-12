@@ -1,18 +1,23 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { checkAuth, login, logout, registration } from "./userActionCreators";
+import {checkAuth, login, logout, readUserOrders, registration} from "./userActionCreators";
 
 const initialState = {
   isAdmin: false,
   isAuth: false,
   isLoading: false,
   userData: {},
+  orders: [],
   error: "",
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrders: (state) => {
+      state.orders = []
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registration.fulfilled, (state, action) => {
@@ -39,12 +44,16 @@ const userSlice = createSlice({
         state.isAdmin = false
         state.userData = {}
       })
+      .addCase(readUserOrders.fulfilled, (state, action) => {
+        state.orders = action.payload
+      })
       .addMatcher(
         isAnyOf(
           registration.pending,
           login.pending,
           logout.pending,
-          checkAuth.pending
+          checkAuth.pending,
+          readUserOrders.pending,
         ),
         (state) => {
           state.error = "";
@@ -56,7 +65,8 @@ const userSlice = createSlice({
           registration.fulfilled,
           login.fulfilled,
           logout.fulfilled,
-          checkAuth.fulfilled
+          checkAuth.fulfilled,
+          readUserOrders.fulfilled,
         ),
         (state) => {
           state.error = "";
@@ -68,7 +78,8 @@ const userSlice = createSlice({
           registration.rejected,
           login.rejected,
           logout.rejected,
-          checkAuth.rejected
+          checkAuth.rejected,
+          readUserOrders.rejected,
         ),
         (state, action) => {
           state.error = action.payload;
@@ -78,4 +89,5 @@ const userSlice = createSlice({
   },
 });
 
+export const {resetOrders} = userSlice.actions
 export default userSlice.reducer;

@@ -28,27 +28,29 @@ const BasketItem = ({candy, quantity}) => {
   const imageSrc = getImage(imageData?.data, DefaultCandy)
   const isAllowedToDecrement = visibleQuantity === 1;
   
-  const debouncedUpdate = useMemo(() => debounce((id, visibleQuantity) => {
-    dispatch(updateBasketCandies({
-      candyId: id,
-      quantity: visibleQuantity
-    }))
-      .unwrap()
-      .then()
-      .catch(() => {})
+  const debouncedUpdate = useMemo(() => debounce((id, visibleQuantity, quantity) => {
+    if (visibleQuantity !== quantity) {
+      dispatch(updateBasketCandies({
+        candyId: id,
+        quantity: visibleQuantity
+      }))
+        .unwrap()
+        .then()
+        .catch(() => {})
+    }
   }, 500), [dispatch]);
   
   const handleIncrement = useCallback(() => {
     if (visibleQuantity < 20) {
       setVisibleQuantity(visibleQuantity + 1)
-      debouncedUpdate(id, visibleQuantity + 1)
+      debouncedUpdate(id, visibleQuantity + 1, quantity)
     }
-  }, [debouncedUpdate, visibleQuantity, id])
+  }, [debouncedUpdate, visibleQuantity, id, quantity])
   
   const handleDecrement = useCallback(() => {
     setVisibleQuantity(visibleQuantity - 1)
-    debouncedUpdate(id, visibleQuantity - 1)
-  }, [debouncedUpdate, visibleQuantity, id ])
+    debouncedUpdate(id, visibleQuantity - 1, quantity)
+  }, [debouncedUpdate, visibleQuantity, id, quantity])
   
   const handleDelete = useCallback(() => {
     dispatch(deleteBasketCandies({candyId: id}))
@@ -67,13 +69,13 @@ const BasketItem = ({candy, quantity}) => {
               disabled={isAllowedToDecrement}
             >-
             </Button>
-    
+            
             <Button disabled>
               <Typography fontWeight="normal" color="black">
                 {visibleQuantity}
               </Typography>
             </Button>
-    
+            
             <Button onClick={handleIncrement}>+</Button>
           </ButtonGroup>
           
@@ -82,7 +84,7 @@ const BasketItem = ({candy, quantity}) => {
             aria-label="delete"
             onClick={handleDelete}
           >
-            <DeleteIcon />
+            <DeleteIcon/>
           </IconButton>
         </>
       }
@@ -105,7 +107,7 @@ const BasketItem = ({candy, quantity}) => {
             {`${getTitleCase(name)} `}
           </Typography>
           <Typography variant="text2" fontWeight="lighter">
-            {`${price} RUB/piece`}
+            {`${price} RUB/piece, ${Math.ceil((price * quantity)*100)/100} RUB total`}
           </Typography>
         </ClearLink>
       </ListItemText>

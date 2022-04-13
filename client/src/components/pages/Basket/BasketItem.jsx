@@ -5,9 +5,6 @@ import {
   Button,
   ButtonGroup, Grid,
   IconButton,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Typography
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,8 +16,6 @@ import {useDispatch} from "react-redux";
 import {deleteBasketCandies, updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 import debounce from "lodash.debounce";
 import {getPrettyPrice} from "../../../utils/getPrettyPrice";
-import {getPrettyDate} from "../../../utils/getPrettyDate";
-import InventoryIcon from "@mui/icons-material/Inventory";
 
 const BasketItem = ({candy, quantity}) => {
   const {id, name, imageData, imageName, price} = candy

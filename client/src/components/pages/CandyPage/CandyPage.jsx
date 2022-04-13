@@ -1,4 +1,4 @@
-import {CircularProgress, Container, Grid, Paper, Typography} from "@mui/material";
+import {CircularProgress, Container, Grid} from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,8 +7,6 @@ import CandyMediaOrder from "./CandyMediaOrder";
 import { readCandyById } from "../../../redux/features/candies/candiesActionCreators";
 import { resetCandy } from "../../../redux/features/candies/candiesSlice";
 import BackButton from "../../UI/BackButton";
-import {getTitleCase} from "../../../utils/getTitleCase";
-
 
 const CandyPage = () => {
   const dispatch = useDispatch();

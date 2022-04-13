@@ -4,6 +4,7 @@ import {getImage} from "../../../utils/getImage";
 import DefaultCandy from "../../../static/images/DefaultCandy.svg";
 import {getPrettyPrice} from "../../../utils/getPrettyPrice";
 import {getTitleCase} from "../../../utils/getTitleCase";
+import PropTypes from "prop-types";
 
 const OrderCandy = ({candy, quantity}) => {
   const {name, price, imageName, imageData} = candy
@@ -32,6 +33,11 @@ const OrderCandy = ({candy, quantity}) => {
       </CardContent>
     </Card>
   )
+}
+
+OrderCandy.propTypes = {
+  candy: PropTypes.object.isRequired,
+  quantity: PropTypes.number.isRequired,
 }
 
 export default OrderCandy

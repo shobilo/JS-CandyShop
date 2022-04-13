@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Grid, Typography} from "@mui/material";
 import OrderCandy from "./OrderCandy";
+import PropTypes from "prop-types";
 
 const OrderCandies = ({candies, totalPrice}) => {
   return (
@@ -29,5 +30,16 @@ const OrderCandies = ({candies, totalPrice}) => {
     </Container>
   );
 };
+
+OrderCandies.propTypes = {
+  candies: PropTypes.array,
+  totalPrice: PropTypes.number,
+}
+
+OrderCandies.defaultProps = {
+  candies: [],
+  totalPrice: 0
+}
+
 
 export default OrderCandies;

@@ -40,10 +40,10 @@ const CandyMediaOrder = (props) => {
   }, [candyId, quantity, dispatch])
 
   return (
-    <Container >
+    <Container maxWidth="xl">
       <Grid container direction="column" alignItems="center" spacing={2}>
         <Grid item xs={12}>
-          <Card>
+          <Card sx={{borderRadius: "2rem"}}>
             <CardMedia
             component="img"
             height={400}

@@ -50,11 +50,11 @@ const OrderPage = () => {
                   <OrderDetails details={details} />
                 </Grid>
                 
-                <Grid item xs={12} sm={6} >
+                <Grid item xs={12} sm={6}>
                   <OrderDeliveryState details={details}/>
                 </Grid>
   
-                <Grid item xs={12} sx={{height: "50vh", overflow: "auto"}}>
+                <Grid item xs={12} sx={{borderTop: "1px solid lightgrey"}}>
                   <OrderCandies candies={candies} totalPrice={totalPrice}/>
                 </Grid>
               </>

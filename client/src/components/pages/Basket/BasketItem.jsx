@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Button,
-  ButtonGroup,
+  ButtonGroup, Grid,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -19,6 +19,8 @@ import {useDispatch} from "react-redux";
 import {deleteBasketCandies, updateBasketCandies} from "../../../redux/features/basket/basketActionCreators";
 import debounce from "lodash.debounce";
 import {getPrettyPrice} from "../../../utils/getPrettyPrice";
+import {getPrettyDate} from "../../../utils/getPrettyDate";
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 const BasketItem = ({candy, quantity}) => {
   const {id, name, imageData, imageName, price} = candy
@@ -37,7 +39,8 @@ const BasketItem = ({candy, quantity}) => {
       }))
         .unwrap()
         .then()
-        .catch(() => {})
+        .catch(() => {
+        })
     }
   }, 500), [dispatch]);
   
@@ -56,41 +59,14 @@ const BasketItem = ({candy, quantity}) => {
   const handleDelete = useCallback(() => {
     dispatch(deleteBasketCandies({candyId: id}))
       .unwrap()
-      .catch(() => {})
+      .catch(() => {
+      })
   }, [dispatch, id])
   
   return (
-    <ListItem
-      sx={{border: "1px solid black", borderRadius: "0.5em", borderColor: "ButtonShadow"}}
-      secondaryAction={
-        <>
-          <ButtonGroup size="small" aria-label="small outlined button group" sx={{paddingRight: "2rem"}}>
-            <Button
-              onClick={handleDecrement}
-              disabled={isAllowedToDecrement}
-            >-
-            </Button>
-            
-            <Button disabled>
-              <Typography fontWeight="normal" color="black">
-                {visibleQuantity}
-              </Typography>
-            </Button>
-            
-            <Button onClick={handleIncrement}>+</Button>
-          </ButtonGroup>
-          
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={handleDelete}
-          >
-            <DeleteIcon/>
-          </IconButton>
-        </>
-      }
-    >
-      <ListItemAvatar>
+    <Grid container border="0.1rem solid lightgrey" padding="0.5rem" borderRadius="2rem" direction="row"
+          justifyItems="center" alignItems="center">
+      <Grid item xs={6} sm={3} md={1}>
         <ClearLink to={`/candy/${id}`}>
           <Avatar sx={{height: "5rem", width: "5rem", backgroundColor: "white"}}>
             <img
@@ -100,19 +76,62 @@ const BasketItem = ({candy, quantity}) => {
             />
           </Avatar>
         </ClearLink>
-      </ListItemAvatar>
+      </Grid>
+      <Grid item xs={6} sm={3} md={3}>
+        <Typography>
+          Name:
+        </Typography>
+        <Typography
+          fontWeight="bold"
+        >
+          {`${getTitleCase(name)} `}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} sm={6} md={5}>
+        <Typography>
+          Total price:
+        </Typography>
+        <Typography
+          fontWeight="bold"
+        >
+          {`${price} RUB/piece, ${getPrettyPrice(price, quantity)} RUB total`}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={6}>
+            <ButtonGroup size="small" aria-label="small outlined button group" sx={{paddingRight: "2rem"}}>
+              <Button
+                onClick={handleDecrement}
+                disabled={isAllowedToDecrement}
+              >-
+              </Button>
+    
+              <Button disabled>
+                <Typography fontWeight="normal" color="black">
+                  {visibleQuantity}
+                </Typography>
+              </Button>
+              
+              <Button onClick={handleIncrement}>+</Button>
+            </ButtonGroup>
+          </Grid>
+          
+          <Grid item xs={6}>
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={handleDelete}
+            >
+              <DeleteIcon/>
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
       
-      <ListItemText sx={{paddingLeft: "2rem"}}>
-        <ClearLink to={`/candy/${id}`}>
-          <Typography variant="h6" fontWeight="bold">
-            {`${getTitleCase(name)} `}
-          </Typography>
-          <Typography variant="text2" fontWeight="lighter">
-            {`${price} RUB/piece, ${getPrettyPrice(price, quantity)} RUB total`}
-          </Typography>
-        </ClearLink>
-      </ListItemText>
-    </ListItem>
+      </Grid>
+    </Grid>
   );
 }
 

@@ -8,8 +8,8 @@ const CandyInfo = (props) => {
   const {id, brand, name, price, properties, averageRating, type} = props
 
   return (
-    <Container>
-      <Paper>
+    <Container maxWidth="xl">
+      <Paper sx={{borderRadius: "2rem"}}>
         <Grid container spacing={1} sx={{padding: "0.5em", marginTop: "0"}}>
           <Grid item xs={12}>
             <Typography

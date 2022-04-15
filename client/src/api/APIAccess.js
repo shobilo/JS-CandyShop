@@ -1,11 +1,11 @@
 import axios from "axios"
 
 const $host = axios.create({
-  baseURL: "http://localhost:5000/api/"
+  baseURL: "https://glacial-beyond-95894.herokuapp.com/api/"
 })
 
 const $authHost = axios.create({
-  baseURL: "http://localhost:5000/api/"
+  baseURL: "https://glacial-beyond-95894.herokuapp.com/api/"
 })
 
 const authInterceptor = (config) => {

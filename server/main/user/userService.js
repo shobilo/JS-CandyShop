@@ -28,7 +28,7 @@ class UserService {
                 surname: user.surname,
                 phone: user.phone,
                 address: user?.address || "",
-                roles: roles,
+                roles: role,
             }
     
             const token = generateJwt(jwtPayload)

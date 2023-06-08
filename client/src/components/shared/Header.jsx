@@ -10,7 +10,7 @@ const logo = {
   src: Logo,
   alt: "CandyShop"
 }
-const title = "CandyShop"
+const title = "World of Sweets"
 
 const Header = () => {
   const dispatch = useDispatch()
